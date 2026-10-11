@@ -1,0 +1,26 @@
+# Local environment and Python caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.DS_Store
+_private/
+AGENTS.MD
+AGENTS.md
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Downloaded data, derived bulk artifacts, and model weights
+# Keep lightweight manifests/configuration outside these directories.
+data/raw/
+data/cache/
+data/processed/
+models/weights/
+outputs/
+
+# Temporary authoring/build artifacts
+tmp/
+output/

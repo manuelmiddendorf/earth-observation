@@ -1,0 +1,3 @@
+# Research reports and figures are binary artifacts, not source text.
+*.pdf binary
+*.png binary
