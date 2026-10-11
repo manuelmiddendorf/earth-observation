@@ -1,8 +1,8 @@
 # Robust Compositional Retrieval in Earth Observation
 
-**Status:** research design completed; implementation and experiments have not
-started. Dataset access, benchmark coverage, and model performance remain to
-be verified.
+**Status:** in development. A ten-patch text/catalog pilot is implemented;
+real Sentinel-2 image and reference-map access remains blocked. No retrieval
+experiments or performance findings are available.
 
 ## Abstract
 
@@ -85,14 +85,38 @@ yoga-attendance project:
 4. **Error Analysis:** explain where the frozen systems succeed and fail,
    including reference disagreements and limitations.
 
-These are planned stages, not existing notebooks. Reusable implementation will
-live in `src`; one-off analytical observations will remain visible in notebooks.
+The first [data-understanding notebook](notebooks/01_data_understanding.ipynb)
+records the bounded text/catalog pilot and its missing raster components.
+Later stages remain planned. Reusable loading and validation live in `src`;
+one-off inspection tables and plots remain in the notebook.
 
 ## Reproduction and Project Documents
 
-There is no runnable experiment pipeline or dependency environment yet.
-Verified installation and execution instructions will be added with the first
-implementation package.
+Use Python 3.11–3.13 and [uv](https://docs.astral.sh/uv/). From the repository
+root:
+
+```bash
+uv sync --locked
+uv run python scripts/fetch_pilot.py
+uv run pytest
+uv run ruff check src tests scripts
+uv run ruff format --check src tests scripts
+uv run python -m ipykernel install --sys-prefix --name earth-observation
+uv run jupyter nbconvert --to notebook --execute --inplace notebooks/01_data_understanding.ipynb
+```
+
+The acquisition command downloads only checksum-pinned text pages and the
+3.6-MB official patch catalog, under 5 MB total. It never downloads image/map
+archives. A changed source response or invalid cache fails explicitly.
+`pytest` includes an official text/catalog integration test when those assets
+are cached; without them that test is skipped. Controlled raster tests are
+separate from real data access. The notebook executes from a fresh kernel and
+reports absent RGB/map examples explicitly. Supply an independently verified
+local v2 subset before claiming complete raster integration.
+
+See [source versions, schema, license, display policy and access blocker](docs/DATA_ACCESS.md)
+and the [pilot manifest](manifests/data-pilot-v1.json). Local caches, raster
+files and generated diagnostic PNGs are ignored by Git. No model is loaded.
 
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md): work packages, reviews,
   and current implementation state.

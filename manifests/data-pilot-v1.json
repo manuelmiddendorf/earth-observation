@@ -1,0 +1,86 @@
+{
+  "experiment_version": "data-pilot-v1",
+  "checked_date": "2026-10-12",
+  "license": "CDLA-Permissive-1.0",
+  "text_repository": "BIFOLD-BigEarthNetv2-0/BigEarthNet.txt",
+  "text_revision": "72d865f2146f0a85b720f7f3ca1cdbaeafc3d316",
+  "text_revision_note": "Repository revision observed at acquisition; rows API is unversioned. Exact response bytes are pinned by SHA-256; changes fail closed.",
+  "image_version": "2.0.0",
+  "reference_origin": "CLC2018 v2020_u1",
+  "zenodo_record": "10891137",
+  "selection": "First 10 distinct patch_id values by ascending row_idx in server rows 0..399; first annotation per patch. No class/quality filtering. Convenience sample, not a development/test benchmark.",
+  "patch_count": 10,
+  "patch_ids": [
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55",
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56",
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57",
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58",
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59",
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60",
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61",
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55",
+    "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56"
+  ],
+  "text_pages": [
+    "text-rows-0.json",
+    "text-rows-100.json",
+    "text-rows-200.json",
+    "text-rows-300.json"
+  ],
+  "assets": [
+    {
+      "name": "text-rows-0.json",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=BIFOLD-BigEarthNetv2-0%2FBigEarthNet.txt&config=default&split=all_data&offset=0&length=100",
+      "size_bytes": 55921,
+      "sha256": "b254fb1e339e50e8b694ea93d3001e4e1dac9757e66fefb8755c4a881c07c977"
+    },
+    {
+      "name": "text-rows-100.json",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=BIFOLD-BigEarthNetv2-0%2FBigEarthNet.txt&config=default&split=all_data&offset=100&length=100",
+      "size_bytes": 56875,
+      "sha256": "2a2fe1dff70688a36d1a9243ac30beafec3dc8ea73a61823cc51f3b2e0959a3e"
+    },
+    {
+      "name": "text-rows-200.json",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=BIFOLD-BigEarthNetv2-0%2FBigEarthNet.txt&config=default&split=all_data&offset=200&length=100",
+      "size_bytes": 55627,
+      "sha256": "c3c48254c70dbd32a0974d1fc53fb01f5b7a7b42e519fc2db0201409d51f5c3e"
+    },
+    {
+      "name": "text-rows-300.json",
+      "url": "https://datasets-server.huggingface.co/rows?dataset=BIFOLD-BigEarthNetv2-0%2FBigEarthNet.txt&config=default&split=all_data&offset=300&length=100",
+      "size_bytes": 58107,
+      "sha256": "b16348cde00b2db7dffb9282493be0cd9e996bd599ed0fd7f5c8d1c55a2f5ce4"
+    },
+    {
+      "name": "metadata.parquet",
+      "url": "https://zenodo.org/records/10891137/files/metadata.parquet?download=1",
+      "size_bytes": 3616349,
+      "sha256": "408911df2da7092da9ecc72071972a808ec486ba09f6cb048f7716793d14ded6"
+    }
+  ],
+  "archives": [
+    {
+      "name": "Reference_Maps.tar.zst",
+      "size_bytes": 282391301,
+      "checksum": "md5:95d85a222fa983faddcac51a19f28917",
+      "url": "https://zenodo.org/records/10891137/files/Reference_Maps.tar.zst?download=1",
+      "status": "not downloaded; no verified indexed patch access"
+    },
+    {
+      "name": "BigEarthNet-S2.tar.zst",
+      "size_bytes": 63251710377,
+      "checksum": "md5:2245ed2d1a93f6ce637d839bc856396e",
+      "url": "https://zenodo.org/records/10891137/files/BigEarthNet-S2.tar.zst?download=1",
+      "status": "not downloaded; no verified indexed patch access"
+    }
+  ],
+  "raster_status": "blocked: no local image/reference subset",
+  "file_layout": {
+    "image": "<tile>/<patch_id>/<patch_id>_B04.tif (also B03/B02)",
+    "reference": "<tile>/<patch_id>/<patch_id>_reference_map.tif",
+    "tile": "patch_id without its final two grid-index fields",
+    "status": "official layout; not verified against downloaded rasters"
+  }
+}
