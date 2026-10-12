@@ -337,3 +337,40 @@ def test_supplied_text_cannot_contradict_native_center():
     }
     with pytest.raises(ValueError, match="native raster center"):
         validate_raster_selection(extractions, ids, root / "data/raw", catalog, [wrong])
+
+
+@pytest.mark.integration
+def test_full_planned_inventory_keeps_native_and_missing_text_contracts():
+    import pandas as pd
+
+    from earth_observation.archive_validation import validate_raster_selection
+
+    root = Path(__file__).resolve().parents[1]
+    manifest_path = root / "manifests/archive-data-access-v2.json"
+    manifest = json.loads(manifest_path.read_text())
+    if (
+        "text_annotations" not in manifest
+        or not (root / "data/cache/metadata.parquet").is_file()
+    ):
+        pytest.skip("Complete the official full-selection access first")
+    checked = validate_raster_selection(
+        manifest["complete_extractions"],
+        manifest["planned_patch_ids"],
+        root / "data/raw",
+        pd.read_parquet(root / "data/cache/metadata.parquet"),
+        manifest["text_annotations"],
+    )
+    assert (
+        checked.index.tolist()
+        == pd.read_csv(root / "manifests/coverage-selection-v1.csv").patch_id.tolist()
+    )
+    assert len(checked) == 250
+    assert checked.technical_status.eq("verified").all()
+    assert checked.identical_rgb_map_grid.all()
+    assert checked.crs.nunique() == 7
+    assert (
+        checked.index[checked.text_status.eq("unknown")].tolist()
+        == (manifest["text_evidence"]["missing_patch_ids"])
+    )
+    assert checked.text_status.eq("verified").sum() == 241
+    assert checked.text_center_error_deg.dropna().le(1e-8).all()

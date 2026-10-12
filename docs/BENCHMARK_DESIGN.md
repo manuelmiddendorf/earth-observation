@@ -1,5 +1,11 @@
 # Coverage and benchmark readiness
 
+**Latest evidence:** the complete planned 250-ID inventory is technically
+validated; original text has 241 exact matches and nine source-absent IDs.
+See the full-inventory section below. Earlier numbered checkpoints retain
+their historical scope and do not describe the latest availability.
+
+
 Work package 4, checked 2026-10-12. **No final benchmark is frozen.**
 The reference-only coverage, acquisition design, spatial grouping and evaluation
 specification are implemented. The broader raster access prerequisite remains
@@ -362,3 +368,89 @@ Existing candidate v2 stays unchanged and `blocked-not-frozen`; default loading
 continues to refuse final evaluation. No test embeddings, ranks or statistics
 are generated. PR #8 stays Draft until the remaining original-text pairing
 item is resolved, despite complete native raster extraction/validation.
+
+## Full planned inventory feasibility
+
+This measured assessment supersedes the historical 13-/38-image checkpoints
+above. `coverage-selection-v1` is unchanged: 250 IDs, 25 per country, 53 tiles.
+The new access scope preserves `archive-data-access-v1`; it does not silently
+reinterpret its first-25 authorization. Exactly 1,000 original TIFFs are loaded
+and technically verified, with 900 newly extracted and 100 reused. Together
+with earlier Development, there are 263 unique native RGB/map pairs.
+
+The unchanged 2-km component/hash protocol now yields 235 components,
+128 Development images in 110 groups and 135 Test-side images in 125 groups.
+All 22 previously assigned Development IDs remain Development anchors. Every
+acquisition date participates; duplicate/overlapping footprints stay in the same
+component. Test-side membership is a feasibility allocation, not a final freeze.
+No Test RGB inspection, embedding, ranking or query/rule adjustment occurred.
+
+| Intent | All true/false/unknown (n=263) | Test-side true/false/unknown (n=135) | Test positives outside largest group |
+|---|---:|---:|---:|
+| Forest | 164/99/0 | 89/46/0 | 87 |
+| Inland water | 16/247/0 | 6/129/0 | 5 |
+| Arable land | 106/157/0 | 50/85/0 | 48 |
+| Pasture | 76/187/0 | 40/95/0 | 38 |
+| Forest and water | 11/252/0 | 3/132/0 | 2 |
+| Forest adjacent to water | 9/254/0 | 2/133/0 | 1 |
+| Arable and pasture | 28/235/0 | 10/125/0 | 8 |
+| Arable adjacent to pasture | 26/237/0 | 9/126/0 | 7 |
+
+Both-present controls are separate from main retrieval. Across all 263 images,
+forest/water has 9 true / 2 false / 0 unknown in six groups; arable/pasture has
+26/2/0 in 24 groups. Test-side controls are respectively 2/1/0 in three groups
+and 9/1/0 in nine groups. Each family has only one Test false relation, leaving
+zero after removing its largest negative group. Thus the zero-hard-negative gap
+is closed, but the ten-false and five-dispersed-false gates still fail. The
+forest/water true-count and dispersion gates also fail; arable/pasture true count
+is nine, below ten. Full exact failed gates are recorded in candidate v3.
+
+### Scientific suitability and the next decision
+
+All map states are judged; zero unknown map states does not establish fine
+visual truth. Original text evidence is independently verified for 241 selected
+IDs and absent for nine exact IDs in the pinned text source. Missing original
+text is explicitly unknown and never converted into a false relevance label.
+No missing-text IDs were pruned from the unfiltered main candidate collection.
+
+The three predeclared Development comparisons use the first Development ID in
+Austria, Belgium and Finland, without class/ranking selection. Their native
+geometry checks cannot resolve generalized CLC2018 boundary accuracy. The
+25-ha mapping unit and 100-m minimum linear width remain source limitations;
+10-m rasterization does not create independent fine-scale truth. The 5% presence
+threshold (7.2 ha) is not invalid merely because clipped mapped polygons can
+be smaller than 25 ha. Conversely, 60 m of summed mapped contact does not
+prove the corresponding visible relation. Fine-reference suitability remains
+unverified and is an independent freeze prerequisite.
+
+**Proposed, not implemented:** explicitly decide whether the scientific target is
+agreement with generalized mapped boundaries, or independently verified visible
+relations. The former needs a documented narrow interpretation and broader
+Development suitability validation; the latter needs an appropriate independent
+reference. After that decision, preregister additional deterministic country/tile
+batches and budgets, preserving spatial Development anchors and the complete
+unfiltered main pool until the existing coverage gates are met. Do not lower
+minima, change query meanings from Test references, or choose by model ranking.
+Ask the source provider about the nine exact absent text IDs before changing
+source-completeness requirements. No such adaptation is implemented here.
+
+`benchmark-candidate-v3` captures actual new raster/text/geographic evidence,
+not a formal progress revision. It preserves v1/v2, pins original inputs,
+separates main/control IDs and remains **blocked-not-frozen**. Default loading
+refuses final evaluation. A fully checked access/feasibility PR may be ready for
+review even though its scientific outcome is a demonstrated freeze blocker.
+
+All 19 projected-envelope overlap pairs remain within complete components
+(16 older Development pairs, three planned neighboring pairs). There are no
+identical native footprints or selected overlaps/connections with the original
+13-image Development component. Envelope overlap is conservative spatial
+screening and does not prove native pixel-area overlap. The 22 Development
+anchors are preserved. Text-complete allocation is 122 Development / 132 Test,
+with six / three source-absent text annotations respectively.
+
+Visual inspection of the three predeclared Development examples found an almost
+textureless water-only Austria image (CLC 512), individual Belgian fields and
+settlement structure generalized into arable/pasture/known-other regions, and a
+Finnish mixed field/vegetation region largely assigned to known-other CLC 243/324.
+Gray is known other cover, not NoData. These observations support the stated
+reference limitation; they do not verify fine adjacency or motivate rule changes.

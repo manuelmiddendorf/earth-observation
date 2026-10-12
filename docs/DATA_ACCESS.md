@@ -1,5 +1,11 @@
 # Data pilot: sources and access evidence
 
+**Latest evidence:** the complete planned 250-ID inventory is technically
+validated; original text has 241 exact matches and nine source-absent IDs.
+See the full-inventory section below. Earlier numbered checkpoints retain
+their historical scope and do not describe the latest availability.
+
+
 Checked 2026-10-12; experiment `data-pilot-v1`, raster access `archive-prefix-v1`.
 The unchanged ten-patch pilot now has verified text/catalog pairs, **thirty real
 RGB band files and ten real reference maps**. Real raster integration and visual
@@ -310,3 +316,76 @@ Both original candidate input digests and default final-evaluation refusals
 remain valid. `benchmark-candidate-v2` stays `blocked-not-frozen`; no new benchmark
 candidate, model embeddings/rankings, statistics or final evaluation are created.
 PR #8 remains Draft while original text pairing is unresolved.
+
+## Full planned selection and original text access
+
+The latest explicit continuation authorizes extraction of the entire unchanged
+250-ID plan and at most 50,000,000 new text bytes. Earlier 25-ID manifests,
+extraction receipts and completion artifacts are preserved as provenance.
+`archive-data-access-v2` uses separate local receipts/output paths. No archive
+request was made: each already verified archive was scanned once sequentially.
+Exactly 900 missing TIFFs were written and 100 valid TIFFs reused, with
+22,150,304 selected bytes (21,897,000 RGB and 253,304 map bytes).
+
+All 250 selected pairs pass exact member SHA-256/catalog/S1 identity, B04/B03/B02
+ordering, uint16 120×120 grids, CRS/bounds/transform, native 10-m resolution,
+NoData 0 and RGB/map alignment checks. Seven native UTM zones occur
+(EPSG:32629/31/32/33/34/35/36). RGB has zero masked values; valid DN spans
+1–17,824. No geometry repair or resampling occurred. Catalog country metadata
+and original-text center coordinates are checked separately against native data.
+
+### Proven bounded original-text route
+
+The existing 400-row text cache contains zero exact planned IDs. Official
+`filter` and `search` probes again returned timeouts/HTTP 500. The official
+[Parquet inventory endpoint](https://huggingface.co/docs/dataset-viewer/parquet)
+lists one 466,819,745-byte file. Exact HTTP 206 range responses were verified
+before any body read: status, inclusive Content-Range/parent size, identity
+encoding and bounded length. Ignored ranges cannot trigger a full download.
+
+The 185,271-byte footer describes 9,553,962 rows in 78 groups and the original
+13-field schema. Complete patch-ID min/max metadata identifies 70 potentially
+relevant groups. Their patch-ID column chunks total only **9,182,428 bytes**.
+These chunks locate the first exact row position per selected patch; complete
+metadata excludes the other groups. A local explicitly partial sparse Parquet
+contains only these chunks/footer, never the complete dataset. No input/output
+text columns or full row groups were downloaded from Parquet.
+
+Repository revision `72d865f2146f0a85b720f7f3ca1cdbaeafc3d316` remains the observed
+source context. Converted Parquet revision
+`d1d566c27e7b7d888316d89801013b70ec68bf2e` pins the range source, with a matching
+footer verified at that immutable URL. The independently fetched
+[official rows endpoint](https://huggingface.co/docs/dataset-viewer/rows) uses
+`default/all_data`, exact indexed offset and length one. It does not accept a
+revision; therefore its SHA-256 response snapshots, not the observed repository
+SHA alone, identify actual annotation bytes. Schema, row index, patch identity,
+S1 pair, country and raster-center residual <=1e-8 degree are required.
+
+241 planned IDs have original rows; nine exact IDs are absent from the pinned
+Parquet ID inventory and are explicitly listed in the access manifest. The
+first 25 contain 24 matches and one absent entry. No adjacent IDs or synthetic
+annotations substitute for them. These original instruction/answer examples
+are source provenance only; captions and answers never create relevance labels.
+The earlier 13 pairs retain their original text proofs: total 263 technical /
+254 fully available pairs. Unknown text and unknown map evidence are different.
+
+Transient connection failures and HTTP 429 rate limits were handled with
+bounded retries, official waiting intervals and cache reuse. The transfer ledger
+retains allocations for failed requests and enforces the cumulative 50-MB cap
+before opening another request. Individual responses have URL/size/SHA-256
+receipts; changed or unidentified caches fail explicitly. The final measured
+response bytes and conservative failed-request upper bound are in v2's text
+receipt, separately from the 22.15-MB local raster extraction and zero new
+archive bytes. The concrete external source gap is nine absent text IDs;
+request those exact original annotations from BIFOLD before revising requirements.
+
+See [full inventory feasibility](BENCHMARK_DESIGN.md#full-planned-inventory-feasibility)
+for actual spatial/intent/control coverage and the independently blocked freeze.
+
+Final successful response payload including preliminary probes: **9,942,373
+bytes**; pinned response caches total 9,754,768 bytes, with 187,605 additional
+successful preliminary bytes. The conservative received-byte upper bound is
+9,954,432 bytes; failed-request allocations raise the cumulative transfer upper
+bound to **10,954,442 bytes**, below 50 MB. No full text Parquet was transferred.
+Exact text-center residual maximum is 1.42e-14 degree. Fully available split
+counts are 122 Development / 132 Test-side, with six / three unknown texts.

@@ -2,8 +2,9 @@
 
 **Status:** in development. A ten-patch technical pilot verifies frozen CLIP and
 RemoteCLIP retrieval, embedding reuse and per-formulation map-agreement metrics.
-The final benchmark and statistical comparison remain planned; the broader
-subset access needed for a defensible freeze is currently blocked.
+The final benchmark and statistical comparison remain planned. The fixed
+250-patch raster inventory is accessible, but coverage and reference suitability
+still block a defensible freeze.
 
 ## Abstract
 
@@ -43,15 +44,15 @@ alone does not satisfy the latter two requests.
 
 ## Data and Retrieval Task
 
-The preferred starting point is BigEarthNet.txt with the underlying
-BigEarthNet-v2 Sentinel-2 images and land-cover reference maps. A bounded subset
-will be selected after verifying relevance coverage and spatial structure.
-The final subset size is not fixed yet. A technical pilot currently loads ten
-unchanged patch IDs from one Austria tile: thirty RGB band files and ten native
-reference maps. Exact catalog identities, file checksums and native grids agree.
-Only 2.25 MiB of official raster archives were transferred; extraction retains
-887,617 bytes. This access result does not establish representative coverage
-or independent visual truth of the reference maps.
+The data source is BigEarthNet.txt with the underlying BigEarthNet-v2
+Sentinel-2 images and land-cover reference maps. The unchanged planned
+250-image selection is now technically available across ten countries and
+53 tiles; 241 images have exact original-text matches. Nine selected IDs are
+absent from the pinned original-text inventory. Earlier Development contributes
+13 additional verified text/RGB/map pairs. Exact catalog identities, checksums
+and native grids agree; availability does not establish reference accuracy.
+The initial ten-image retrieval pilot remains separate from this broader,
+model-independent feasibility assessment.
 
 The models receive RGB images and query text. Land-cover labels, reference
 maps, and evaluation metadata are kept separate from the main ranking.
@@ -118,15 +119,22 @@ map-negative result illustrates a threshold-driven reference disagreement,
 not independently verified visual failure. No overall model winner or isolated
 relation capability can be inferred from this pilot.
 
-The reference-only coverage continuation loads 13 verified development pairs
-(three additional images from existing official caches, zero new archive bytes).
-All remain in one spatial component. Separate both-present controls contain six
-forest/water and three arable/pasture images, all with true
-relations; neither has a relation-negative case. A deterministic, country-balanced
-250-ID acquisition plan spans ten countries and 53 tiles, but these selected
-rasters have **not** been acquired. The verified archive-prefix route cannot reach
-them. No held-out test collection or final benchmark freeze is claimed. See
-[coverage, spatial separation and evaluation design](docs/BENCHMARK_DESIGN.md).
+The model-independent feasibility assessment now validates all 250 unchanged
+planned RGB/map pairs across ten countries and 53 tiles. Including the earlier
+13 Development images gives 263 pairs in 235 spatial components: 128 Development
+and 135 Test-side images. The Test side has only six inland-water positives,
+three forest/water conjunction positives and two adjacency positives. Each
+both-present relation control contains one false case, below the required ten.
+Original text is available for 241 selected IDs; nine are absent from the pinned
+text source and remain unknown (254 complete pairs including earlier Development).
+Captions and original answers never determine reference relevance.
+
+The local archives now close the raster-access and geographic gaps, but the
+unchanged coverage gates and unverified fine-boundary reference suitability
+keep `benchmark-candidate-v3` **blocked-not-frozen**. Native 10-m alignment does
+not establish 10-m accuracy of generalized CLC2018 boundaries. No final model
+comparison or valid freeze is claimed. See
+[coverage, spatial separation and feasibility decision](docs/BENCHMARK_DESIGN.md#full-planned-inventory-feasibility).
 
 ## Planned Analytical Narrative
 
@@ -209,27 +217,28 @@ existing pilot caches; both candidates remain non-frozen. These commands perform
 no model evaluation. Selection, design and integrity specifications are versioned;
 raw data and local diagnostic outputs remain ignored.
 
-The separately authorized archive continuation uses
-`uv run python scripts/fetch_archives.py --stage all` to acquire **only** the
-official S2 and reference-map archives (63,534,101,678 bytes) and extract the
-unchanged first 25 selected IDs / 100 TIFFs. Complete published checksums precede
-extraction; compatible partial transfers resume without restarting. See
-[archive acquisition and current partial evidence](docs/DATA_ACCESS.md#authorized-full-archive-continuation)
-for storage and verification. Both archives passed their published checksums;
-the exact 100 TIFFs form 25 technically validated native pairs. Combined with
-the original Development inventory, 38 unique images form 25 spatial components;
-the unchanged protocol assigns 22 images to Development and 16 to the Test side.
-These are source-stage assignments, not a frozen evaluation. New references add
-nine forest negatives but no both-present false relations. Test-side inland-water
-positives remain zero, pasture positives one, and original text pairing for the
-new IDs is unknown. The benchmark remains blocked.
+The separately authorized acquisition completed both official archives
+(63,534,101,678 bytes, published checksums verified). The full planned selection
+now reuses them locally: one scan per archive, 900 new / 100 reused selected TIFFs,
+22,150,304 native bytes, no further archive transfer. Provenance for the earlier
+25-ID scope remains unchanged. Original text access uses exact Parquet ID-column
+ranges and single-row responses under a cumulative 50-MB ceiling; the full text
+Parquet is never downloaded. Source snapshots and missing IDs are recorded in
+[the full-selection access manifest](manifests/archive-data-access-v2.json).
 
-For local-only extraction and validation after verified archive acquisition:
+With the verified local archives, reproduce the full-selection assessment:
 
 ```bash
-uv run python scripts/fetch_archives.py --stage extract
-uv run python scripts/validate_archive_access.py
+uv run python scripts/fetch_archives.py --stage extract --manifest manifests/archive-data-access-v2.json
+uv run python scripts/fetch_selected_text.py
+uv run python scripts/validate_archive_access.py --manifest manifests/archive-data-access-v2.json --write-record
+uv run jupyter nbconvert --to notebook --execute --inplace notebooks/02_benchmark_construction.ipynb
 ```
+
+The original 25-ID receipts stay separate. Valid text caches require no transfer;
+source drift fails explicitly. The rows API lacks revision pinning, so response
+SHA-256 identifies actual annotations independently of the repository revision.
+See [source provenance and bounded access](docs/DATA_ACCESS.md#full-planned-selection-and-original-text-access).
 
 The retrieval command saves complete formulation metrics, rankings and measured
 provenance locally.

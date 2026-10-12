@@ -1,4 +1,4 @@
-"""Acquire the two authorized archives and extract only the fixed 25-patch batch."""
+"""Acquire authorized archives and extract the explicit predeclared batch."""
 
 import argparse
 import fcntl
@@ -24,9 +24,10 @@ def main() -> None:
     parser.add_argument(
         "--stage", choices=["download", "extract", "all"], default="all"
     )
+    parser.add_argument("--manifest", default="manifests/archive-data-access-v1.json")
     arguments = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    manifest = json.loads((root / "manifests/archive-data-access-v1.json").read_text())
+    manifest = json.loads((root / arguments.manifest).read_text())
     selection = root / manifest["selection_file"]
     if (
         hashlib.sha256(selection.read_bytes()).hexdigest()
@@ -42,24 +43,26 @@ def main() -> None:
         selected, select_catalog(catalog, design["selection"])
     )
     first, last = manifest["selection_rows"]
-    if [first, last] != [1, 25]:
-        raise ValueError("Only selection rows 1 through 25 are authorized")
+    if [first, last] not in ([1, 25], [1, 250]):
+        raise ValueError("Unsupported selection scope")
     ids = selected.iloc[first - 1 : last].patch_id.tolist()
     names = selected_raster_members(ids)
     if (
-        len(ids) != 25
-        or len(names) != 100
+        len(ids) != last
+        or len(names) != 4 * last
         or ids != manifest["planned_patch_ids"]
         or names != manifest["required_members"]
     ):
-        raise ValueError("Only the unchanged first 25 IDs / 100 TIFFs are authorized")
+        raise ValueError("Only the unchanged explicitly authorized IDs are permitted")
     store = root / "data/cache/archives"
-    output = root / "data/cache/archive-access"
+    output = root / manifest.get("cache_output", "data/cache/archive-access")
     store.mkdir(parents=True, exist_ok=True)
     output.mkdir(parents=True, exist_ok=True)
     with (store / "acquisition.lock").open("a") as lock:
         # A second invocation must not append to the same partial file.
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        if last == 250 and arguments.stage != "extract":
+            raise ValueError("Full selection uses existing archives only")
         if arguments.stage in {"download", "all"}:
             downloads = []
             for asset in manifest["archives"]:
@@ -95,9 +98,11 @@ def main() -> None:
                     json.dumps(extracted, indent=2) + "\n"
                 )
             observed = [m["name"] for result in extracted for m in result["members"]]
-            if len(observed) != 100 or set(observed) != set(names):
-                raise ValueError("Exact 100-TIFF completeness check failed")
-            print("Verified archives and exact 100 TIFFs; raster validation is next.")
+            if len(observed) != len(names) or set(observed) != set(names):
+                raise ValueError("Exact selected-TIFF completeness check failed")
+            print(
+                "Verified archives and exact selected TIFFs; raster validation is next."
+            )
 
 
 if __name__ == "__main__":

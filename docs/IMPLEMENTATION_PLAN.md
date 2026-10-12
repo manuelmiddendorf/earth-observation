@@ -4,41 +4,57 @@
 
 Updated: 2026-10-13.
 
-Latest archive-access completion evidence (PR #8):
+Latest full-selection access and feasibility evidence (PR #8):
 
-- Both official S2/map archives are complete, with published MD5 passed. Existing
-  verified receipts match current names/sizes and unchanged file times; extraction
-  did not run redundant full-archive hash passes or start downloads.
-- Exactly 100 original TIFFs for the unchanged first 25 planned IDs are present:
-  75 RGB files newly extracted, 25 valid maps reused, 2,214,854 selected bytes.
-  A complete sequential scan verified exact member names and uniqueness.
-- All 25 native pairs pass byte/catalog/band/grid/dtype/NoData/value checks:
-  B04/B03/B02, uint16, 120×120, EPSG:32633, 10-m cells, aligned map grid,
-  NoData 0, zero masked RGB values; observed valid DN range 1–17,824. No repair
-  or resampling. Original text records for these IDs are absent from local caches;
-  their text pairing remains explicitly unknown, awaiting clarification of the
-  no-download constraint on small text API requests. No source rows were invented.
-- There are 38 unique technically validated pairs in 25 components, with no ID
-  duplicates, duplicate native footprints or envelope overlaps with the original
-  13 Development images. New allocation: 9 Development / 16 Test-side images.
-  Total allocation: 22 Development / 16 Test-side images (10/15 components).
-  These measured assignments are not a frozen benchmark or model evaluation.
-- All-collection true/false/unknown: forest 29/9/0, water 7/31/0, arable 22/16/0,
-  pasture 8/30/0; forest/water composites 6/32/0, arable/pasture 4/34/0.
-  Both-present controls: 6/0/0 and 4/0/0. Test-side controls: 0/0/0 and 1/0/0.
-  Hard false relations remain absent; test-side water positives are zero and
-  pasture positives one. No criteria were relaxed and no additional IDs acquired.
-- `archive-data-access-v1` records extraction and measured coverage; original
-  `benchmark-candidate-v2` remains unchanged and `blocked-not-frozen`. The 225
-  remaining planned IDs, coverage minima and reference-scale suitability remain
-  separate prerequisites. No candidate revision, statistics or model runs.
-- Verification: 82 tests passed without skips, Ruff check/format passed for
-  src/tests/scripts, notebook freshly executed; three fixed-position RGB/map
-  pairs and the spatial figure visually inspected. Changed notebook cells have
-  no Ruff findings; 22 older style findings remain in untouched cells.
-- Remaining validation: obtain existing/local matching text rows or clarify
-  whether bounded text API requests are permitted. PR #8 stays Draft while
-  original text pairing is unresolved; no further archive access is needed.
+- The unchanged 250-ID selection is fully extracted from the two already
+  verified official archives. One sequential scan per archive writes 900 missing
+  TIFFs and reuses 100 valid files: 1,000 original files / 22,150,304 selected
+  bytes, zero new archive transfer. Original 25-ID selection/access evidence
+  remains intact; `archive-data-access-v2` explicitly authorizes the full scope.
+- All 250 native RGB/map pairs pass exact member/catalog/band/grid/CRS/extent/
+  resolution/dtype/NoData/value checks. B04/B03/B02, uint16 120×120, seven UTM
+  zones, 10 m, NoData 0, no masked RGB values; DN 1–17,824. No resampling.
+- Official filter/search failures are bypassed through verified exact Parquet
+  ranges: 185,271-byte footer, 9,182,428 patch-ID column bytes in 70/78 groups,
+  then one original row per exact indexed ID. Converted source commit and
+  response SHA-256 snapshots are pinned. Rows API revision limitation is explicit.
+  241 selected text records pass S1/country/native-center checks (maximum center
+  residual 1.42e-14 degree); nine exact IDs are absent from the pinned source.
+  The first 25 contain 24 matches / one absent entry. No invented replacements.
+- Successful new text responses including preliminary probes total 9,942,373
+  bytes; conservative cumulative ceiling including failed allocations is
+  10,954,442 bytes, below the authorized 50 MB. Valid caches are identity checked.
+- Total 263 distinct technical pairs / 254 complete original-text pairs.
+  Unchanged spatial protocol: 235 groups, Development 128 (110 groups), Test-side
+  135 (125 groups). All 22 previous Development IDs stay Development. Text-complete
+  allocation: 122 Development / 132 Test; missing text 6/3. No duplicate native
+  footprints; 19 projected-envelope overlaps (16 earlier Development pairs and
+  three selected neighbor pairs), all contained within complete split groups.
+  No planned image overlaps/connects to the original 13-image Development group.
+- Main Test true/false/unknown: forest 89/46/0, water 6/129/0, arable 50/85/0,
+  pasture 40/95/0, forest/water conjunction 3/132/0 and adjacency 2/133/0,
+  arable/pasture conjunction 10/125/0 and adjacency 9/126/0. Controls are separate:
+  all forest/water 9/2/0, arable/pasture 26/2/0; Test 2/1/0 and 9/1/0.
+  Both-present false cases now exist, but unchanged counts/dispersion still fail.
+- `benchmark-candidate-v3` pins actual new 263-image evidence; v1/v2 remain
+  unchanged. Status stays `blocked-not-frozen`: sparse water/composite/control
+  coverage, nine missing original texts and unverified fine-reference suitability.
+  No thresholds, queries, gates, statistics or final model/embedding runs changed.
+- Next decision: explicitly choose mapped-boundary agreement versus independently
+  verified visible relations; then preregister further deterministic sampling and
+  budget to satisfy unchanged gates. Ask BIFOLD for the nine exact absent texts
+  before altering completeness requirements. These are proposals, not changes.
+
+- Verification: 86 tests passed without skips, including the full 250-patch real
+  raster/text integration and failed-range/budget/cache/schema tests. Ruff check
+  and format pass for src/tests/scripts; changed notebook cells have zero findings
+  (22 older findings remain unchanged). Notebook executed in a fresh kernel with
+  zero errors; three predeclared Development RGB/maps and full spatial figure
+  visually inspected. A text-cache reproduction added zero transfer and preserved
+  exact annotations. Reusable transfer/schema validation is in `src/text_access.py`;
+  source orchestration stays in scripts and compact exploration/plots in notebook.
+- The scoped data/access/feasibility implementation is complete. PR #8 can be
+  ready for review with an explicitly blocked freeze and concrete next decisions.
 
 Historical implementation checkpoints follow.
 
