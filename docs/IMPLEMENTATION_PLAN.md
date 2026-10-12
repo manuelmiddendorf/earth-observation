@@ -46,8 +46,35 @@ Updated: 2026-10-12.
 - Verification: 62 tests passed, none skipped; Ruff passes; extended notebook ran
   from a fresh kernel and real RGB/map/geographic examples were visually checked.
   No agents, full-repository review or final model evaluation.
+- Continuation: `development-validation-v2` selects the next three distinct
+  IDs from the original pinned text snapshot before access inspection. Existing
+  official prefixes contain the twelve required additional files. All 13 pairs
+  (52 source TIFFs) were actually loaded; source/country/S1/text-center identities,
+  EPSG:32633 metre grids, 120×120 uint16 shape, 10-m RGB/map resolution, NoData 0
+  and alignment are verified. Additional archive transfer: zero bytes.
+- Planned broader inventory: 250, complete files present 0, verified 0, assigned
+  development/test 0/0. Available development: 13, loaded/technically validated
+  13, development/test 13/0, independently verified fine-boundary truth 0. All
+  remain one component/date/tile. No planned ID was substituted with accessible
+  early development members.
+- Current coverage (true/false/unknown): forest 13/0/0, water 6/7/0, arable 5/8/0,
+  pasture 6/7/0, forest/water conjunction/adjacency 6/7/0, arable/pasture 3/10/0.
+  Controls contain six and three true relations, still no false relations.
+  Fixed coverage/dispersion requirements were applied without relaxation.
+- Reference suitability: provider-native 10-m TIFF storage inherits generalized
+  CLC2018 semantics (25-ha mapping unit, 100-m minimum linear width). Clipped
+  patch areas and summed boundaries are different quantities; no numerical
+  parameter replacement follows automatically. Current rules remain provisional
+  map-defined computations, not verified visual-boundary truth. Explicit
+  interpretation or independent reference evidence remains an open proposal.
+- `benchmark-candidate-v2` preserves v1 and records the source/development revision
+  with fresh input hashes; both remain blocked. Freeze-loader code/criteria are
+  unchanged. 66 tests passed, including real source integration and a positive
+  controlled protocol fixture; Ruff passes; notebook freshly executed and new
+  RGB/map examples visually inspected. No new model encoding or statistics.
 - Next: provide an official indexed subset route or local subset with verifiable
-  provenance for the selected IDs. Then validate broader development plausibility,
+  provenance initially for the first 25 selected IDs (100 TIFFs). Then validate
+  broader development plausibility,
   native spatial separation and held-out main/control coverage under a new
   candidate version before a real freeze. Package 5's final-evaluation prerequisite
   remains unmet. See `docs/BENCHMARK_DESIGN.md` for exact rules and access evidence.

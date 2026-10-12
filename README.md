@@ -118,9 +118,10 @@ map-negative result illustrates a threshold-driven reference disagreement,
 not independently verified visual failure. No overall model winner or isolated
 relation capability can be inferred from this pilot.
 
-The reference-only coverage assessment finds all ten verified patches in one
-spatial component, so they remain development data. Separate both-present
-controls contain six forest/water and two arable/pasture images, all with true
+The reference-only coverage continuation loads 13 verified development pairs
+(three additional images from existing official caches, zero new archive bytes).
+All remain in one spatial component. Separate both-present controls contain six
+forest/water and three arable/pasture images, all with true
 relations; neither has a relation-negative case. A deterministic, country-balanced
 250-ID acquisition plan spans ten countries and 53 tiles, but these selected
 rasters have **not** been acquired. The verified archive-prefix route cannot reach
@@ -167,6 +168,7 @@ From the repository root with that environment:
 uv sync --locked
 uv run python scripts/fetch_pilot.py
 uv run python scripts/prepare_benchmark.py
+uv run python scripts/validate_development.py
 uv run python scripts/check_subset_reproduction.py
 uv run python scripts/run_retrieval_pilot.py
 uv run pytest
@@ -201,8 +203,10 @@ downloads only the two checksum-pinned weights (959,184,943 bytes total) when
 missing; valid local caches are reused. Weight and embedding files remain ignored.
 The coverage command additionally reuses existing data and checks two pinned
 1-KiB archive-end probes (2,048 bytes if missing). It reproduces coverage and
-validates the explicitly blocked candidate record; it performs no model
-evaluation. Selection, design and integrity specifications are versioned, while
+validates the original explicitly blocked candidate record. The continuation
+command verifies the 13-image development manifest and candidate v2 using the
+existing pilot caches; both candidates remain non-frozen. These commands perform
+no model evaluation. Selection, design and integrity specifications are versioned;
 raw data and local diagnostic outputs remain ignored.
 
 The retrieval command saves complete formulation metrics, rankings and measured
@@ -215,7 +219,7 @@ top results; it runs independently from a fresh kernel.
 
 ## Limitations and Future Work
 
-With the provisional rules, all ten pilot patches satisfy forest presence;
+In the original ten-image retrieval pilot, all patches satisfy forest presence;
 there is no forest-negative case. Forest/water and arable/pasture conjunctions
 have six and two positives respectively, all also satisfying adjacency. Neither
 pair has a both-present/nonadjacent case. This sample cannot isolate relation
