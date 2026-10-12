@@ -66,21 +66,325 @@
       "size_bytes": 282391301,
       "checksum": "md5:95d85a222fa983faddcac51a19f28917",
       "url": "https://zenodo.org/records/10891137/files/Reference_Maps.tar.zst?download=1",
-      "status": "not downloaded; no verified indexed patch access"
+      "status": "bounded prefix acquired; whole archive not downloaded or MD5-verified"
     },
     {
       "name": "BigEarthNet-S2.tar.zst",
       "size_bytes": 63251710377,
       "checksum": "md5:2245ed2d1a93f6ce637d839bc856396e",
       "url": "https://zenodo.org/records/10891137/files/BigEarthNet-S2.tar.zst?download=1",
-      "status": "not downloaded; no verified indexed patch access"
+      "status": "bounded prefix acquired; whole archive not downloaded or MD5-verified"
     }
   ],
-  "raster_status": "blocked: no local image/reference subset",
+  "raster_status": "verified: 30 RGB bands and 10 reference maps loaded from bounded official archive prefixes",
   "file_layout": {
     "image": "<tile>/<patch_id>/<patch_id>_B04.tif (also B03/B02)",
     "reference": "<tile>/<patch_id>/<patch_id>_reference_map.tif",
     "tile": "patch_id without its final two grid-index fields",
-    "status": "official layout; not verified against downloaded rasters"
+    "status": "verified against the exact official archive members and GeoTIFFs"
+  },
+  "raster_access_version": "archive-prefix-v1",
+  "raster_prefixes": [
+    {
+      "name": "s2-prefix-2m.zst",
+      "url": "https://zenodo.org/records/10891137/files/BigEarthNet-S2.tar.zst?download=1&pilot_range=0-2097151",
+      "size_bytes": 2097152,
+      "sha256": "f9c68d8fb2a3b98ce5b9f2c99913371febbfdd0d8aa3c854b664771bc72b004f",
+      "byte_range": [
+        0,
+        2097151
+      ],
+      "archive_size_bytes": 63251710377,
+      "members": [
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "e3f44208bfc9e8c9bf770cfe54199f5f793f648b45f927611d7defe2b88c1584"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "839c00680e3c7067786816db319aee4f503845421b03671f86a6fdff7a1b570f"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "87e4301bb6673286c6ba170dc25fed44426086612897fea969c58c2537497698"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "477faa24156c6f6ec28f604317ff9a42b1a0ef10a2a6f537dccc586bb50e6806"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "978223a85d9d2b2f99073c36b691dfbc5099547b445994422f0a9bdfee7025b4"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "2d9db28a48f52dc1f55d700ddcd4289dcebfa0c3a3ab3b21a1bd7be41734a120"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "4546ca2c312ebea2b8b18e45bd532afd6d1866db46a0684025b2bf643813b8c8"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "0b25c4dab4697ad060283e2aaec88e574c80064b64322289e5045c59bc5c74fb"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "b1776e616d7eff248a1577d8b8051374a9aabdd46691253bd79b352143018662"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "528b3ae4830a9705f3374cb1f1dfb0a9d6aaaada3397b2079d5ab878a62bcb27"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "58bfda51ee58f591511e0ed59c37f7ed7d2d8ee2d1cf066c0f99d73eb708dfcc"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "3c480ac3b4f04b59f912e7d6f65506a9879227138ba7fa1535c5a3246570d1bc"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "7d3198b5e6c6abdf0940631d035c81751c2f4ed909d8de810c911279deb7b58a"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "99001aa151cc8f2cbac20e5494265b87d2c791edbd6a4c6b84c9dda3c912e393"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "4f439f6781481cb45367e5e52637c984394b11440b48068dcc5f52d005cd0964"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "5501b0fc18edfa6e2981843dcc31141063777c75dde1a6614676e2a7cb172243"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "86707ff0abaaa5e2432d9a5d6a28aae8e6d5775d482ccc761cdc1462cf510470"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "b9adbceb05ac503c0dbb41aa4d3194bf2b631f5953920e8a708fa4020b43a541"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "432e38776b771769019756396b155ccefb0ced5bed7dc4d2e72f46393fe81058"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "744c80352e86e3797515d60e9c3e0cf94ea327239582dcfc8dd53ea9ebb3c5a5"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "525cee5a269033d189df8653f8e125e704fbf604bc4aeb5427c137837de59cda"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "ebb5c20618a66e850bc6d6ff0b8f0ec35ad077f3808c136f03f54ae1ddff11ad"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "5ecb830e96b862e221972e648ba1a1439ba40fb21b0731dd3c0227069bb33f07"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "6fcc015a801d4303e44f94ba7a7dc9535f430a8ca239926448d6b9a500a36881"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "ab9d0b7fc1b20c6bbbb7713bb428fae94324a82d6519c1c371c580e305d061b5"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "b824f16825019798e0dc5e387c4c736897d09a49a94bc8d6c5a7211c11c43068"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "58f48e3d5d2d91a98455d467baed1ebc6dc59ecf23ac3cffb7836f253a8ab1cd"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "2a18510e203d5251f9ba4766d48f7ba7fcc8c6cfc926156c2499659fd17db25c"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "786716912869a9996dbbf12a0e59e7defd6c59a84076f67e4e691bb18172c567"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "b0e777cfdf3ad31b035a804988fd31ed4c6f11ebb47fa8552858ee383053108a"
+        }
+      ]
+    },
+    {
+      "name": "maps-prefix-256k.zst",
+      "url": "https://zenodo.org/records/10891137/files/Reference_Maps.tar.zst?download=1&pilot_range=0-262143",
+      "size_bytes": 262144,
+      "sha256": "6c2b7de5a195cfdecd3abda61bcd398c998dedb9544090dd62987a618e701175",
+      "byte_range": [
+        0,
+        262143
+      ],
+      "archive_size_bytes": 282391301,
+      "members": [
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57_reference_map.tif",
+          "size_bytes": 1234,
+          "sha256": "0877378dddf8eb8b27140848832ab718823a1c88f360cbfd8c482d731ec8b814"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55_reference_map.tif",
+          "size_bytes": 999,
+          "sha256": "df7516baf71423a9f035d7e7f53da6a781e742dc6c0c354898494a355ff4b698"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56_reference_map.tif",
+          "size_bytes": 1307,
+          "sha256": "2fe5cf1574a21c03632a59dc98aa621b0a476af85fa31aae79b4e94f60fca216"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57_reference_map.tif",
+          "size_bytes": 1151,
+          "sha256": "10c011c08a8b1277e0e6a3d7e408e1fe91e093c3d47a84457e11e23db1fe1ee6"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58_reference_map.tif",
+          "size_bytes": 1164,
+          "sha256": "c49fcd43774e8f658b678a9bdc65504d5be81af1160d13b7ea38a253ef19e4c0"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59_reference_map.tif",
+          "size_bytes": 1173,
+          "sha256": "9f1d5d2e7ace08194269efd089515da4cc173ddffedb2597aaf025e29a65da55"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60_reference_map.tif",
+          "size_bytes": 1191,
+          "sha256": "5de12762b1ab72d6081f01f3d00e0ad075ab17d71bb1c76312d7f48ebf238925"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61_reference_map.tif",
+          "size_bytes": 1126,
+          "sha256": "a68059622c861715fe5278f11ccd72c891b96490c2adcc1424d0f36508a2398b"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55_reference_map.tif",
+          "size_bytes": 1314,
+          "sha256": "b50c9b3e2987f33917a2167888151a6e4220d9d86c7b91b83092fe0090801454"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56_reference_map.tif",
+          "size_bytes": 1078,
+          "sha256": "701d49e9d98f71930d632da893d3c7487d0b38716743fc2ba397ee9f8d2810e6"
+        }
+      ]
+    }
+  ],
+  "reproduction_sample": [
+    {
+      "name": "s2-prefix-256k.zst",
+      "url": "https://zenodo.org/records/10891137/files/BigEarthNet-S2.tar.zst?download=1&pilot_probe=prefix256k",
+      "size_bytes": 262144,
+      "sha256": "2e2810455ee19083b2403724af63242e65ec6d5372ee45b40f8e19dce6f56b4b",
+      "byte_range": [
+        0,
+        262143
+      ],
+      "archive_size_bytes": 63251710377,
+      "members": [
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "e3f44208bfc9e8c9bf770cfe54199f5f793f648b45f927611d7defe2b88c1584"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "839c00680e3c7067786816db319aee4f503845421b03671f86a6fdff7a1b570f"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "87e4301bb6673286c6ba170dc25fed44426086612897fea969c58c2537497698"
+        }
+      ]
+    },
+    {
+      "name": "maps-prefix-256k.zst",
+      "url": "https://zenodo.org/records/10891137/files/Reference_Maps.tar.zst?download=1&pilot_probe=prefix256k",
+      "size_bytes": 262144,
+      "sha256": "6c2b7de5a195cfdecd3abda61bcd398c998dedb9544090dd62987a618e701175",
+      "byte_range": [
+        0,
+        262143
+      ],
+      "archive_size_bytes": 282391301,
+      "members": [
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57/S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57_reference_map.tif",
+          "size_bytes": 1234,
+          "sha256": "0877378dddf8eb8b27140848832ab718823a1c88f360cbfd8c482d731ec8b814"
+        }
+      ]
+    }
+  ],
+  "observed_raster_schema": {
+    "count": 40,
+    "shape": [
+      120,
+      120
+    ],
+    "dtype": "uint16",
+    "crs": "EPSG:32633",
+    "resolution_metres": [
+      10,
+      10
+    ],
+    "nodata": 0,
+    "reference_codes": [
+      112,
+      211,
+      231,
+      242,
+      243,
+      311,
+      312,
+      313,
+      511
+    ],
+    "reference_code_source": "BigEarthNet v2 description Table 1: raw CLC level-3 IDs; 999 means unlabeled, distinct from declared NoData 0",
+    "reference_code_document_sha256": "aaef8963548e02352b9ce41dac88cef9e39faaef155399a9fc22e501d30d9bae"
   }
 }

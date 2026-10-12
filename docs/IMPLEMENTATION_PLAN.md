@@ -4,35 +4,42 @@
 
 Updated: 2026-10-12.
 
-- Foundation PR #1 is merged; work package 1 is submitted as an incomplete
-  data-access draft. No retrieval or model implementation exists.
-- Minimal uv/Python package, lockfile, pytest, and Ruff are implemented.
-  Reusable source/cache/identity and native raster validation live in `src`;
-  inspection tables and the access diagnostic remain in the first notebook.
-- `data-pilot-v1`: four checksum-pinned text API pages (400 rows, 16 distinct
-  patch IDs) and the official v2 catalog (3,616,349 bytes) were downloaded.
-  The deterministic first ten patch IDs and S1 pair names match the catalog;
-  all are in one Austria tile with the provider's `test` split. This technical
-  sample is not the project's final test set or a representative benchmark.
-- The rows API is unversioned; response SHA-256 pins the actual snapshot.
-  The observed HF repository revision is context, not proof of API revision.
-  Invalid caches/source changes fail explicitly. See `docs/DATA_ACCESS.md`.
-- Both archive probes returned HTTP 206 for 1 KiB. The official S2 archive is
-  63,251,710,377 bytes; maps are 282,391,301 bytes. No bounded indexed access
-  to the selected members was verified, and no complete archive was fetched.
-- Blocked: real RGB/map loading, native spatial/schema evidence, representative
-  raster visual inspection, and complete raster integration. Expected file
-  layout and controlled raster tests do not establish real data access.
-- Validation: nine tests pass, including real text/catalog integration; the
-  real raster integration test explicitly skips because files are unavailable.
-  A clean temporary cache reacquired all five assets with matching checksums
-  after one transient HTTP 502. Ruff lint/format pass. The notebook ran from a fresh
-  kernel; its saved access diagnostic was visually inspected. Zero complete
-  real RGB/map patches are reported; no map truth or retrieval finding is claimed.
-- Next action: obtain a provenance-preserving bounded v2 subset or establish
-  official indexed member access; complete raster integration and visual QA,
-  then finish work package 1 before work package 2. Human merge remains the
-  boundary between packages.
+- Foundation PR #1 and initial data-pilot PR #2 are merged. Work package 1 is
+  complete in a focused follow-up PR; no later-stage implementation exists.
+- Minimal uv/Python package, lockfile, pytest and Ruff remain in place. Reusable
+  source/cache/identity, bounded extraction and raster validation live in `src`;
+  inspection tables, display-only code names and plots remain in the existing
+  data-understanding notebook. zstandard was added for archive streaming;
+  the now-yanked notebook dependency soupsieve received a targeted lock update.
+- `data-pilot-v1 / archive-prefix-v1` preserves all ten selected IDs. Four pinned
+  text pages and the official catalog verify S2/S1 pairing. All patches belong
+  to one Austria tile with the provider's `test` split; this convenience sample
+  is not the project's final test set or a representative benchmark.
+- Bounded official access is verified: a 2-MiB S2 prefix and 256-KiB map prefix
+  contain the required thirty RGB bands and ten reference maps. Transfer:
+  2,359,296 bytes; retained TIFFs: 887,617 bytes. Original valid prefix bytes
+  were reused. No full archive, model weights or alternative data were fetched.
+- Manifest now records ranges, archive/member paths, sizes, SHA-256 digests and
+  observed native schema. HTTP ranges must be honored exactly. Prefix/member
+  hashes cannot verify the whole archive's published MD5. The unversioned text
+  API remains pinned by response digests, with the observed HF SHA as context.
+- All forty real rasters are uint16, 120×120, EPSG:32633, 10-m cells, NoData 0.
+  RGB/map transforms and footprints match within every patch. Text/raster
+  centers agree within 1e-8 degrees. Reference values are raw CLC level-3 IDs;
+  source code 999 (unlabeled) and NoData 0 remain distinct unknown information.
+- Validation: thirteen tests pass with no skips, including real text/catalog
+  and all-ten-patch raster integration. Ruff lint/format and locked uv sync
+  pass. A separate small empty cache reacquired four real files for the first
+  unchanged patch with matching hashes/alignment (524,288 transferred bytes).
+  The updated single notebook ran from a fresh kernel; three fixed real RGB/map
+  pairs were visually inspected. Broad landscape correspondence is plausible,
+  while small boundaries and forest subclasses are not visually verified truth.
+- No external blocker remains for the selected ten patches. Later arbitrary
+  member access, representative coverage and reference-rule validity remain
+  unverified. No relevance, aggregation, adjacency or retrieval was implemented.
+- Next action: human review/merge of the follow-up PR, then work package 2:
+  reference rules and query specification on development data, followed by the
+  planned scientific review checkpoint.
 
 Research reports and agent instructions are local working documents, excluded
 from the public repository. The public methodology is summarized in the README.

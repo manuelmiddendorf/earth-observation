@@ -2,10 +2,12 @@
 
 import hashlib
 import json
+import tarfile
 import urllib.request
 from pathlib import Path
 
 import pandas as pd
+import zstandard
 
 
 def fetch_asset(asset: dict, cache: Path, max_bytes: int = 5_000_000) -> Path:
@@ -15,6 +17,7 @@ def fetch_asset(asset: dict, cache: Path, max_bytes: int = 5_000_000) -> Path:
     ----------
     asset : dict
         URL, simple cache filename, byte size, and SHA-256 of expected content.
+        Optional byte_range and archive_size_bytes require an exact HTTP 206.
     cache : Path
         Local directory; never serialized into the public manifest.
     max_bytes : int
@@ -42,7 +45,21 @@ def fetch_asset(asset: dict, cache: Path, max_bytes: int = 5_000_000) -> Path:
             raise ValueError(f"Source/cache identity mismatch: {name}")
         content = target.read_bytes()
     else:
-        with urllib.request.urlopen(asset["url"], timeout=40) as response:
+        headers = {}
+        if "byte_range" in asset:
+            start, end = asset["byte_range"]
+            if start < 0 or end - start + 1 != asset["size_bytes"]:
+                raise ValueError("Inconsistent byte range and asset size")
+            headers["Range"] = f"bytes={start}-{end}"
+        request = urllib.request.Request(asset["url"], headers=headers)
+        with urllib.request.urlopen(request, timeout=40) as response:
+            if "byte_range" in asset:
+                expected_range = f"bytes {start}-{end}/{asset['archive_size_bytes']}"
+                if (
+                    response.status != 206
+                    or response.headers.get("Content-Range") != expected_range
+                ):
+                    raise ValueError("Server did not honor the exact archive range")
             content = response.read(max_bytes + 1)
     if (
         len(content) != asset["size_bytes"]
@@ -184,3 +201,130 @@ def load_pilot(manifest_path: Path, cache: Path) -> tuple[list[dict], pd.DataFra
         raise ValueError("Pilot selection differs from the frozen manifest")
     metadata = pd.read_parquet(paths["metadata.parquet"])
     return patches, match_metadata(patches, metadata)
+
+
+def extract_rasters(
+    prefix: Path, members: list[dict], raw_root: Path, max_tar_bytes: int = 8_000_000
+) -> list[Path]:
+    """Extract only complete, checksum-pinned TIFF members from a zstd tar prefix.
+
+    Parameters
+    ----------
+    prefix : Path
+        Verified partial archive starting at byte zero; not a complete zstd frame.
+    members : list of dict
+        Exact archive member names, sizes and SHA-256 digests from the pilot.
+    raw_root : Path
+        Local destination containing BigEarthNet-S2 and Reference_Maps roots.
+    max_tar_bytes : int
+        Limit on scanned uncompressed tar extent, including skipped members.
+
+    Returns
+    -------
+    list of Path
+        Validated TIFF paths in requested order. Existing matching files are
+        reused. Only selected members are persisted; other bands are skipped.
+
+    Raises
+    ------
+    ValueError
+        Incomplete prefix, unsafe/duplicate member, links, excessive scan size,
+        checksum mismatch or incompatible existing data. Never silently repairs
+        a cache. Prefix hashes do not verify the full archive's published MD5.
+    """
+    expected = {m["name"]: m for m in members}
+    if len(expected) != len(members) or not members:
+        raise ValueError("Expected unique, nonempty raster members")
+    paths = []
+    for name in expected:
+        relative = Path(name)
+        if (
+            relative.is_absolute()
+            or ".." in relative.parts
+            or relative.parts[0] not in {"BigEarthNet-S2", "Reference_Maps"}
+            or relative.suffix != ".tif"
+        ):
+            raise ValueError("Unsafe raster member path")
+        paths.append(raw_root / relative)
+    present = {}
+    for member, path in zip(members, paths, strict=True):
+        if path.exists():
+            content = path.read_bytes()
+            if (
+                len(content) != member["size_bytes"]
+                or hashlib.sha256(content).hexdigest() != member["sha256"]
+            ):
+                raise ValueError(f"Existing raster identity mismatch: {member['name']}")
+            present[member["name"]] = content
+    if len(present) == len(expected):
+        return paths
+    found = {}
+    try:
+        with prefix.open("rb") as compressed:
+            with zstandard.ZstdDecompressor().stream_reader(compressed) as stream:
+                with tarfile.open(fileobj=stream, mode="r|") as archive:
+                    for member in archive:
+                        if archive.offset > max_tar_bytes:
+                            raise ValueError("Uncompressed tar scan exceeds budget")
+                        if member.name not in expected:
+                            continue
+                        if not member.isfile() or member.name in found:
+                            raise ValueError("Selected raster is a link or duplicate")
+                        specification = expected[member.name]
+                        if member.size != specification["size_bytes"]:
+                            raise ValueError("Raster member size mismatch")
+                        with archive.extractfile(member) as source:
+                            content = source.read(member.size + 1)
+                        if (
+                            len(content) != member.size
+                            or hashlib.sha256(content).hexdigest()
+                            != specification["sha256"]
+                        ):
+                            raise ValueError("Raster member checksum mismatch")
+                        found[member.name] = content
+                        if len(found) == len(expected):
+                            break
+    except (tarfile.TarError, zstandard.ZstdError) as error:
+        raise ValueError(
+            "Archive prefix does not contain complete pilot members"
+        ) from error
+    if len(found) != len(expected):
+        raise ValueError("Archive prefix does not contain all requested rasters")
+    for name, content in found.items():
+        path = raw_root / name
+        if name not in present:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            temporary = path.with_suffix(".tif.part")
+            temporary.write_bytes(content)
+            temporary.replace(path)
+    return paths
+
+
+def acquire_rasters(manifest_path: Path, cache: Path, raw_root: Path) -> list[Path]:
+    """Acquire the unchanged ten-patch pilot through two finite archive prefixes.
+
+    Parameters
+    ----------
+    manifest_path : Path
+        Pilot manifest containing raster_prefixes and exact member inventories.
+    cache : Path
+        Local checksum-validated prefix cache.
+    raw_root : Path
+        Local extracted raster directory, excluded from version control.
+
+    Returns
+    -------
+    list of Path
+        Thirty RGB files and ten native reference maps. No full archive is read.
+
+    Raises
+    ------
+    ValueError
+        Source drift, ignored HTTP ranges, incomplete or mismatched members.
+    """
+    manifest = json.loads(manifest_path.read_text())
+    paths = []
+    for asset in manifest["raster_prefixes"]:
+        prefix = fetch_asset(asset, cache)
+        paths.extend(extract_rasters(prefix, asset["members"], raw_root))
+    return paths
