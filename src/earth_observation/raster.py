@@ -129,12 +129,48 @@ def load_rgb(files: dict[str, Path], upper: float = 3000) -> np.ndarray:
         raise ValueError("upper must be finite and positive")
     if inspect_patch(files)["status"] != "aligned":
         raise FileNotFoundError("Complete RGB and reference rasters are required")
-    bands = []
-    for band in RGB_BANDS:
-        with rasterio.open(files[band]) as ds:
-            bands.append(ds.read(1, masked=True).astype("float32").filled(np.nan))
-    rgb = np.stack(bands, axis=-1)
+    rgb = read_rgb_bands({b: files[b] for b in RGB_BANDS})
+    rgb = rgb.astype("float32").filled(np.nan)
     invalid = ~np.isfinite(rgb).all(axis=-1)
     rgb = np.clip(rgb / upper, 0, 1)
     rgb[invalid] = np.nan
     return rgb
+
+
+def read_rgb_bands(files: dict[str, Path]) -> np.ma.MaskedArray:
+    """Load native RGB measurements without consulting maps or text metadata.
+
+    Parameters
+    ----------
+    files : dict
+        Exactly B04/B03/B02 paths belonging to one identified image patch.
+
+    Returns
+    -------
+    numpy.ma.MaskedArray
+        H x W x 3 raw values in red/green/blue order with source raster masks.
+        Band dtype and native grid must agree; no scaling/resampling occurs.
+
+    Raises
+    ------
+    ValueError
+        Missing CRS, multiple bands or mismatched native grids/dtypes.
+    FileNotFoundError
+        A required RGB file is unavailable.
+    """
+    if set(files) != set(RGB_BANDS):
+        raise ValueError("Expected exactly B04/B03/B02 image files")
+    bands = []
+    grid = None
+    for band in RGB_BANDS:
+        if not files[band].is_file():
+            raise FileNotFoundError(files[band])
+        with rasterio.open(files[band]) as raster:
+            if raster.count != 1 or raster.crs is None:
+                raise ValueError("Expected one band and explicit CRS")
+            current = (raster.shape, raster.crs, raster.transform, raster.dtypes[0])
+            if grid is not None and current != grid:
+                raise ValueError("RGB measurements must share grid and dtype")
+            grid = current
+            bands.append(raster.read(1, masked=True))
+    return np.ma.stack(bands, axis=-1)

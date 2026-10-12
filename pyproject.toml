@@ -14,6 +14,10 @@ dependencies = [
     "rasterio>=1.4,<2",
     "matplotlib>=3.10,<4",
     "zstandard>=0.23,<1",
+    "open-clip-torch>=3.2,<4",
+    "torch>=2.6,<3",
+    "torchvision>=0.21,<1",
+    "pillow>=11,<13",
 ]
 
 [dependency-groups]

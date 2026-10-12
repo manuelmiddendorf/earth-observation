@@ -114,3 +114,17 @@ def test_real_raster_pilot():
         )
         assert longitude[0] == pytest.approx(annotation["longitude"], abs=1e-8, rel=0)
         assert latitude[0] == pytest.approx(annotation["latitude"], abs=1e-8, rel=0)
+
+
+def test_raw_rgb_never_requires_reference(files):
+    from earth_observation.raster import RGB_BANDS, read_rgb_bands
+
+    files["reference"].unlink()
+    bands = {b: files[b] for b in RGB_BANDS}
+    raw = read_rgb_bands(bands)
+    assert raw.dtype == np.uint16
+    np.testing.assert_array_equal(raw[1, 1], [3000, 1500, 750])
+    assert np.ma.getmaskarray(raw)[0, 0].all()
+    write_raster(files["B02"], 750, x=500010)
+    with pytest.raises(ValueError, match="grid"):
+        read_rgb_bands(bands)

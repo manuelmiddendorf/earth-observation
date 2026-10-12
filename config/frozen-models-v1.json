@@ -1,0 +1,66 @@
+{
+  "version": "frozen-retrieval-pilot-v1",
+  "architecture": "ViT-B-32",
+  "embedding_dimension": 512,
+  "activation": "QuickGELU (official RemoteCLIP retrieval recipe initializes OpenAI model before loading RemoteCLIP weights)",
+  "runtime": {
+    "device": "cpu",
+    "precision": "float32",
+    "torch_threads": 4,
+    "batch_size": 5,
+    "seed": 0
+  },
+  "rgb": {
+    "version": "model-rgb-v1",
+    "bands": [
+      "B04",
+      "B03",
+      "B02"
+    ],
+    "upper_dn": 3000,
+    "quantization": "uint8: np.rint(255 * clip(DN / 3000, 0, 1)); ties to even",
+    "nodata": "reject any masked or nonfinite pixel; no reference-derived masks or candidate filtering",
+    "decision": "Explicit development model-input scaling; numerically same saturation as display but independently implemented and versioned. Not calibrated reflectance or a final preprocessing freeze."
+  },
+  "models": [
+    {
+      "model_id": "clip-openai-vit-b32",
+      "name": "CLIP-ViT-B-32.pt",
+      "url": "https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt",
+      "size_bytes": 353976522,
+      "sha256": "40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af",
+      "format": "openai-jit",
+      "source": "https://github.com/openai/CLIP",
+      "license": "MIT official CLIP repository"
+    },
+    {
+      "model_id": "remoteclip-vit-b32",
+      "name": "RemoteCLIP-ViT-B-32.pt",
+      "url": "https://huggingface.co/chendelong/RemoteCLIP/resolve/bf1d8a3ccf2ddbf7c875705e46373bfe542bce38/RemoteCLIP-ViT-B-32.pt",
+      "size_bytes": 605208421,
+      "sha256": "60014e395d930a3f2963d1d89c8522bf4ad56775571e4356e866864789af85c4",
+      "format": "state-dict",
+      "revision": "bf1d8a3ccf2ddbf7c875705e46373bfe542bce38",
+      "source": "https://github.com/ChenDelong1999/RemoteCLIP",
+      "license": "Apache-2.0 official repository; HF weight repository has no separate model card/license declaration"
+    }
+  ],
+  "preprocessing": {
+    "image_size": 224,
+    "resize": "shortest edge, bicubic",
+    "crop": "center 224 x 224",
+    "mode": "RGB",
+    "tensor": "float32 CHW divided by 255",
+    "mean": [
+      0.48145466,
+      0.4578275,
+      0.40821073
+    ],
+    "std": [
+      0.26862954,
+      0.26130258,
+      0.27577711
+    ],
+    "tokenizer": "OpenCLIP SimpleTokenizer: CLIP byte-pair vocabulary, BOS/EOS, context 77; reject truncation"
+  }
+}
