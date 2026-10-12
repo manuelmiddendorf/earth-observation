@@ -2,7 +2,8 @@
 
 **Status:** in development. A ten-patch technical pilot verifies frozen CLIP and
 RemoteCLIP retrieval, embedding reuse and per-formulation map-agreement metrics.
-The final benchmark and statistical comparison remain planned.
+The final benchmark and statistical comparison remain planned; the broader
+subset access needed for a defensible freeze is currently blocked.
 
 ## Abstract
 
@@ -117,6 +118,15 @@ map-negative result illustrates a threshold-driven reference disagreement,
 not independently verified visual failure. No overall model winner or isolated
 relation capability can be inferred from this pilot.
 
+The reference-only coverage assessment finds all ten verified patches in one
+spatial component, so they remain development data. Separate both-present
+controls contain six forest/water and two arable/pasture images, all with true
+relations; neither has a relation-negative case. A deterministic, country-balanced
+250-ID acquisition plan spans ten countries and 53 tiles, but these selected
+rasters have **not** been acquired. The verified archive-prefix route cannot reach
+them. No held-out test collection or final benchmark freeze is claimed. See
+[coverage, spatial separation and evaluation design](docs/BENCHMARK_DESIGN.md).
+
 ## Planned Analytical Narrative
 
 The notebooks will follow the same research-oriented style as the
@@ -156,6 +166,7 @@ From the repository root with that environment:
 ```bash
 uv sync --locked
 uv run python scripts/fetch_pilot.py
+uv run python scripts/prepare_benchmark.py
 uv run python scripts/check_subset_reproduction.py
 uv run python scripts/run_retrieval_pilot.py
 uv run pytest
@@ -188,7 +199,14 @@ See [source versions, observed schema, license, display policy and access limits
 and the [pilot manifest](manifests/data-pilot-v1.json). The retrieval command
 downloads only the two checksum-pinned weights (959,184,943 bytes total) when
 missing; valid local caches are reused. Weight and embedding files remain ignored.
-It saves complete formulation metrics, rankings and measured provenance locally.
+The coverage command additionally reuses existing data and checks two pinned
+1-KiB archive-end probes (2,048 bytes if missing). It reproduces coverage and
+validates the explicitly blocked candidate record; it performs no model
+evaluation. Selection, design and integrity specifications are versioned, while
+raw data and local diagnostic outputs remain ignored.
+
+The retrieval command saves complete formulation metrics, rankings and measured
+provenance locally.
 The third notebook checks exact cache reuse and displays representative real
 top results; it runs independently from a fresh kernel.
 
@@ -203,6 +221,9 @@ have six and two positives respectively, all also satisfying adjacency. Neither
 pair has a both-present/nonadjacent case. This sample cannot isolate relation
 errors or establish final coverage. Presence thresholds, contact thresholds and
 family coverage require broader development verification before benchmark freeze.
+An indexed subset route or provenance-verified local subset is needed before
+spatially held-out main/control coverage can be assessed; the current candidate
+record is deliberately not accepted as a frozen evaluation benchmark.
 
 The proposed study is limited to selected queries and a controlled Sentinel-2
 RGB subset. Map uncertainty, spatial redundancy, rare relevant scenes, and
