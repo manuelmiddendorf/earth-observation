@@ -4,14 +4,35 @@
 
 Updated: 2026-10-12.
 
-- Research design and explanatory reports are available locally.
-- Repository conventions and the initial README are established.
-- Local Git and the public GitHub repository
-  [manuelmiddendorf/earth-observation](https://github.com/manuelmiddendorf/earth-observation)
-  are initialized. The repository foundation is submitted through a PR.
-- No data-access code, environment, notebooks, or experiments have been
-  implemented or verified.
-- Next task: work package 1.
+- Foundation PR #1 is merged; work package 1 is submitted as an incomplete
+  data-access draft. No retrieval or model implementation exists.
+- Minimal uv/Python package, lockfile, pytest, and Ruff are implemented.
+  Reusable source/cache/identity and native raster validation live in `src`;
+  inspection tables and the access diagnostic remain in the first notebook.
+- `data-pilot-v1`: four checksum-pinned text API pages (400 rows, 16 distinct
+  patch IDs) and the official v2 catalog (3,616,349 bytes) were downloaded.
+  The deterministic first ten patch IDs and S1 pair names match the catalog;
+  all are in one Austria tile with the provider's `test` split. This technical
+  sample is not the project's final test set or a representative benchmark.
+- The rows API is unversioned; response SHA-256 pins the actual snapshot.
+  The observed HF repository revision is context, not proof of API revision.
+  Invalid caches/source changes fail explicitly. See `docs/DATA_ACCESS.md`.
+- Both archive probes returned HTTP 206 for 1 KiB. The official S2 archive is
+  63,251,710,377 bytes; maps are 282,391,301 bytes. No bounded indexed access
+  to the selected members was verified, and no complete archive was fetched.
+- Blocked: real RGB/map loading, native spatial/schema evidence, representative
+  raster visual inspection, and complete raster integration. Expected file
+  layout and controlled raster tests do not establish real data access.
+- Validation: nine tests pass, including real text/catalog integration; the
+  real raster integration test explicitly skips because files are unavailable.
+  A clean temporary cache reacquired all five assets with matching checksums
+  after one transient HTTP 502. Ruff lint/format pass. The notebook ran from a fresh
+  kernel; its saved access diagnostic was visually inspected. Zero complete
+  real RGB/map patches are reported; no map truth or retrieval finding is claimed.
+- Next action: obtain a provenance-preserving bounded v2 subset or establish
+  official indexed member access; complete raster integration and visual QA,
+  then finish work package 1 before work package 2. Human merge remains the
+  boundary between packages.
 
 Research reports and agent instructions are local working documents, excluded
 from the public repository. The public methodology is summarized in the README.
