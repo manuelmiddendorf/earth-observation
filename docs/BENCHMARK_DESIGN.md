@@ -213,3 +213,103 @@ subset with matching verifiable provenance, for this selected inventory. Then
 assess development plausibility and held-out main/control coverage under a new
 candidate version. A final freeze and work package 5's evaluation prerequisite
 remain blocked until that evidence exists.
+
+
+## Continuation: candidate v2 (2026-10-12)
+
+The original candidate and its 58 input checksums remain unchanged and verifiable.
+The continuation uses a separate [development manifest](../manifests/development-validation-v2.json)
+and [candidate v2](../manifests/benchmark-candidate-v2.json), both distinct from the
+unchanged 250-ID acquisition plan. No method or minimum criterion was relaxed.
+
+| Collection | Planned | Complete files present | Actually loaded and technically validated | Development | Test | Independently validated fine-boundary truth |
+|---|---:|---:|---:|---:|---:|---:|
+| Broader acquisition plan | 250 | 0 | 0 | 0 | 0 | 0 |
+| Available development | 13 | 13 | 13 | 13 | 0 | 0 |
+
+Before inspecting access, the small supplemental batch was defined as the next
+three distinct patch IDs after the original ten in the same pinned 400-row text
+snapshot. The complete required TIFFs were already present in verified finite
+archive caches. Twelve additional source files were extracted and loaded,
+bringing the total to 39 RGB bands and 13 original provider reference maps.
+**Additional archive transfer: zero bytes.** This does not replace three planned
+IDs or imply acquisition of any of the 250 geographically broader candidates.
+
+`validate_development_sources` reuses canonical source selection, catalog pairing,
+checksum acquisition, RGB loading and conversion. It verifies actual native CRS,
+metre units, affine grid/footprint agreement, image/map resolutions, NoData and
+original annotation-to-raster center agreement (tolerance 1e-8 degree). All 13
+pairs have 120 × 120 uint16 RGB/maps, EPSG:32633, 10-m cells, NoData 0, identical
+RGB/map grids and zero masked pixels. They form one component under the unchanged
+2-km rule, one country/tile and one acquisition date. Every explored image remains
+development. No test geometry, embedding or ranking is invented.
+
+Updated true/false/unknown coverage: forest 13/0/0; water 6/7/0; arable 5/8/0;
+pasture 6/7/0; forest/water conjunction and adjacency each 6/7/0; arable/pasture
+each 3/10/0. Family counts are 31/21/0 and 17/35/0 patch-intent decisions (52 per
+family, only 13 unique images). Both-present controls have six and three true
+relations, **zero false relations**, and zero unknowns. Every intent has zero
+positives outside its largest group. The original coverage gates still fail.
+
+### What source scale permits us to conclude
+
+We use the provider's original published reference TIFFs. Our colored panels
+aggregate raw CLC codes for display; they are not new surveyed labels or finer
+reference data. The underlying CLC2018 status product has a 25-ha minimum mapping
+unit and 100-m minimum linear-feature width, documented by
+[Copernicus](https://www.copernicus.eu/en/access-data/copernicus-services-catalogue/corine-land-cover-2018-vector-europe-6-yearly-version).
+Its generalized source semantics remain despite the TIFFs' 10-m storage grid.
+
+Five percent of a 144-ha patch is 7.2 ha. This is not automatically invalid:
+clipping a larger original polygon can leave a smaller area within a patch.
+Likewise minimum feature width is not summed boundary length; 100-m width does
+not directly prescribe a substitute contact threshold. No parameter was retuned.
+The current computations are well-defined **stored-map agreement**, but these
+facts do not validate exact visible cover or a surveyed 60-m boundary. Small
+structures, generalization and the 2017-image/2018-reference temporal difference
+remain limitations.
+
+The three additional RGB/map pairs were visually inspected: broad woodland/field
+correspondence is plausible, while small clearings, roads and field boundaries
+are generalized. Gray means known other cover, not missing evidence. RGB color
+alone cannot independently validate pasture/arable labels. This is qualitative
+plausibility, not a thematic-accuracy estimate or fine-boundary ground truth.
+
+Reviewable proposal: either explicitly scope subsequent results to map-defined
+agreement, or obtain independent relation/boundary evidence before claiming
+visual relational performance. This is an open scientific interpretation decision,
+not an implemented replacement of the queries, source or thresholds. Broader
+geographic development and adequate held-out coverage remain separate blockers.
+
+### Smallest remaining external action and verification
+
+The official complete S2/map archives total 63,534,101,678 bytes and are outside
+the authorized bounded-download scope. The verified prefix route still cannot
+reach the unchanged planned selection. Provide an official indexed endpoint or
+a provenance-verified local subset for the **first 25 rows** of
+`coverage-selection-v1.csv`: B04/B03/B02 plus the original reference map for each
+ID (100 TIFFs), with source version and identifiable original members. File
+sizes/checksums and native identity must be verified before any later batch.
+No credentials or substitute dataset are assumed; no full archive is downloaded.
+
+```bash
+uv run python scripts/validate_development.py
+uv run pytest
+uv run ruff check src tests scripts
+uv run ruff format --check src tests scripts
+uv run jupyter nbconvert --to notebook --execute --inplace notebooks/02_benchmark_construction.ipynb
+```
+
+The command reproduces the same candidate v2 without overwriting a different
+version. Source and coverage diagnostics/figures remain in ignored
+`outputs/development-validation-v2/`. Existing original-pilot embeddings remain
+untouched; no new encoding or statistical pipeline is run.
+
+66 tests passed, none skipped, including real 13-image source/spatial integration,
+text-coordinate mismatch rejection, unchanged/blocked candidate versions, and a
+positive **controlled protocol fixture** passing the complete existing structural
+and coverage checks. That temporary synthetic fixture is a validator test, not
+research evidence or an alternative frozen dataset. The loader was not changed
+or weakened. Ruff passed, and the extended notebook ran from a fresh kernel with
+actual visual inspection. Candidate v2 remains `blocked-not-frozen`; work package
+5 is not authorized by these improvements until a valid freeze and human merge.
