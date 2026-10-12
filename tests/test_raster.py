@@ -83,6 +83,34 @@ def test_real_raster_pilot():
     ]
     if not all(path.is_file() for item in files for path in item.values()):
         pytest.skip("BLOCKED: complete official RGB/reference subset is unavailable")
-    for item in files:
-        assert inspect_patch(item)["status"] == "aligned"
-        assert load_rgb(item).shape[-1] == 3
+    import hashlib
+
+    from rasterio.warp import transform
+
+    from earth_observation.data import load_pilot
+
+    annotations, _ = load_pilot(
+        root / "manifests/data-pilot-v1.json", root / "data/cache"
+    )
+    members = [
+        member for asset in manifest["raster_prefixes"] for member in asset["members"]
+    ]
+    assert len(members) == 40
+    for member in members:
+        content = (root / "data/raw" / member["name"]).read_bytes()
+        assert len(content) == member["size_bytes"]
+        assert hashlib.sha256(content).hexdigest() == member["sha256"]
+    for item, annotation in zip(files, annotations, strict=True):
+        check = inspect_patch(item)
+        assert check["status"] == "aligned"
+        assert load_rgb(item).shape == (120, 120, 3)
+        red = check["rasters"]["B04"]
+        reference = check["rasters"]["reference"]
+        assert red["transform"] == reference["transform"]
+        assert red["shape"] == reference["shape"]
+        left, bottom, right, top = red["bounds"]
+        longitude, latitude = transform(
+            red["crs"], "EPSG:4326", [(left + right) / 2], [(bottom + top) / 2]
+        )
+        assert longitude[0] == pytest.approx(annotation["longitude"], abs=1e-8, rel=0)
+        assert latitude[0] == pytest.approx(annotation["latitude"], abs=1e-8, rel=0)

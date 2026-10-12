@@ -1,8 +1,8 @@
 # Robust Compositional Retrieval in Earth Observation
 
-**Status:** in development. A ten-patch text/catalog pilot is implemented;
-real Sentinel-2 image and reference-map access remains blocked. No retrieval
-experiments or performance findings are available.
+**Status:** in development. A ten-patch pilot has verified text/catalog,
+Sentinel-2 RGB and reference-map access. No retrieval experiments or performance
+findings are available.
 
 ## Abstract
 
@@ -42,8 +42,13 @@ alone does not satisfy the latter two requests.
 
 The preferred starting point is BigEarthNet.txt with the underlying
 BigEarthNet-v2 Sentinel-2 images and land-cover reference maps. A bounded subset
-will be selected after verifying data access, relevance coverage, and spatial
-structure. The final subset size is not fixed yet.
+will be selected after verifying relevance coverage and spatial structure.
+The final subset size is not fixed yet. A technical pilot currently loads ten
+unchanged patch IDs from one Austria tile: thirty RGB band files and ten native
+reference maps. Exact catalog identities, file checksums and native grids agree.
+Only 2.25 MiB of official raster archives were transferred; extraction retains
+887,617 bytes. This access result does not establish representative coverage
+or independent visual truth of the reference maps.
 
 The models receive RGB images and query text. Land-cover labels, reference
 maps, and evaluation metadata are kept separate from the main ranking.
@@ -86,7 +91,7 @@ yoga-attendance project:
    including reference disagreements and limitations.
 
 The first [data-understanding notebook](notebooks/01_data_understanding.ipynb)
-records the bounded text/catalog pilot and its missing raster components.
+records the real ten-patch pilot, spatial checks and three RGB/map examples.
 Later stages remain planned. Reusable loading and validation live in `src`;
 one-off inspection tables and plots remain in the notebook.
 
@@ -98,6 +103,7 @@ root:
 ```bash
 uv sync --locked
 uv run python scripts/fetch_pilot.py
+uv run python scripts/check_subset_reproduction.py
 uv run pytest
 uv run ruff check src tests scripts
 uv run ruff format --check src tests scripts
@@ -105,18 +111,22 @@ uv run python -m ipykernel install --sys-prefix --name earth-observation
 uv run jupyter nbconvert --to notebook --execute --inplace notebooks/01_data_understanding.ipynb
 ```
 
-The acquisition command downloads only checksum-pinned text pages and the
-3.6-MB official patch catalog, under 5 MB total. It never downloads image/map
-archives. A changed source response or invalid cache fails explicitly.
-`pytest` includes an official text/catalog integration test when those assets
-are cached; without them that test is skipped. Controlled raster tests are
-separate from real data access. The notebook executes from a fresh kernel and
-reports absent RGB/map examples explicitly. Supply an independently verified
-local v2 subset before claiming complete raster integration.
+The acquisition command downloads checksum-pinned text pages and the 3.6-MB
+patch catalog (3,842,879 bytes total), plus fixed S2/map archive prefixes
+(2,359,296 bytes total). It extracts only the forty required TIFFs. No complete
+archive is requested. Valid caches and files are reused; ignored HTTP ranges,
+changed source bytes or incompatible local files fail explicitly. The separate
+reproduction command acquires four real files for the first unchanged patch
+in an empty temporary cache using only 524,288 bytes.
 
-See [source versions, schema, license, display policy and access blocker](docs/DATA_ACCESS.md)
-and the [pilot manifest](manifests/data-pilot-v1.json). Local caches, raster
-files and generated diagnostic PNGs are ignored by Git. No model is loaded.
+After acquisition, `pytest` includes both official text/catalog and real raster
+integration checks. Without the required local data the corresponding tests
+explicitly skip; a skip is not evidence of data access. The notebook executes
+from a fresh kernel and shows actual native RGB/map pairs. Source prefixes,
+rasters and diagnostic figures remain outside version control.
+
+See [source versions, observed schema, license, display policy and access limits](docs/DATA_ACCESS.md)
+and the [pilot manifest](manifests/data-pilot-v1.json). No model is loaded.
 
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md): work packages, reviews,
   and current implementation state.
