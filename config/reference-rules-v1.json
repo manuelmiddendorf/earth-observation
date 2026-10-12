@@ -1,0 +1,103 @@
+{
+  "version": "reference-rules-v1",
+  "status": "provisional development specification; not a final benchmark freeze",
+  "source_url": "https://bigearth.net/static/documents/Description_BigEarthNet_v2.pdf",
+  "source_sha256": "aaef8963548e02352b9ce41dac88cef9e39faaef155399a9fc22e501d30d9bae",
+  "known_clc_codes": [
+    111,
+    112,
+    121,
+    122,
+    123,
+    124,
+    131,
+    132,
+    133,
+    141,
+    142,
+    211,
+    212,
+    213,
+    221,
+    222,
+    223,
+    231,
+    241,
+    242,
+    243,
+    244,
+    311,
+    312,
+    313,
+    321,
+    322,
+    323,
+    324,
+    331,
+    332,
+    333,
+    334,
+    335,
+    411,
+    412,
+    421,
+    422,
+    423,
+    511,
+    512,
+    521,
+    522,
+    523
+  ],
+  "unknown_codes": [
+    0,
+    999
+  ],
+  "classes": {
+    "forest": {
+      "codes": [
+        311,
+        312,
+        313
+      ],
+      "presence_fraction": 0.05
+    },
+    "inland_water": {
+      "codes": [
+        511,
+        512
+      ],
+      "presence_fraction": 0.05
+    },
+    "arable_land": {
+      "codes": [
+        211,
+        212,
+        213
+      ],
+      "presence_fraction": 0.05
+    },
+    "pasture": {
+      "codes": [
+        231
+      ],
+      "presence_fraction": 0.05
+    }
+  },
+  "adjacency": {
+    "neighborhood": 4,
+    "min_shared_boundary_m": 60,
+    "definition": "undirected native cell edges counted once; both class-presence conditions also required"
+  },
+  "parameter_rationale": {
+    "presence": "5% of full patch area avoids treating isolated mapped pixels as presence; illustrative development choice, not validated on ten patches or borrowed from original presence generation",
+    "boundary": "60 m = six 10-m edges; positive finite contact requirement rather than a corner touch; provisional, not established optimal",
+    "freeze": "larger development coverage and reference plausibility checks required before final selection"
+  },
+  "original_txt_adjacency": {
+    "status": "not confirmed equivalent",
+    "source": "https://arxiv.org/html/2603.29630v2#S3.SS1",
+    "checked": "2026-10-12",
+    "finding": "Section 3.1 mentions pairwise adjacency but does not specify four-neighbor contact or a 60-m threshold; this is our derived rule."
+  }
+}

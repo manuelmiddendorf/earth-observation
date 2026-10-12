@@ -1,0 +1,120 @@
+{
+  "version": "query-specification-v1",
+  "reference_version": "reference-rules-v1",
+  "status": "provisional; no final benchmark freeze",
+  "semantics": "Presence means at least the configured patch fraction; adjacency requires both presence thresholds and configured shared boundary. Natural language does not numerically restate thresholds. Paraphrases share exactly one intent condition.",
+  "families": {
+    "forest-water": "Singles for forest and inland water, their conjunction and their adjacency share one direct family.",
+    "arable-pasture": "Singles for arable land and pasture, their conjunction and their adjacency share one direct family."
+  },
+  "intents": [
+    {
+      "intent_id": "single-forest",
+      "family_id": "forest-water",
+      "kind": "single",
+      "classes": [
+        "forest"
+      ],
+      "paraphrases": [
+        "A satellite scene containing forest.",
+        "Satellite imagery showing forest.",
+        "Find an image with forest."
+      ]
+    },
+    {
+      "intent_id": "single-inland-water",
+      "family_id": "forest-water",
+      "kind": "single",
+      "classes": [
+        "inland_water"
+      ],
+      "paraphrases": [
+        "A satellite scene containing inland water.",
+        "Satellite imagery showing inland water.",
+        "Find an image with inland water."
+      ]
+    },
+    {
+      "intent_id": "single-arable-land",
+      "family_id": "arable-pasture",
+      "kind": "single",
+      "classes": [
+        "arable_land"
+      ],
+      "paraphrases": [
+        "A satellite scene containing arable land.",
+        "Satellite imagery showing arable land.",
+        "Find an image with arable land."
+      ]
+    },
+    {
+      "intent_id": "single-pasture",
+      "family_id": "arable-pasture",
+      "kind": "single",
+      "classes": [
+        "pasture"
+      ],
+      "paraphrases": [
+        "A satellite scene containing pasture.",
+        "Satellite imagery showing pasture.",
+        "Find an image with pasture."
+      ]
+    },
+    {
+      "intent_id": "both-forest-water",
+      "family_id": "forest-water",
+      "kind": "conjunction",
+      "classes": [
+        "forest",
+        "inland_water"
+      ],
+      "paraphrases": [
+        "A satellite scene containing both forest and inland water.",
+        "Satellite imagery showing forest together with inland water.",
+        "Find an image with forest and inland water."
+      ]
+    },
+    {
+      "intent_id": "adjacent-forest-water",
+      "family_id": "forest-water",
+      "kind": "adjacency",
+      "classes": [
+        "forest",
+        "inland_water"
+      ],
+      "paraphrases": [
+        "A satellite scene where forest is adjacent to inland water.",
+        "Satellite imagery showing forest sharing a boundary with inland water.",
+        "Find an image with forest bordering inland water."
+      ]
+    },
+    {
+      "intent_id": "both-arable-pasture",
+      "family_id": "arable-pasture",
+      "kind": "conjunction",
+      "classes": [
+        "arable_land",
+        "pasture"
+      ],
+      "paraphrases": [
+        "A satellite scene containing both arable land and pasture.",
+        "Satellite imagery showing arable land together with pasture.",
+        "Find an image with arable land and pasture."
+      ]
+    },
+    {
+      "intent_id": "adjacent-arable-pasture",
+      "family_id": "arable-pasture",
+      "kind": "adjacency",
+      "classes": [
+        "arable_land",
+        "pasture"
+      ],
+      "paraphrases": [
+        "A satellite scene where arable land is adjacent to pasture.",
+        "Satellite imagery showing arable land sharing a boundary with pasture.",
+        "Find an image with arable land bordering pasture."
+      ]
+    }
+  ]
+}
