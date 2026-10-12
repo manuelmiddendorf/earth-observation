@@ -20,7 +20,8 @@ Updated: 2026-10-12.
   definition is explicit. See `docs/REFERENCE_SPECIFICATION.md`.
 - Eight stable intents (24 English formulations) have two predeclared direct
   families: forest/water and arable/pasture, each with two singles, conjunction
-  and adjacency. No encoder, metric, bootstrap or final benchmark was added.
+  and adjacency. Package 3 subsequently added encoding and basic metrics;
+  bootstrap and the final benchmark remain unimplemented.
 - Observed pilot coverage (true/false/unknown): forest 10/0/0; inland water 6/4/0;
   arable land 3/7/0; pasture 5/5/0. Forest/water conjunction and adjacency are
   each 6/4/0; arable/pasture each 2/8/0. There is no forest-negative or
@@ -41,8 +42,32 @@ Updated: 2026-10-12.
   gap was fixed: summaries carry their rule version and reject incompatible
   query versions, with a regression test. No consequential finding remains open;
   the scientific limitations above remain explicit.
-- Next: human review/merge, then work package 3 (frozen model development pilot).
-  Larger coverage analysis and final parameter/query freeze remain later work.
+- Work package 2 and Review 1 were merged in PR #4 before starting package 3.
+- Work package 3 implements the identified official CLIP/RemoteCLIP ViT-B/32
+  checkpoints, explicit `model-rgb-v1` DN-to-uint8 conversion, checkpoint-specific
+  transforms/QuickGELU, frozen CPU inference, provenance-aware embedding caches,
+  complete deterministic cosine ranking and per-formulation P@10/AP. Maps enter
+  only after ranking; no relevance candidate filtering or metadata encoding.
+- Both real checkpoints ran on native arm64 Python 3.12.12, Apple M2 Pro / 32 GiB,
+  CPU float32, four threads, batch five. Ten images and 24 queries per model
+  produced 48 formulation results and 480 ranking rows. Measured load+encoding:
+  CLIP 2.8094 s, RemoteCLIP 2.9412 s, excluding downloads. Cache reuse preserved
+  artifact modification times and exactly equal result tables without encoding.
+- The third notebook reports all formulations, metric assumptions and selected
+  actual top-three images. First arable-land AP: CLIP 0.8095, RemoteCLIP 0.3417;
+  first inland-water AP: 0.6607 / 0.8179. These are development examples, not
+  aggregate model findings. P@10 equals prevalence with ten candidates. The
+  illustrated map-negative adjacency top result has 4.53% water, below the
+  unchanged 5% requirement; map agreement is not visual truth.
+- Package 3 verification: 53 tests passed, none skipped, including real model
+  artifact reuse; Ruff passed; notebook executed from a fresh kernel and real
+  top-result figure visually inspected. Focused self-check only; no agents or
+  additional full review. See `docs/RETRIEVAL_PILOT.md` for exact checkpoint
+  identities, runtime, metric edge cases and reproduction details.
+- Next: human review/merge, then work package 4 coverage analysis and benchmark
+  freeze. Do not select final queries/thresholds from these pilot rankings.
+  Broader coverage, spatial separation and a distinct relation-control set remain
+  open; no intent aggregation, bootstrap or final performance claim is made.
 
 Research reports and agent instructions are local working documents, excluded
 from the public repository. The public methodology is summarized in the README.

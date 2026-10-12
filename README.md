@@ -1,8 +1,8 @@
 # Robust Compositional Retrieval in Earth Observation
 
-**Status:** in development. A ten-patch pilot has verified text/catalog,
-Sentinel-2 RGB and reference-map access. No retrieval experiments or performance
-findings are available.
+**Status:** in development. A ten-patch technical pilot verifies frozen CLIP and
+RemoteCLIP retrieval, embedding reuse and per-formulation map-agreement metrics.
+The final benchmark and statistical comparison remain planned.
 
 ## Abstract
 
@@ -16,7 +16,9 @@ than embedding similarity. A separate relation-control experiment restricts
 candidates to scenes containing both queried concepts. The aim is a small,
 reproducible evaluation that explains partial-condition and relational failures,
 with paired uncertainty estimates over search intents and their families.
-No experimental findings are available yet.
+The implemented development pilot shows that both identified checkpoints run
+reproducibly and that ranking quality differs across individual formulations.
+Its small, spatially concentrated sample cannot establish model superiority.
 
 ## Research Questions
 
@@ -57,8 +59,8 @@ rasterizing a coarse map does not make its boundaries more accurate.
 
 ## Methodology
 
-The analysis follows four principles; reference construction is implemented
-provisionally, while model comparison and final evaluation remain planned:
+Reference construction and frozen development retrieval are implemented.
+The analysis follows four principles; final evaluation remains planned:
 
 **Explicit relevance.** Implemented development rules aggregate raw CLC codes
 into forest, inland water, arable land and pasture. Presence requires a
@@ -71,8 +73,9 @@ original text-annotation generator. See the
 [benchmark-construction notebook](notebooks/02_benchmark_construction.ipynb).
 
 **Controlled comparisons.** Both models use the same queries and candidate
-images. A separate relation-control experiment contains both queried classes
-in every candidate while the relation varies.
+images. The implemented pilot uses the complete unfiltered ten-image candidate
+set. A planned separate relation-control experiment will contain both queried
+classes in every candidate while the relation varies.
 
 **Frozen evaluation.** Class mappings, thresholds, paraphrases, candidate sets,
 and analysis rules are fixed before the final test. Development and test data
@@ -81,7 +84,38 @@ are separated with attention to spatial overlap.
 **Parsimony and uncertainty.** The initial comparison uses two frozen ViT-B/32
 models without fine-tuning. Precision@10 is the primary metric; average
 precision, paraphrase quality variation, and error categories provide context.
-Paired bootstrap intervals preserve intent-family structure.
+The later statistical stage will use paired bootstrap intervals preserving
+intent-family structure. The pilot reports each formulation separately.
+
+## Development Results and Error Inspection
+
+The official OpenAI CLIP and RemoteCLIP ViT-B/32 checkpoints each encoded ten
+images and 24 texts in CPU float32, without training. Both use checkpoint
+preprocessing and explicitly versioned Sentinel-2 RGB conversion. Complete cosine
+rankings use deterministic patch-ID ties; embedding caches identify model,
+software, preprocessing and ordered input bytes/texts. See
+[model provenance, metric contracts and measured runtime](docs/RETRIEVAL_PILOT.md).
+
+Illustrative **first formulations**, not intent averages:
+
+| Query intent | Positives / candidates | CLIP AP | RemoteCLIP AP |
+|---|---:|---:|---:|
+| Inland water | 6 / 10 | 0.6607 | 0.8179 |
+| Arable land | 3 / 10 | 0.8095 | 0.3417 |
+
+Average precision (AP) rewards earlier relevant ranks. With ten candidates,
+precision at ten (P@10) equals reference prevalence and is independent of order.
+All forest candidates are positive, so forest AP = 1 is likewise uninformative.
+Unknown references make main metrics undefined; judged-only diagnostics are
+explicitly separate. No final aggregation or uncertainty interval exists yet.
+
+The [retrieval-evaluation notebook](notebooks/03_retrieval_evaluation.ipynb)
+reports all formulations and shows actual top images. Both models rank a visibly
+water-containing patch first for the illustrated forest/water adjacency query;
+the map counts only 4.53% water, below the provisional 5% requirement. This
+map-negative result illustrates a threshold-driven reference disagreement,
+not independently verified visual failure. No overall model winner or isolated
+relation capability can be inferred from this pilot.
 
 ## Planned Analytical Narrative
 
@@ -99,24 +133,38 @@ yoga-attendance project:
 
 The first [data-understanding notebook](notebooks/01_data_understanding.ipynb)
 records the real ten-patch pilot, spatial checks and three RGB/map examples.
-Later stages remain planned. Reusable loading and validation live in `src`;
-one-off inspection tables and plots remain in the notebook.
+The second notebook constructs provisional references; the third runs frozen
+development retrieval and verifies cache reuse. Final evaluation and error
+analysis remain planned. Reusable loading, reference, encoding, cache, ranking
+and metric calculations live in `src`; exploratory tables and plots remain
+in the notebooks.
 
 ## Reproduction and Project Documents
 
-Use Python 3.11–3.13 and [uv](https://docs.astral.sh/uv/). From the repository
-root:
+Verified environment: native arm64 Python 3.12.12 on Apple M2 Pro, 32 GiB RAM,
+CPU float32 with four threads. Use [uv](https://docs.astral.sh/uv/) and a native
+interpreter; a Rosetta Intel Python cannot use the locked current macOS PyTorch
+wheels. For a fresh Apple Silicon setup:
+
+```bash
+uv python install cpython-3.12.12-macos-aarch64-none
+uv sync --locked --python "$(uv python dir)/cpython-3.12.12-macos-aarch64-none/bin/python3.12"
+```
+
+From the repository root with that environment:
 
 ```bash
 uv sync --locked
 uv run python scripts/fetch_pilot.py
 uv run python scripts/check_subset_reproduction.py
+uv run python scripts/run_retrieval_pilot.py
 uv run pytest
 uv run ruff check src tests scripts
 uv run ruff format --check src tests scripts
 uv run python -m ipykernel install --sys-prefix --name earth-observation
 uv run jupyter nbconvert --to notebook --execute --inplace notebooks/01_data_understanding.ipynb
 uv run jupyter nbconvert --to notebook --execute --inplace notebooks/02_benchmark_construction.ipynb
+uv run jupyter nbconvert --to notebook --execute --inplace notebooks/03_retrieval_evaluation.ipynb
 ```
 
 The acquisition command downloads checksum-pinned text pages and the 3.6-MB
@@ -137,7 +185,12 @@ provenance under `outputs/`; no benchmark is frozen. Its eight intents have
 three equivalent English formulations each, assigned to two direct families.
 
 See [source versions, observed schema, license, display policy and access limits](docs/DATA_ACCESS.md)
-and the [pilot manifest](manifests/data-pilot-v1.json). No model is loaded.
+and the [pilot manifest](manifests/data-pilot-v1.json). The retrieval command
+downloads only the two checksum-pinned weights (959,184,943 bytes total) when
+missing; valid local caches are reused. Weight and embedding files remain ignored.
+It saves complete formulation metrics, rankings and measured provenance locally.
+The third notebook checks exact cache reuse and displays representative real
+top results; it runs independently from a fresh kernel.
 
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md): work packages, reviews,
   and current implementation state.
