@@ -316,35 +316,49 @@ or weakened. Ruff passed, and the extended notebook ran from a fresh kernel with
 actual visual inspection. Candidate v2 remains `blocked-not-frozen`; work package
 5 is not authorized by these improvements until a valid freeze and human merge.
 
-## Authorized full-archive acquisition: incomplete source stage
+## Completed native archive access; benchmark freeze remains blocked
 
-Full acquisition of the official S2 and map archives was subsequently authorized;
-the 250-ID selection and the first 25-row batch were not changed. The measured
-source snapshot is [archive-data-access-v1](../manifests/archive-data-access-v1.json).
-The reference archive has passed its published MD5 and yielded all 25 exact
-maps (25,154 bytes); the S2 transfer is still running and cannot be used until
-complete checksum validation. No complete planned RGB/map pair is validated yet.
+Both official archives are complete and have passed their published MD5 checks.
+The [acquisition manifest](../manifests/archive-data-access-v1.json) records the
+unchanged first 25 IDs, exact 100 members and measured extraction/coverage.
+All 25 native pairs are technically validated. New text annotation pairing is
+unknown because matching rows are not cached and this completion starts no
+new downloads. This is a separate source-validation limitation.
 
-Map-only counts below use the unchanged reference rules and all 25 fixed IDs.
-They are source/reference evidence, **not** a held-out retrieval collection.
+Together with the preserved Development inventory, 38 distinct pairs form 25
+native spatial components. No new image overlaps/connects to the previous
+Development component. The unchanged protocol assigns 22 images to Development
+and 16 to the Test side (nine / 16 new images; ten / 15 components overall).
+Main collections are unfiltered by relevance; both-present relation controls
+remain separate. No image was selected using model rankings or relabeled to
+improve coverage. Visual checks did not motivate rule/query adjustments.
 
-| Intent | True | False | Unknown |
-| --- | ---: | ---: | ---: |
-| Forest | 16 | 9 | 0 |
-| Inland water | 1 | 24 | 0 |
-| Arable land | 17 | 8 | 0 |
-| Pasture | 2 | 23 | 0 |
-| Forest/water conjunction or adjacency | 0 | 25 | 0 |
-| Arable/pasture conjunction or adjacency | 1 | 24 | 0 |
+| Intent | All 38 true/false/unknown | Test-side true/false/unknown |
+| --- | --- | --- |
+| Forest | 29/9/0 | 11/5/0 |
+| Inland water | 7/31/0 | 0/16/0 |
+| Arable land | 22/16/0 | 12/4/0 |
+| Pasture | 8/30/0 | 1/15/0 |
+| Forest/water conjunction or adjacency | 6/32/0 | 0/16/0 |
+| Arable/pasture conjunction or adjacency | 4/34/0 | 1/15/0 |
 
-Forest/water has zero both-present controls. Arable/pasture has one true,
-zero false and zero unknown both-present relation. These maps supply potential
-forest negatives, but no missing hard relation counterexamples. Complete RGB
-identity/alignment, text/catalog pairing and spatial grouping are pending; no
-new image is assigned to Development/Test or treated as a final-test observation.
-The existing candidate v2 and all freeze-loader protections remain unchanged.
+The all-collection family counts are forest/water 48/104/0 and arable/pasture
+38/114/0, each over 152 patch × intent states (not 152 independent images).
+All-collection controls contain six true forest/water and four true
+arable/pasture relations, zero false relations. Test-side controls have zero and
+one true respectively; neither has a both-present false counterexample.
 
-Notebook section 12 executes actual map checks, compact reference-only coverage
-and three fixed-position original map previews. New RGB/map visual comparisons
-must wait for verified S2 bytes. This acquisition PR stays Draft until the
-requested full download and complete raster validation are finished.
+Thus native geography improves substantially, and forest negatives become
+available, but a 16-image test-side collection fails the existing 20-candidate
+minimum, has no water positive and only one pasture positive, and lacks hard
+relation controls. Dispersion/positive-count gates also fail. The remaining
+225 planned IDs and source-scale suitability are unresolved; no criteria are
+weakened or additional extraction batch launched.
+
+The notebook freshly executes real RGB/map examples at the first three fixed
+acquisition positions, geographic grouping and compact split-specific coverage.
+Raster geometry, map-derived labels and visually verified truth remain distinct.
+Existing candidate v2 stays unchanged and `blocked-not-frozen`; default loading
+continues to refuse final evaluation. No test embeddings, ranks or statistics
+are generated. PR #8 stays Draft until the remaining original-text pairing
+item is resolved, despite complete native raster extraction/validation.

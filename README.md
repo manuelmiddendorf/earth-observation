@@ -215,10 +215,21 @@ official S2 and reference-map archives (63,534,101,678 bytes) and extract the
 unchanged first 25 selected IDs / 100 TIFFs. Complete published checksums precede
 extraction; compatible partial transfers resume without restarting. See
 [archive acquisition and current partial evidence](docs/DATA_ACCESS.md#authorized-full-archive-continuation)
-for storage, progress and the outstanding validation. At this checkpoint the
-reference archive and all 25 maps are verified, while S2 is still downloading.
-Map-only evidence adds nine forest negatives but no both-present false relations;
-it does not establish new retrieval candidates or Test images.
+for storage and verification. Both archives passed their published checksums;
+the exact 100 TIFFs form 25 technically validated native pairs. Combined with
+the original Development inventory, 38 unique images form 25 spatial components;
+the unchanged protocol assigns 22 images to Development and 16 to the Test side.
+These are source-stage assignments, not a frozen evaluation. New references add
+nine forest negatives but no both-present false relations. Test-side inland-water
+positives remain zero, pasture positives one, and original text pairing for the
+new IDs is unknown. The benchmark remains blocked.
+
+For local-only extraction and validation after verified archive acquisition:
+
+```bash
+uv run python scripts/fetch_archives.py --stage extract
+uv run python scripts/validate_archive_access.py
+```
 
 The retrieval command saves complete formulation metrics, rankings and measured
 provenance locally.

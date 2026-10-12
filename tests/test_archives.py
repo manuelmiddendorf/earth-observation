@@ -131,6 +131,28 @@ def test_bad_download_checksum_does_not_publish_or_restart(monkeypatch, tmp_path
     assert not (tmp_path / asset["name"]).exists()
 
 
+def test_verified_receipt_reuse_and_modified_archive_rejection(monkeypatch, tmp_path):
+    asset = asset_for(b"abc")
+    path = tmp_path / asset["name"]
+    path.write_bytes(b"abc")
+    verified = verify_archive(path, asset)
+    receipt = tmp_path / "verified.json"
+    receipt.write_text(json.dumps({**verified, "status": "verified"}))
+    original_open = Path.open
+
+    def guarded_open(self, *args, **kwargs):
+        if self == path:
+            pytest.fail("Unchanged verified archive must not be hashed again")
+        return original_open(self, *args, **kwargs)
+
+    with monkeypatch.context() as context:
+        context.setattr(Path, "open", guarded_open)
+        assert verify_archive(path, asset, receipt) == verified
+    path.write_bytes(b"abd")
+    with pytest.raises(ValueError, match="MD5 mismatch"):
+        verify_archive(path, asset, receipt)
+
+
 def make_archive(tmp_path, members):
     stream = io.BytesIO()
     with tarfile.open(fileobj=stream, mode="w") as archive:
@@ -262,3 +284,56 @@ def test_reference_preview_preserves_unknown_contract_and_exact_selection(tmp_pa
             rules,
             queries,
         )
+
+
+@pytest.mark.integration
+def test_complete_native_selection_and_unknown_text_are_separate():
+    import pandas as pd
+
+    from earth_observation.archive_validation import validate_raster_selection
+
+    root = Path(__file__).resolve().parents[1]
+    path = root / "data/cache/archive-access/extraction-results.json"
+    if not path.is_file():
+        pytest.skip("Extract the fixed 100 TIFFs first")
+    extractions = json.loads(path.read_text())
+    manifest = json.loads((root / "manifests/archive-data-access-v1.json").read_text())
+    catalog = pd.read_parquet(root / "data/cache/metadata.parquet")
+    checked = validate_raster_selection(
+        extractions, manifest["planned_patch_ids"], root / "data/raw", catalog
+    )
+    assert len(checked) == 25
+    assert checked.technical_status.eq("verified").all()
+    assert checked.text_status.eq("unknown").all()
+    assert checked.identical_rgb_map_grid.all()
+    assert checked.rgb_dtype.eq("uint16").all()
+    assert checked.rgb_valid_min_dn.ge(0).all()
+    assert checked.rgb_valid_max_dn.le(65535).all()
+
+
+@pytest.mark.integration
+def test_supplied_text_cannot_contradict_native_center():
+    import pandas as pd
+
+    from earth_observation.archive_validation import validate_raster_selection
+
+    root = Path(__file__).resolve().parents[1]
+    path = root / "data/cache/archive-access/extraction-results.json"
+    if not path.is_file():
+        pytest.skip("Extract the fixed 100 TIFFs first")
+    extractions = json.loads(path.read_text())
+    manifest = json.loads((root / "manifests/archive-data-access-v1.json").read_text())
+    ids = manifest["planned_patch_ids"]
+    catalog = pd.read_parquet(root / "data/cache/metadata.parquet")
+    source = catalog.set_index("patch_id").loc[ids[0]]
+    # This contradictory validator fixture is not a fabricated research annotation.
+    wrong = {
+        "patch_id": ids[0],
+        "s1_name": source.s1_name,
+        "country": source.country,
+        "ID": -1,
+        "latitude": 0.0,
+        "longitude": 0.0,
+    }
+    with pytest.raises(ValueError, match="native raster center"):
+        validate_raster_selection(extractions, ids, root / "data/raw", catalog, [wrong])

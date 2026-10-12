@@ -359,19 +359,1368 @@
     }
   ],
   "acquisition_snapshot": {
-    "date": "2026-10-12",
-    "status": "partial: maps verified; S2 downloading",
+    "date": "2026-10-13",
+    "status": "both archives verified; exact 100 TIFFs extracted and technically validated",
     "planned_patches": 25,
     "reference_files_present_loaded_and_checksum_verified": 25,
-    "reference_payload_bytes": 25154,
-    "rgb_files_present": 0,
-    "complete_rgb_map_patches_validated": 0,
-    "new_development_patches": 0,
-    "new_test_patches": 0,
-    "new_spatial_assignments": 0,
-    "reference_maps_do_not_establish_rgb_alignment": true
+    "rgb_files_present": 75,
+    "complete_rgb_map_patches_validated": 25,
+    "new_development_patches": 9,
+    "new_test_side_patches": 16,
+    "new_spatial_groups": 24,
+    "distinct_total_validated_patches": 38,
+    "total_spatial_groups": 25,
+    "text_verified_patches": 0,
+    "text_unknown_patches": 25
   },
-  "text_pairing_status": "Pending: bounded Hugging Face /filter query returned HTTP 502; a first-patch retry timed out. No full text parquet downloaded.",
-  "benchmark_status": "Existing benchmark-candidate-v2 unchanged, blocked-not-frozen; no new candidate record. Reference-only preview is not a frozen retrieval collection.",
-  "runtime_outputs": "data/cache/archives/*.progress.json and data/cache/archive-access/transfer.log; not versioned. Complete verified archives remain cached."
+  "text_pairing_status": "No matching local annotation rows for the selected 25 IDs; unknown. New text API requests await clarification of the no-download constraint.",
+  "benchmark_status": "benchmark-candidate-v2 unchanged and blocked-not-frozen. Current native spatial assignments are measured source-stage evidence, not a frozen benchmark or final evaluation.",
+  "runtime_outputs": "outputs/archive-data-access-v1/: completion, source checks, intent/family/control coverage and spatial assignments. No download process is needed.",
+  "complete_extractions": [
+    {
+      "archive": {
+        "name": "Reference_Maps.tar.zst",
+        "size_bytes": 282391301,
+        "md5": "95d85a222fa983faddcac51a19f28917",
+        "sha256": "d87bda4759d6b209fad71cd8e95968abedd7eda8b63838d2b5a6462bdc788756"
+      },
+      "created_files": 0,
+      "reused_files": 25,
+      "selected_bytes": 25154,
+      "members": [
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53_reference_map.tif",
+          "size_bytes": 922,
+          "sha256": "44a33a6a4a262c6df3ac7e953ed0b30703fd3ef750e8edad120948dba3886655"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05_reference_map.tif",
+          "size_bytes": 1057,
+          "sha256": "bb9b42f04c5e88ef1a7369820d15c5e25534a604d00acd3f84efa31b933c2785"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82_reference_map.tif",
+          "size_bytes": 1100,
+          "sha256": "997811ffdc010c47aeeecc52d5b188347afb7753e6d2ac0fa7ff88f303e9edc5"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75_reference_map.tif",
+          "size_bytes": 1106,
+          "sha256": "49d13e243adcbad48793c92ba79b8f00be79420d2a94ddee1d4742379f650b41"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90_reference_map.tif",
+          "size_bytes": 970,
+          "sha256": "5146ee2174bb7dd4f1510d11cc31aa7f492079cd430b722021a2293d7a81884d"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36_reference_map.tif",
+          "size_bytes": 1206,
+          "sha256": "57a8a251f38f9b2105c1add6fd32b9cb517275bf7fccaa3797b772e3f9294fef"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36_reference_map.tif",
+          "size_bytes": 1106,
+          "sha256": "0ab9ede6cb38a9dc9f85c93f0f817a0eb292154427337d32964d3f58fce43a61"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01_reference_map.tif",
+          "size_bytes": 640,
+          "sha256": "ddb92cf701a9ee203ba0aa35d7ec1c16436b2a0e90fa8e6214790bc4ce63e31d"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26_reference_map.tif",
+          "size_bytes": 948,
+          "sha256": "5f5a5e0902fe6446eb80bc545b02ee0b28b39b739ef16cc5a2ad75f920d37661"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80_reference_map.tif",
+          "size_bytes": 919,
+          "sha256": "5dd11476e514b24df46c5ca91277cab14af9800de4428baf27a6cbb69d4d9f4e"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51_reference_map.tif",
+          "size_bytes": 930,
+          "sha256": "d33e3c381f371fac46b7edb51398cc3514d3157a12d3fc3dd528d4e6d737365c"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65_reference_map.tif",
+          "size_bytes": 1162,
+          "sha256": "22b2455f59bd950b51755d8aada6a2e877ccecdbf5e5443cc2f115ec39c7b773"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03_reference_map.tif",
+          "size_bytes": 1048,
+          "sha256": "9c2304a86226c4036b1832fde1590890ac9cb0189d0ae80b21f08cc318d80058"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27_reference_map.tif",
+          "size_bytes": 1211,
+          "sha256": "fea25e9b9a6f955fa2d5af7288ac8c15c13aa461ceca202967adc12307165739"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78_reference_map.tif",
+          "size_bytes": 1030,
+          "sha256": "4a45879ea7dce6fe4570914fb71800756d32bf4c5348e0ff0c84cf726777c602"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05_reference_map.tif",
+          "size_bytes": 1192,
+          "sha256": "64ab40c20059c51f4a0cdab7d99e5126ff7eaedcc063d71fdf0cd84d622ee1b9"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ_13_82/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ_13_82_reference_map.tif",
+          "size_bytes": 1159,
+          "sha256": "c68c1efdc1ef05713f96f3500de07a8a1dbebc4702b02417b062ff197d7254d5"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04_reference_map.tif",
+          "size_bytes": 936,
+          "sha256": "f9d1df1e0ea463b04aa25f055f99c4e52204381f8cd27841d9c90416bb08e9ff"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68_reference_map.tif",
+          "size_bytes": 732,
+          "sha256": "a6ce109ff194dc3abe3f189c840a8ceefb1495fa06b3fde17d399b862bbf9143"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86_reference_map.tif",
+          "size_bytes": 1285,
+          "sha256": "62b8841425af76134ad90eb6afe02311d5e341ab1e09b497d0e407fdd1f02834"
+        },
+        {
+          "name": "Reference_Maps/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43_reference_map.tif",
+          "size_bytes": 904,
+          "sha256": "0a072075cb4e56f85cf58d8b7dc93591d55e51fb9d12fc2d46f51e59f7d46be3"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36_reference_map.tif",
+          "size_bytes": 1131,
+          "sha256": "ed961b5b6ec4fe78921518a27ccd25de8ae6be70f77e7a9fc19da534237e374e"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21_reference_map.tif",
+          "size_bytes": 719,
+          "sha256": "3031b6802dc42c1a5bb7ef1a80747e7d3791dcb580d139369e65c6abab282a72"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85_reference_map.tif",
+          "size_bytes": 957,
+          "sha256": "ec43c8f88acd39384953320983af705f5cbe7c1cd828e5b1e63a66dd97cdacec"
+        },
+        {
+          "name": "Reference_Maps/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49_reference_map.tif",
+          "size_bytes": 784,
+          "sha256": "dd401ee394f00a660b60f2b7773a4cb945689292f084ff922f5e137524e6e520"
+        }
+      ]
+    },
+    {
+      "archive": {
+        "name": "BigEarthNet-S2.tar.zst",
+        "size_bytes": 63251710377,
+        "md5": "2245ed2d1a93f6ce637d839bc856396e",
+        "sha256": "fa3464f732865b3caeafe905390fb889dce2705fa87cd6bc626c0bd426dff58f"
+      },
+      "created_files": 75,
+      "reused_files": 0,
+      "selected_bytes": 2189700,
+      "members": [
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "442526cb2e272c1fae5d4d15ab99501b68bb321b234d7da6ad9238bc8e44335a"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "7ee7f864362816c2530b4c7c40e26f2e8aa70c4df91ae530730257af3538c3bd"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53/S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "69185eb257bc5d16385a1396fa968eae5001adbd27c4c0d543dedc41f18f4308"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "86fdf28dc886d4d124ddf5c7f089fbcd060d3d4d85496771f4a8cf5d6d962c1b"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "747e348ace1029f954d1a998af1de4feacb439ad782ebb9b2f3f15c29634e7a7"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05/S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "2cb06eab3c2fa04e6fe444e77486cedc8fce8d6c6aabe245551bce9a46593f1d"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "18e9adb350d7c680f14925321e4489d26af1b130f90f448965a7d69340285dfd"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "880a4976f37aebcc9a0e8757bbf1199ddadd69f4e24a62012b97e47c036f9adc"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "d0da98f5ee096f5bbe8ebeca0f5f9df8e132829d20723a1a441bfe7c7ac6510f"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "0592afbc9d10526f76d364030d1adf3586ed20b4b83842475e6ab6322512dc06"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "d83cf8135e42cfe233f4561e9155d38d42839dbf29f4dbe57ecb2761d593cafe"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "c5911b0eb8df653f3e2347a8f9934e89e8e5931a953099cddf1035df39730ae7"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "23e8826fc1522136e8e547f96e2419b83bbc0a32bb6b957b38a9e64350c5ee8c"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "0e0f5edb095e2e521e0fd63402bfd7db0fe50c9398b3f6f67db94e17c5e621ee"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "840f8aa2ce733b958a05d2aa146e5ff34a0039e0e5b291454e5dca4717661f08"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "87d57d0782288f68ab603a0fa5e98fd2b1ec88e59a4dce3d951687b6e8e1637c"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "49bd9d343305061629b38f3507e1edcb5781c1f680555f3ab39ce63d8d3007fc"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "6d31d93e2724b82a01171b72c57f702337e77edc47e7b36e5901eaa338125384"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "4bdefc7948c0a35d8bf51a626c9b147112808d89c1cca07f0611e712c156c461"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "4099b986d0cb7c349de669c96925b4a01e89b0beb234d332b2365b138ad94582"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "95f67d0944704a812df32ff4db708ac96cce815adaa10b99ca29d5c230dcdee9"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "426ee25fc925ec121b47d19dd8151ee742a78bba7fcb751c031887b599da8220"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "e004f2c6f4ae7fea5a9909fec479a50ecfb8363ffc349bfb6688571eea36bb61"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "8d0ea908a267f7b55d08fcac5701ba521d6a870ca6882bff73a42c6ef767b57a"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "4e40f79676d7cd7fa6467cae5dc7f5f2c9a6c23f4fa346140f57c4913a69b36e"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "5c87b76a6c9924a363acb3e289962494244e3fbc67e3580ddb37b9865e7dfa03"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "79ff900ea0b9e498fca5bf14aeb3a4c1bbb5f326ce3f3c7620bb5f0098795784"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "9f27a82b2a410bea05780a09ccf665bcffeff206f768aff5baf1ec8d9b9b5de4"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "db7495f015f27634e2cfbec5a82145b2ea1ce2667318d8c47a5060e8fcc0992a"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "3f775e9fb499a3546fa72d8f2de9b13301ddc97b0f8a42250366693cd99a7416"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "bf847f193bb5ae13005b0afedfe727352b621b345aea5f4eb183e00c3f520691"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "c18b226df8e6cdb16b02bb6f94d27c72d43c88d417a48d83357e28fd5e2667cb"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "7dad83d2468c822f23bb0a6438851655cae6bbbf6c055a1bfa7bea6121be5ae6"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "e9030fbe2a6ae13fc904a6748dd17636181548d2c5bbc8d42ecd71dd87d0bd69"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "4c1c307b68e8c60b70f107b61d4787c4133d6ba81cee2be6102faadd65b071ab"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "b7fe00e992353f5049635ed9f45b464b684f9e2fd3f3dd0baca93a0256ae2507"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "a95ce79888c2e1efaf0e4c5df7729154797e4226083cfd6af38a9149b76a4dbb"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "df2c0df77776645ee04e75fd097c478ed8d9c908f2f23912de2665c072266b8b"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "bd07637c9fe81b8289850d01f4a9ced3eb25a4eddad17e70ddb39f211c0567b7"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "8a7344177e69d88f8150ff9a47d82355c97914c490cd27b45458ab2e6f80c524"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "8da641174e5478354f0d435c45444b3dfa42d8c65312ae7ead0434c3273929f0"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "c7568f44f1466ba8264c9ee830c870af0391ae0b1a0adcadada57adf020b2fc2"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "36f3c3bd97da1442dc63e137a136767a419284e5db2ab59d4860530cd51ccb4b"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "438df32aa0c8c6673c7aa35de1fdf3f36f3855d5180e31da7b70310ff4f736de"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78/S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "ac9c665f39b463282572e6539dc165bdb7e8b94eedf649391335919188550e28"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "c716309723879d969225d29b349be85bdf31e561bec5b4bfdd6090e4db1fa744"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "984067a6024010275fea6d40efe6131b270dfcb2739c10a8b1013aa52f1e25b8"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05/S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "7bd58afb1aeeee69c1ee30b0f4390ab64edb559f339f8886e1c7561940c0b029"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ_13_82/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ_13_82_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "ed02c169a1d4f995265055f20c56bf4d66d6b10eb7073be06416f90da7d0bdb5"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ_13_82/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ_13_82_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "872e469b764bb14d29334233086468c9895bc6244abcdba878fe69c167070001"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ_13_82/S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ_13_82_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "8eb1132940cda5a132a7f7316b94214acd028c3ecec600ffee4f697a0b414524"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "fb775866c28cdf261a9717fb7a8fcec748b77cfb8acd0ca497ac809e0f16bb23"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "b11454cdaefaf9d8f8ec080aefb44df9ad5d732f309465dd35945a219aee2e25"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04/S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "1ef67a2ed9a1254b618920fcded53368f9d93c800c99e58ac916f9519e260ce4"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "22a9fb1213ef9b193401bf45566f79fa261729a53674c20ea2151a392044159a"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "b3da6fac4f2e236b75037d1c08015d228826c389558f780c73d1b4b5f3ff37b8"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68/S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "0d29d12506c49a216ecd7db942f99edb477e61ed67e4aed5ac5d03706bda2cca"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "040d9b0d5f6a5b146b4473158642d2364a518a1500ef2abd55e6f6dce804e9d3"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "5b5a4ac3b6948793bb9f3102220d8addca4bd30fb9c3bb88e82561fd98e0ac50"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86/S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "6c051b58ff96aaa8635cd79e9441a013c88100e976bac7162c6aea652b73c60d"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "2efbc69757cb5ecb56cf78e219d8c374506c40036aa1cd2ca8578f8e6dd05a31"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "89e941af89d4ccbaa695dfb766c04566035a591d5986a5e681c1939c9cb64bd8"
+        },
+        {
+          "name": "BigEarthNet-S2/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43/S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "24bbe03bb82674c9796e518fb2f76eda4441481218f233c6e8f31b358a03b116"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "b1d595946e5b701bbcc9c17bd13d3962da36f1b4d8db6237d21410c3fb43d7c2"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "0724c95c7d6215196e8c148d635e82d5aae3172f16c76fb453f818330941d7bc"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36/S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "f48820e53e89e5f71ce549a9392743ade91223d65a4deb732d702534f7547a6d"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "747539be6829d99a21235ebba7b4218650c0d86965928d6723aff1c4ca413c46"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "3687fc14446d3c26810ba7eb72080003de3381cc209c17221bdaa19cbfefb8ed"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21/S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "a2c54d4ebe16506529e3b660ffa32e6480f9cffc0ad31020f37a9113433e80a6"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "b61294fbe34e2c0706948263c28c22351eceeab84251460123a7019c2e3b3238"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "8da8ace07ad7de05160161b0a180bae52be933aa58519c9d6065bc2a7358fc5d"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "572d183b2a6187e87eba7b3dae649972dc2deccb7e529db52b14ba247ce97ee7"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49_B04.tif",
+          "size_bytes": 29196,
+          "sha256": "aac8776405ec54fae288b73814d85daa1be3d9b77942fee5fba5e9e0a3be6038"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49_B03.tif",
+          "size_bytes": 29196,
+          "sha256": "218174c6d555c359eb8dedd86a73f2bfc24dde7765a0464eaf952ce00408ee16"
+        },
+        {
+          "name": "BigEarthNet-S2/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49/S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49_B02.tif",
+          "size_bytes": 29196,
+          "sha256": "e578b78a941c87a796609a6f0a5f194e92d9a20cc3ef9882c29ba2af9c118902"
+        }
+      ]
+    }
+  ],
+  "technical_completion": {
+    "version": "archive-data-access-v1-completion",
+    "source_tiffs": 100,
+    "created_files": 75,
+    "reused_files": 25,
+    "selected_payload_bytes": 2214854,
+    "new_technically_validated_patches": 25,
+    "new_text_verified_patches": 0,
+    "new_text_unknown_patches": 25,
+    "existing_validated_patches": 13,
+    "distinct_validated_patches": 38,
+    "duplicate_patch_ids": 0,
+    "duplicate_native_footprints_with_development": [],
+    "projected_envelope_overlaps_with_development": [],
+    "spatial_groups": 25,
+    "split_counts": {
+      "development": 22,
+      "test": 16
+    },
+    "new_split_counts": {
+      "test": 16,
+      "development": 9
+    },
+    "new_images_in_anchored_development_groups": 0,
+    "spatial_assignments": [
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_55",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_61",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_56",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_57",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_58",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_59",
+        "group_id": "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+        "split": "development",
+        "component_size": 13
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53",
+        "group_id": "S2B_MSIL2A_20170801T095029_N9999_R079_T33TXN_01_53",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05",
+        "group_id": "S2B_MSIL2A_20170824T100019_N9999_R122_T33TWM_39_05",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82",
+        "group_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82",
+        "split": "test",
+        "component_size": 2
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75",
+        "group_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90",
+        "group_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_76_90",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36",
+        "group_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33TWN_29_36",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36",
+        "group_id": "S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_08_36",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01",
+        "group_id": "S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_25_01",
+        "split": "development",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26",
+        "group_id": "S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_09_26",
+        "split": "development",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80",
+        "group_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_17_80",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51",
+        "group_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_51",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65",
+        "group_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_27_65",
+        "split": "development",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03",
+        "group_id": "S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_78_03",
+        "split": "development",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27",
+        "group_id": "S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_89_27",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78",
+        "group_id": "S2B_MSIL2A_20171219T095409_N9999_R079_T33TXN_07_78",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05",
+        "group_id": "S2B_MSIL2A_20170923T100019_N9999_R122_T33TWM_59_05",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33UXQ_13_82",
+        "group_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_12_82",
+        "split": "test",
+        "component_size": 2
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04",
+        "group_id": "S2A_MSIL2A_20171015T095031_N9999_R079_T33UXP_28_04",
+        "split": "development",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68",
+        "group_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33UWQ_33_68",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86",
+        "group_id": "S2B_MSIL2A_20171219T095409_N9999_R079_T33TWN_70_86",
+        "split": "test",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43",
+        "group_id": "S2A_MSIL2A_20180506T100031_N9999_R122_T33UWP_79_43",
+        "split": "development",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36",
+        "group_id": "S2B_MSIL2A_20180428T095029_N9999_R079_T33TXN_10_36",
+        "split": "development",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21",
+        "group_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_03_21",
+        "split": "development",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85",
+        "group_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXQ_03_85",
+        "split": "development",
+        "component_size": 1
+      },
+      {
+        "patch_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49",
+        "group_id": "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_30_49",
+        "split": "test",
+        "component_size": 1
+      }
+    ],
+    "coverage": {
+      "all": {
+        "intent": [
+          {
+            "intent_id": "single-forest",
+            "family_id": "forest-water",
+            "true": 29,
+            "false": 9,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 25,
+            "positive_groups": 16,
+            "negative_groups": 9,
+            "positive_outside_largest_group": 16,
+            "negative_outside_largest_group": 8
+          },
+          {
+            "intent_id": "single-inland-water",
+            "family_id": "forest-water",
+            "true": 7,
+            "false": 31,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 25,
+            "positive_groups": 2,
+            "negative_groups": 24,
+            "positive_outside_largest_group": 1,
+            "negative_outside_largest_group": 24
+          },
+          {
+            "intent_id": "single-arable-land",
+            "family_id": "arable-pasture",
+            "true": 22,
+            "false": 16,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 25,
+            "positive_groups": 17,
+            "negative_groups": 9,
+            "positive_outside_largest_group": 17,
+            "negative_outside_largest_group": 8
+          },
+          {
+            "intent_id": "single-pasture",
+            "family_id": "arable-pasture",
+            "true": 8,
+            "false": 30,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 25,
+            "positive_groups": 3,
+            "negative_groups": 23,
+            "positive_outside_largest_group": 2,
+            "negative_outside_largest_group": 23
+          },
+          {
+            "intent_id": "both-forest-water",
+            "family_id": "forest-water",
+            "true": 6,
+            "false": 32,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 25,
+            "positive_groups": 1,
+            "negative_groups": 25,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 25
+          },
+          {
+            "intent_id": "adjacent-forest-water",
+            "family_id": "forest-water",
+            "true": 6,
+            "false": 32,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 25,
+            "positive_groups": 1,
+            "negative_groups": 25,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 25
+          },
+          {
+            "intent_id": "both-arable-pasture",
+            "family_id": "arable-pasture",
+            "true": 4,
+            "false": 34,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 25,
+            "positive_groups": 2,
+            "negative_groups": 24,
+            "positive_outside_largest_group": 1,
+            "negative_outside_largest_group": 24
+          },
+          {
+            "intent_id": "adjacent-arable-pasture",
+            "family_id": "arable-pasture",
+            "true": 4,
+            "false": 34,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 25,
+            "positive_groups": 2,
+            "negative_groups": 24,
+            "positive_outside_largest_group": 1,
+            "negative_outside_largest_group": 24
+          }
+        ],
+        "family": [
+          {
+            "family_id": "forest-water",
+            "true": 48,
+            "false": 104,
+            "unknown": 0,
+            "patch_intent_count": 152,
+            "judged_fraction": 1.0,
+            "unique_images": 38
+          },
+          {
+            "family_id": "arable-pasture",
+            "true": 38,
+            "false": 114,
+            "unknown": 0,
+            "patch_intent_count": 152,
+            "judged_fraction": 1.0,
+            "unique_images": 38
+          }
+        ],
+        "relations": [
+          {
+            "intent_id": "adjacent-forest-water",
+            "family_id": "forest-water",
+            "both_present": 6,
+            "missing_class": 32,
+            "unknown_presence": 0,
+            "true": 6,
+            "false": 0,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 1,
+            "true_outside_largest_group": 0,
+            "false_outside_largest_group": 0
+          },
+          {
+            "intent_id": "adjacent-arable-pasture",
+            "family_id": "arable-pasture",
+            "both_present": 4,
+            "missing_class": 34,
+            "unknown_presence": 0,
+            "true": 4,
+            "false": 0,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 2,
+            "true_outside_largest_group": 1,
+            "false_outside_largest_group": 0
+          }
+        ]
+      },
+      "development": {
+        "intent": [
+          {
+            "intent_id": "single-forest",
+            "family_id": "forest-water",
+            "true": 18,
+            "false": 4,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 10,
+            "positive_groups": 6,
+            "negative_groups": 4,
+            "positive_outside_largest_group": 5,
+            "negative_outside_largest_group": 3
+          },
+          {
+            "intent_id": "single-inland-water",
+            "family_id": "forest-water",
+            "true": 7,
+            "false": 15,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 10,
+            "positive_groups": 2,
+            "negative_groups": 9,
+            "positive_outside_largest_group": 1,
+            "negative_outside_largest_group": 8
+          },
+          {
+            "intent_id": "single-arable-land",
+            "family_id": "arable-pasture",
+            "true": 10,
+            "false": 12,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 10,
+            "positive_groups": 6,
+            "negative_groups": 5,
+            "positive_outside_largest_group": 5,
+            "negative_outside_largest_group": 4
+          },
+          {
+            "intent_id": "single-pasture",
+            "family_id": "arable-pasture",
+            "true": 7,
+            "false": 15,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 10,
+            "positive_groups": 2,
+            "negative_groups": 9,
+            "positive_outside_largest_group": 1,
+            "negative_outside_largest_group": 8
+          },
+          {
+            "intent_id": "both-forest-water",
+            "family_id": "forest-water",
+            "true": 6,
+            "false": 16,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 10,
+            "positive_groups": 1,
+            "negative_groups": 10,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 9
+          },
+          {
+            "intent_id": "adjacent-forest-water",
+            "family_id": "forest-water",
+            "true": 6,
+            "false": 16,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 10,
+            "positive_groups": 1,
+            "negative_groups": 10,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 9
+          },
+          {
+            "intent_id": "both-arable-pasture",
+            "family_id": "arable-pasture",
+            "true": 3,
+            "false": 19,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 10,
+            "positive_groups": 1,
+            "negative_groups": 10,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 9
+          },
+          {
+            "intent_id": "adjacent-arable-pasture",
+            "family_id": "arable-pasture",
+            "true": 3,
+            "false": 19,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 10,
+            "positive_groups": 1,
+            "negative_groups": 10,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 9
+          }
+        ],
+        "family": [
+          {
+            "family_id": "forest-water",
+            "true": 37,
+            "false": 51,
+            "unknown": 0,
+            "patch_intent_count": 88,
+            "judged_fraction": 1.0,
+            "unique_images": 22
+          },
+          {
+            "family_id": "arable-pasture",
+            "true": 23,
+            "false": 65,
+            "unknown": 0,
+            "patch_intent_count": 88,
+            "judged_fraction": 1.0,
+            "unique_images": 22
+          }
+        ],
+        "relations": [
+          {
+            "intent_id": "adjacent-forest-water",
+            "family_id": "forest-water",
+            "both_present": 6,
+            "missing_class": 16,
+            "unknown_presence": 0,
+            "true": 6,
+            "false": 0,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 1,
+            "true_outside_largest_group": 0,
+            "false_outside_largest_group": 0
+          },
+          {
+            "intent_id": "adjacent-arable-pasture",
+            "family_id": "arable-pasture",
+            "both_present": 3,
+            "missing_class": 19,
+            "unknown_presence": 0,
+            "true": 3,
+            "false": 0,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 1,
+            "true_outside_largest_group": 0,
+            "false_outside_largest_group": 0
+          }
+        ]
+      },
+      "test": {
+        "intent": [
+          {
+            "intent_id": "single-forest",
+            "family_id": "forest-water",
+            "true": 11,
+            "false": 5,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 15,
+            "positive_groups": 10,
+            "negative_groups": 5,
+            "positive_outside_largest_group": 9,
+            "negative_outside_largest_group": 4
+          },
+          {
+            "intent_id": "single-inland-water",
+            "family_id": "forest-water",
+            "true": 0,
+            "false": 16,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 15,
+            "positive_groups": 0,
+            "negative_groups": 15,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 14
+          },
+          {
+            "intent_id": "single-arable-land",
+            "family_id": "arable-pasture",
+            "true": 12,
+            "false": 4,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 15,
+            "positive_groups": 11,
+            "negative_groups": 4,
+            "positive_outside_largest_group": 10,
+            "negative_outside_largest_group": 3
+          },
+          {
+            "intent_id": "single-pasture",
+            "family_id": "arable-pasture",
+            "true": 1,
+            "false": 15,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 15,
+            "positive_groups": 1,
+            "negative_groups": 14,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 13
+          },
+          {
+            "intent_id": "both-forest-water",
+            "family_id": "forest-water",
+            "true": 0,
+            "false": 16,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 15,
+            "positive_groups": 0,
+            "negative_groups": 15,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 14
+          },
+          {
+            "intent_id": "adjacent-forest-water",
+            "family_id": "forest-water",
+            "true": 0,
+            "false": 16,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 15,
+            "positive_groups": 0,
+            "negative_groups": 15,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 14
+          },
+          {
+            "intent_id": "both-arable-pasture",
+            "family_id": "arable-pasture",
+            "true": 1,
+            "false": 15,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 15,
+            "positive_groups": 1,
+            "negative_groups": 14,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 13
+          },
+          {
+            "intent_id": "adjacent-arable-pasture",
+            "family_id": "arable-pasture",
+            "true": 1,
+            "false": 15,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 15,
+            "positive_groups": 1,
+            "negative_groups": 14,
+            "positive_outside_largest_group": 0,
+            "negative_outside_largest_group": 13
+          }
+        ],
+        "family": [
+          {
+            "family_id": "forest-water",
+            "true": 11,
+            "false": 53,
+            "unknown": 0,
+            "patch_intent_count": 64,
+            "judged_fraction": 1.0,
+            "unique_images": 16
+          },
+          {
+            "family_id": "arable-pasture",
+            "true": 15,
+            "false": 49,
+            "unknown": 0,
+            "patch_intent_count": 64,
+            "judged_fraction": 1.0,
+            "unique_images": 16
+          }
+        ],
+        "relations": [
+          {
+            "intent_id": "adjacent-forest-water",
+            "family_id": "forest-water",
+            "both_present": 0,
+            "missing_class": 16,
+            "unknown_presence": 0,
+            "true": 0,
+            "false": 0,
+            "unknown": 0,
+            "judged_fraction": null,
+            "spatial_groups": 0,
+            "true_outside_largest_group": 0,
+            "false_outside_largest_group": 0
+          },
+          {
+            "intent_id": "adjacent-arable-pasture",
+            "family_id": "arable-pasture",
+            "both_present": 1,
+            "missing_class": 15,
+            "unknown_presence": 0,
+            "true": 1,
+            "false": 0,
+            "unknown": 0,
+            "judged_fraction": 1.0,
+            "spatial_groups": 1,
+            "true_outside_largest_group": 0,
+            "false_outside_largest_group": 0
+          }
+        ]
+      }
+    },
+    "relation_controls": {
+      "all": {
+        "adjacent-forest-water": [
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55"
+        ],
+        "adjacent-arable-pasture": [
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_59",
+          "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75"
+        ]
+      },
+      "development": {
+        "adjacent-forest-water": [
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_56",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_57",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_58",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_59",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_27_60",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55"
+        ],
+        "adjacent-arable-pasture": [
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_26_57",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_55",
+          "S2A_MSIL2A_20170613T101031_N9999_R022_T33UUP_28_59"
+        ]
+      },
+      "test": {
+        "adjacent-forest-water": [],
+        "adjacent-arable-pasture": [
+          "S2B_MSIL2A_20170831T095029_N9999_R079_T33UXP_24_75"
+        ]
+      }
+    },
+    "benchmark_status": "blocked-not-frozen",
+    "freeze_blockers": [
+      "225 selected patches lack verified RGB/map access",
+      "single-forest: candidate count 16 < 20",
+      "single-forest: negatives 5 < 10",
+      "single-forest: positive dispersion 9 < 10",
+      "single-inland-water: candidate count 16 < 20",
+      "single-inland-water: positives 0 < 10",
+      "single-inland-water: positive dispersion 0 < 10",
+      "single-arable-land: candidate count 16 < 20",
+      "single-arable-land: negatives 4 < 10",
+      "single-pasture: candidate count 16 < 20",
+      "single-pasture: positives 1 < 10",
+      "single-pasture: positive dispersion 0 < 10",
+      "both-forest-water: candidate count 16 < 20",
+      "both-forest-water: positives 0 < 10",
+      "both-forest-water: positive dispersion 0 < 10",
+      "adjacent-forest-water: candidate count 16 < 20",
+      "adjacent-forest-water: positives 0 < 10",
+      "adjacent-forest-water: positive dispersion 0 < 10",
+      "both-arable-pasture: candidate count 16 < 20",
+      "both-arable-pasture: positives 1 < 10",
+      "both-arable-pasture: positive dispersion 0 < 10",
+      "adjacent-arable-pasture: candidate count 16 < 20",
+      "adjacent-arable-pasture: positives 1 < 10",
+      "adjacent-arable-pasture: positive dispersion 0 < 10",
+      "adjacent-forest-water: relation true 0 below requirement 10",
+      "adjacent-forest-water: relation false 0 below requirement 10",
+      "adjacent-forest-water: true dispersion 0 below requirement 5",
+      "adjacent-forest-water: false dispersion 0 below requirement 5",
+      "adjacent-forest-water: control groups 0 below requirement 3",
+      "adjacent-forest-water: control judged fraction nan below requirement 1.0",
+      "adjacent-arable-pasture: relation true 1 below requirement 10",
+      "adjacent-arable-pasture: relation false 0 below requirement 10",
+      "adjacent-arable-pasture: true dispersion 0 below requirement 5",
+      "adjacent-arable-pasture: false dispersion 0 below requirement 5",
+      "adjacent-arable-pasture: control groups 1 below requirement 3",
+      "25 selected patches lack matching text annotation evidence"
+    ],
+    "no_model_execution": true
+  },
+  "verification": {
+    "date": "2026-10-13",
+    "pytest": "82 passed; none skipped",
+    "ruff_src_tests_scripts": "check and format passed",
+    "notebook_fresh_kernel": "passed",
+    "changed_notebook_cells_ruff_findings": 0,
+    "unchanged_notebook_style_findings": 22,
+    "visual_inspection": "First three planned RGB/map pairs and spatial plot inspected; broad correspondence, unresolved fine structures; reference states unchanged."
+  }
 }

@@ -19,7 +19,7 @@ import zstandard
 from earth_observation.raster import patch_files
 
 
-def verify_archive(path: Path, asset: dict) -> dict:
+def verify_archive(path: Path, asset: dict, receipt_path: Path | None = None) -> dict:
     """Verify a complete archive against the published byte size and MD5.
 
     Parameters
@@ -28,6 +28,11 @@ def verify_archive(path: Path, asset: dict) -> dict:
         Complete local archive; symbolic links are rejected.
     asset : dict
         Official filename, size_bytes and md5 from the pinned Zenodo record.
+    receipt_path : Path, optional
+        Local downloader's verified receipt. Reuse requires matching identity
+        and archive modification/change times no later than the receipt.
+        Receipts are trusted local outputs, not remote or user-supplied claims.
+        Missing/stale receipts trigger hashing; they never excuse a mismatch.
 
     Returns
     -------
@@ -43,6 +48,20 @@ def verify_archive(path: Path, asset: dict) -> dict:
         raise ValueError("Archive must be a regular local file")
     if path.stat().st_size != asset["size_bytes"]:
         raise ValueError("Archive is incomplete or has the wrong size")
+    before = path.stat()
+    if receipt_path is not None and receipt_path.is_file():
+        receipt = json.loads(receipt_path.read_text())
+        if (
+            receipt.get("status") == "verified"
+            and receipt.get("name") == asset["name"]
+            and receipt.get("size_bytes") == asset["size_bytes"]
+            and receipt.get("md5") == asset["md5"]
+            and isinstance(receipt.get("sha256"), str)
+            and len(receipt["sha256"]) == 64
+            and max(before.st_mtime_ns, before.st_ctime_ns)
+            <= receipt_path.stat().st_mtime_ns
+        ):
+            return {k: receipt[k] for k in ("name", "size_bytes", "md5", "sha256")}
     md5 = hashlib.md5(usedforsecurity=False)
     sha256 = hashlib.sha256()
     with path.open("rb") as source:
@@ -51,6 +70,10 @@ def verify_archive(path: Path, asset: dict) -> dict:
             sha256.update(block)
     if md5.hexdigest() != asset["md5"]:
         raise ValueError("Archive published MD5 mismatch; preserve and investigate")
+    after = path.stat()
+    identity_fields = ("st_dev", "st_ino", "st_size", "st_mtime_ns", "st_ctime_ns")
+    if any(getattr(after, key) != getattr(before, key) for key in identity_fields):
+        raise ValueError("Archive changed during checksum verification")
     return {
         "name": asset["name"],
         "size_bytes": path.stat().st_size,
@@ -116,7 +139,7 @@ def download_archive(
         raise ValueError("Archive cache paths must not be symbolic links")
     if target.exists():
         return {
-            **verify_archive(target, asset),
+            **verify_archive(target, asset, progress_path),
             "downloaded_bytes": 0,
             "reused_bytes": asset["size_bytes"],
             "ranges": [],
@@ -261,6 +284,7 @@ def extract_archive_selection(
     member_names: list[str],
     raw_root: Path,
     selected_budget_bytes: int = 67108864,
+    verification_receipt: Path | None = None,
 ) -> dict:
     """Scan one verified archive sequentially and persist only exact TIFF names.
 
@@ -277,6 +301,9 @@ def extract_archive_selection(
     selected_budget_bytes : int
         Maximum selected uncompressed payload bytes held in memory and saved.
         The full tar is scanned for missing/duplicate names without saving it.
+    verification_receipt : Path, optional
+        Unchanged archive's trusted local complete-download receipt. See
+        verify_archive for identity and file-time checks before reuse.
 
     Returns
     -------
@@ -291,7 +318,7 @@ def extract_archive_selection(
         selected payload or incompatible existing file. Paths are never chosen
         by tar extraction APIs. Unknown/missing members are not substituted.
     """
-    verified = verify_archive(archive_path, asset)
+    verified = verify_archive(archive_path, asset, verification_receipt)
     prefix = asset["name"].removesuffix(".tar.zst")
     expected = set(member_names)
     if not expected or len(expected) != len(member_names):

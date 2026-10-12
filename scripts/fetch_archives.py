@@ -70,7 +70,11 @@ def main() -> None:
         if arguments.stage in {"extract", "all"}:
             # Verify both complete sources before using any new partial source.
             for asset in manifest["archives"]:
-                verify_archive(store / asset["name"], asset)
+                verify_archive(
+                    store / asset["name"],
+                    asset,
+                    store / (asset["name"] + ".progress.json"),
+                )
             extracted = []
             remaining_budget = design["selection"]["additional_raster_budget_bytes"]
             for asset in manifest["archives"]:
@@ -83,6 +87,7 @@ def main() -> None:
                         exact_names,
                         root / "data/raw",
                         selected_budget_bytes=remaining_budget,
+                        verification_receipt=store / (asset["name"] + ".progress.json"),
                     )
                 )
                 remaining_budget -= extracted[-1]["selected_bytes"]

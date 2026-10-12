@@ -175,7 +175,7 @@ matches the previous inventory SHA-256
 
 | Archive | Exact bytes | Published MD5 | Current validation |
 | --- | ---: | --- | --- |
-| BigEarthNet-S2.tar.zst | 63,251,710,377 | `2245ed2d1a93f6ce637d839bc856396e` | Partial transfer; not validated |
+| BigEarthNet-S2.tar.zst | 63,251,710,377 | `2245ed2d1a93f6ce637d839bc856396e` | Complete; MD5 passed |
 | Reference_Maps.tar.zst | 282,391,301 | `95d85a222fa983faddcac51a19f28917` | Complete; MD5 passed |
 
 The map archive's measured SHA-256 is
@@ -185,8 +185,9 @@ All 282,391,301 map bytes were actually acquired. After a premature EOF at
 the complete MD5 passed. The S2 transfer initially retained 1,448,083,456 bytes
 before a deliberate switch to 64-MiB requests. Subsequent requests demonstrably
 resume from that nonzero offset rather than downloading the beginning again.
-Mutable progress is recorded locally; this document does not equate a started
-or partially received S2 archive with a complete verified source.
+The subsequent download completed and the published S2 MD5 passed. Its measured
+SHA-256 is `fa3464f732865b3caeafe905390fb889dce2705fa87cd6bc626c0bd426dff58f`.
+The download process is finished; the final resume used download mode only.
 
 At preflight the disk had about 1.1 TiB free, versus 63,534,101,678 archive bytes
 plus at most 64 MiB of selected TIFFs and small logs/buffers. Partial-to-final
@@ -225,49 +226,87 @@ Do not launch another writer while it runs.
 After a stopped/failed job, the reproduction command resumes identified partial
 files. Explicit `--stage download` or `--stage extract` isolates the same stages.
 
-After **both** complete archive checks the background command scans the tar
+After **both** complete archive checks the extraction command scans the tar
 streams sequentially, holding only selected payloads. It rejects missing or
 duplicate selected names, links, path traversal, output symlinks, excessive
 selected payload and incompatible existing bytes. Nonselected members are
 never written. The full scan checks selected-name uniqueness without retaining
 millions of tar header objects. Outputs use the existing native raw-data layout.
-The automatic command ends after extraction; it does not assign splits,
+The extraction command ends after extraction; it does not assign splits,
 calculate embeddings, run models or freeze the benchmark.
 
-### Measured partial evidence and remaining work
+### Completed native extraction and validation (2026-10-13)
 
-The complete reference archive already yielded all 25 exact requested maps:
-25 newly extracted files totaling **25,154 bytes**; zero selected-map files were
-reused. Source member sizes/SHA-256 are versioned in the acquisition manifest.
-All 25 were read as one-band 120×120 uint16 EPSG:32633 rasters, with native 10-m
-cells, declared NoData 0 and zero masked pixels. Their transforms/extents are
-recorded locally. They inherit generalized CLC2018 semantics; no reference rule
-or underlying accuracy is changed by extraction or 10-m storage.
+```bash
+uv run python scripts/fetch_archives.py --stage extract
+uv run python scripts/validate_archive_access.py
+uv run jupyter nbconvert --to notebook --execute --inplace notebooks/02_benchmark_construction.ipynb
+```
 
-Map-only true/false/unknown counts are forest 16/9/0, water 1/24/0,
-arable 17/8/0, pasture 2/23/0; forest/water conjunction/adjacency 0/25/0;
-arable/pasture 1/24/0. Both-present relation controls are 0/0/0 and 1/0/0.
-Nine potential forest negatives are newly evidenced, but no both-present false
-relation. These are **not** measured retrieval/test counts. The 75 RGB TIFFs,
-complete image/map alignment and native spatial components remain pending;
-new Development/Test assignments are zero. Existing candidate v2 remains blocked.
+This completion started **zero downloads**. Exact archive names/sizes and existing
+verified MD5/SHA-256 receipts were checked. Receipt reuse additionally requires
+matching asset identity and archive modification/change times no newer than the
+trusted local receipt. Changed/stale files trigger a new checksum pass or fail;
+complete validation is not bypassed. Both streams were then sequentially scanned
+for exact member uniqueness, without extra complete checksum passes beforehand.
 
-An exact 25-ID text filter returned HTTP 502. A bounded first-ID retry timed out;
-no successful response or text assignment is claimed. This is an additional
-source-validation dependency, not a reason to fetch the 466-MB text parquet.
+Exactly **100 original TIFFs** for the same first 25 IDs are present: 75 new
+B04/B03/B02 files and 25 reused original maps, totaling **2,214,854 bytes**.
+The original 52 TIFFs remain unchanged. Member sizes/SHA-256 and both verified
+archive identities are recorded in the acquisition manifest.
 
-Notebook section 12 ran from a fresh kernel and displays three fixed-position
-original map examples plus map-only coverage. The map figure was visually
-inspected for discrete classes, extent labels and readable layout. New RGB/map
-comparisons and visual alignment checks remain unavailable. The continuation
-stays Draft until S2 checksum verification, 100-TIFF completeness, full
-raster/text validation and the unchanged spatial/coverage protocol are completed.
+All 25 new pairs passed actual byte/catalog/band/grid/extent/dtype/NoData/value
+checks. Native RGB/map geometry is identical: EPSG:32633, 120×120 single bands,
+uint16, 10×10-m cells, NoData 0 and zero masked RGB values. Valid RGB DNs span
+1–17,824. RGB order is explicitly B04/B03/B02; the original member suffix and
+provider convention establish band identity, not absent descriptive TIFF tags.
+No resampling, silent repair or reference-rule change occurred.
 
-Verification at this partial-data checkpoint: **79 tests passed, none skipped**,
-including interrupted/ignored Range behavior, bounded failures, corrupt checksum
-rejection, safe selected-member extraction, real 25-map source/reference checks
-and the existing 13-image raster/text/spatial integration. Ruff check and format
-passed for `src tests scripts`; the fresh notebook has no execution errors.
-Both existing candidate input digests still validate and default loading refuses
-final evaluation. S2 requests subsequently encountered HTTP 504; retained bytes
-remain available for exact resume, with no claim of complete archive integrity.
+The combined inventory has **38 unique pairs in 25 components**. No new ID,
+identical native footprint, projected-envelope overlap or 2-km component connects
+to the existing 13 Development images. The existing seeded protocol assigns nine
+new images to Development and 16 to the Test side: totals **22 / 16**, in **10 /
+15 components**. These are measured source-stage assignments, not a frozen test
+benchmark, visual ground truth or an independence guarantee.
+
+| Reference intent | All 38 true/false/unknown | Test-side 16 true/false/unknown |
+| --- | --- | --- |
+| Forest | 29 / 9 / 0 | 11 / 5 / 0 |
+| Inland water | 7 / 31 / 0 | 0 / 16 / 0 |
+| Arable land | 22 / 16 / 0 | 12 / 4 / 0 |
+| Pasture | 8 / 30 / 0 | 1 / 15 / 0 |
+| Forest/water conjunction or adjacency | 6 / 32 / 0 | 0 / 16 / 0 |
+| Arable/pasture conjunction or adjacency | 4 / 34 / 0 | 1 / 15 / 0 |
+
+All-collection both-present controls have six and four true relations, zero
+false/unknown; test-side controls have zero and one true, still zero false.
+Main candidates retain all spatially assigned images. Controls are separate
+both-present subsets. Family totals are patch × intent counts (152 per family),
+not independent samples. The new batch still supplies nine forest negatives but
+no hard relation negatives. Test-side water/pasture and minimum-count/dispersion
+requirements remain inadequate. The other 225 planned IDs were not acquired.
+
+The local text snapshot contains only earlier Development IDs; all 25 new text
+pairings remain **unknown**, separately from complete technical raster checks.
+The previous bounded filter returned HTTP 502 and a first-ID retry timed out.
+No new text request or full text parquet was fetched under this completion's
+no-download constraint. Matching local rows or clarification allowing targeted
+small text requests are needed to close this source-validation item.
+
+Notebook sections 12–13 now display three fixed-position actual RGB/map pairs,
+spatial assignments and separate all/Development/Test intent/family/control
+coverage. RGB display uses fixed `clip(DN / 3000, 0, 1)` and masked pixels become
+NaN. Visual inspection found broad woodland/field correspondence, merged field
+strips and unresolved small clearings/structures. Gray known-other CLC regions
+are not missing labels. Technical alignment and visual plausibility do not
+improve generalized CLC2018 accuracy or redefine small-scale relation truth.
+
+Verification: **82 tests passed, none skipped**; Ruff check/format passed for
+`src tests scripts`; the notebook executed from a fresh kernel. Changed notebook
+cells have zero Ruff findings. There are 22 pre-existing style findings in
+untouched cells (20 long lines, two multiple-statement lines); no whole-notebook
+reformat was performed. Actual RGB/map and spatial figures were visually checked.
+Both original candidate input digests and default final-evaluation refusals
+remain valid. `benchmark-candidate-v2` stays `blocked-not-frozen`; no new benchmark
+candidate, model embeddings/rankings, statistics or final evaluation are created.
+PR #8 remains Draft while original text pairing is unresolved.

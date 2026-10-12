@@ -2,7 +2,45 @@
 
 ## Current State
 
-Updated: 2026-10-12.
+Updated: 2026-10-13.
+
+Latest archive-access completion evidence (PR #8):
+
+- Both official S2/map archives are complete, with published MD5 passed. Existing
+  verified receipts match current names/sizes and unchanged file times; extraction
+  did not run redundant full-archive hash passes or start downloads.
+- Exactly 100 original TIFFs for the unchanged first 25 planned IDs are present:
+  75 RGB files newly extracted, 25 valid maps reused, 2,214,854 selected bytes.
+  A complete sequential scan verified exact member names and uniqueness.
+- All 25 native pairs pass byte/catalog/band/grid/dtype/NoData/value checks:
+  B04/B03/B02, uint16, 120×120, EPSG:32633, 10-m cells, aligned map grid,
+  NoData 0, zero masked RGB values; observed valid DN range 1–17,824. No repair
+  or resampling. Original text records for these IDs are absent from local caches;
+  their text pairing remains explicitly unknown, awaiting clarification of the
+  no-download constraint on small text API requests. No source rows were invented.
+- There are 38 unique technically validated pairs in 25 components, with no ID
+  duplicates, duplicate native footprints or envelope overlaps with the original
+  13 Development images. New allocation: 9 Development / 16 Test-side images.
+  Total allocation: 22 Development / 16 Test-side images (10/15 components).
+  These measured assignments are not a frozen benchmark or model evaluation.
+- All-collection true/false/unknown: forest 29/9/0, water 7/31/0, arable 22/16/0,
+  pasture 8/30/0; forest/water composites 6/32/0, arable/pasture 4/34/0.
+  Both-present controls: 6/0/0 and 4/0/0. Test-side controls: 0/0/0 and 1/0/0.
+  Hard false relations remain absent; test-side water positives are zero and
+  pasture positives one. No criteria were relaxed and no additional IDs acquired.
+- `archive-data-access-v1` records extraction and measured coverage; original
+  `benchmark-candidate-v2` remains unchanged and `blocked-not-frozen`. The 225
+  remaining planned IDs, coverage minima and reference-scale suitability remain
+  separate prerequisites. No candidate revision, statistics or model runs.
+- Verification: 82 tests passed without skips, Ruff check/format passed for
+  src/tests/scripts, notebook freshly executed; three fixed-position RGB/map
+  pairs and the spatial figure visually inspected. Changed notebook cells have
+  no Ruff findings; 22 older style findings remain in untouched cells.
+- Remaining validation: obtain existing/local matching text rows or clarify
+  whether bounded text API requests are permitted. PR #8 stays Draft while
+  original text pairing is unresolved; no further archive access is needed.
+
+Historical implementation checkpoints follow.
 
 - Work packages 1–3 are merged (PRs #3–#5); Review 1 is complete. The unchanged
   `data-pilot-v1` has ten verified RGB/map pairs, all from one Austria tile.
@@ -89,7 +127,8 @@ Updated: 2026-10-12.
   `archive-data-access-v1`. An interrupted transfer resumed at byte 263,179,956
   with exact HTTP 206. The 25 maps total 25,154 bytes and were actually read:
   EPSG:32633, 120×120 uint16, native 10-m cells, NoData 0, zero masked pixels.
-- S2 acquisition is **in progress, not verified**. A one-time local macOS job
+- At the previous partial-stage checkpoint, S2 acquisition was in progress and
+  unverified. A one-time local macOS job
   resumes retained partial bytes in exact 64-MiB HTTP ranges; three consecutive
   network failures stop it. After both complete MD5 checks it automatically
   scans the archives sequentially and extracts only the fixed 100 TIFFs.
