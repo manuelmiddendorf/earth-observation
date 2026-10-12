@@ -1,0 +1,73 @@
+{
+  "version": "coverage-access-v1",
+  "checked_date": "2026-10-12",
+  "official_record": "https://zenodo.org/records/10891137",
+  "inventory": [
+    {
+      "name": "BigEarthNet-S1.tar.zst",
+      "size_bytes": 54439153171
+    },
+    {
+      "name": "metadata.parquet",
+      "size_bytes": 3616349
+    },
+    {
+      "name": "metadata_for_patches_with_snow_cloud_or_shadow.parquet",
+      "size_bytes": 710162
+    },
+    {
+      "name": "Reference_Maps.tar.zst",
+      "size_bytes": 282391301
+    },
+    {
+      "name": "BigEarthNet-S2.tar.zst",
+      "size_bytes": 63251710377
+    }
+  ],
+  "inventory_response_sha256": "96261dd63ba881d2114db64c27f31399924a1f8b90d3e3705809f25a6ecd6fef",
+  "official_hf_datasets": [
+    "BIFOLD-BigEarthNetv2-0/BigEarthNet.txt"
+  ],
+  "compression_recipe": "https://github.com/rsim-tu-berlin/bigearthnet-pipeline/blob/78551a68525fc26b15257b676f46c3c254be70cc/nu-scripts/zstd-compressor.nu",
+  "tail_probes": [
+    {
+      "name": "s2-tail-1024.bin",
+      "url": "https://zenodo.org/records/10891137/files/BigEarthNet-S2.tar.zst?download=1&coverage_range=63251709353-63251710376",
+      "size_bytes": 1024,
+      "byte_range": [
+        63251709353,
+        63251710376
+      ],
+      "archive_size_bytes": 63251710377,
+      "sha256": "04825b2ba095392084a43445cb25a2d0aa8ac8d43f939c2a345ec3b4a52dcab7",
+      "last_four_bytes_hex": "ea0c0a20",
+      "seekable_zstd_footer_present": false
+    },
+    {
+      "name": "maps-tail-1024.bin",
+      "url": "https://zenodo.org/records/10891137/files/Reference_Maps.tar.zst?download=1&coverage_range=282390277-282391300",
+      "size_bytes": 1024,
+      "byte_range": [
+        282390277,
+        282391300
+      ],
+      "archive_size_bytes": 282391301,
+      "sha256": "2cf458796133a67d26e08eab8c4243ed3d2ad2890d35ea503076cb4882f5eb49",
+      "last_four_bytes_hex": "3d686fef",
+      "seekable_zstd_footer_present": false
+    }
+  ],
+  "zstd_frames": {
+    "s2-prefix-2m.zst": {
+      "content_size_bytes": 102406983680,
+      "window_size_bytes": 2097152,
+      "dict_id": 0
+    },
+    "maps-prefix-256k.zst": {
+      "content_size_bytes": 1534300160,
+      "window_size_bytes": 2097152,
+      "dict_id": 0
+    }
+  },
+  "conclusion": "No verified arbitrary-patch access route: cached prefixes only; no listed member index or seekable footer. Do not replace the spatially broader selection with conveniently available early members or fetch full archives."
+}

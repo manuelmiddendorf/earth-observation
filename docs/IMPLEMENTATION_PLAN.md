@@ -4,70 +4,53 @@
 
 Updated: 2026-10-12.
 
-- Work package 1 is complete and PR #3 merged. Its unchanged ten-patch real
-  pilot remains available: thirty RGB bands, ten maps, verified source digests,
-  native alignment and visual inspection. No additional data were downloaded.
-- Work package 2 implements versioned raw CLC mapping for forest, inland water,
-  arable land and pasture; native projected areas and four-neighbor shared
-  boundary; three-state presence/conjunction/adjacency. Unknown pixels remain
-  in the full-area denominator with conservative area/contact evidence bounds.
-  Reusable calculations and specification validation live in `src/reference.py`.
-- `reference-rules-v1` and `query-specification-v1` are provisional development
-  specifications. Presence is inclusively 5% of full patch area; contact is
-  inclusively 60 m, also requiring both presences. These illustrative choices
-  require broader development validation before freeze. Equivalence to the
-  original BigEarthNet.txt adjacency generator is unconfirmed; our derived
-  definition is explicit. See `docs/REFERENCE_SPECIFICATION.md`.
-- Eight stable intents (24 English formulations) have two predeclared direct
-  families: forest/water and arable/pasture, each with two singles, conjunction
-  and adjacency. Package 3 subsequently added encoding and basic metrics;
-  bootstrap and the final benchmark remain unimplemented.
-- Observed pilot coverage (true/false/unknown): forest 10/0/0; inland water 6/4/0;
-  arable land 3/7/0; pasture 5/5/0. Forest/water conjunction and adjacency are
-  each 6/4/0; arable/pasture each 2/8/0. There is no forest-negative or
-  both-present/nonadjacent case for either pair. Coverage is insufficient for
-  an isolated relation test or a final benchmark claim; thresholds were not
-  retuned to create distinctions. The inspected source `test` patches serve
-  development inspection, not untouched final project evaluation.
-- The benchmark-construction notebook calculates evidence/coverage, shows three
-  fixed real RGB/map examples, and saves provisional decisions, coverage, figure
-  and input/output digests under ignored `outputs/`. No bulky arrays or raw data
-  are versioned. Axis units/display mapping and threshold-driven negatives are
-  distinguished from independent visual truth; no raster was resampled.
-- Validation: 32 tests passed, none skipped, including actual source/raster and
-  reference integration. Ruff lint/format pass. The second notebook ran from a
-  fresh kernel and its representative figure was visually inspected.
-- Review 1: separate final-diff audit of changed reference/specification/notebook
-  components is recorded in the reference specification. A version-provenance
-  gap was fixed: summaries carry their rule version and reject incompatible
-  query versions, with a regression test. No consequential finding remains open;
-  the scientific limitations above remain explicit.
-- Work package 2 and Review 1 were merged in PR #4 before starting package 3.
-- Work package 3 implements the identified official CLIP/RemoteCLIP ViT-B/32
-  checkpoints, explicit `model-rgb-v1` DN-to-uint8 conversion, checkpoint-specific
-  transforms/QuickGELU, frozen CPU inference, provenance-aware embedding caches,
-  complete deterministic cosine ranking and per-formulation P@10/AP. Maps enter
-  only after ranking; no relevance candidate filtering or metadata encoding.
-- Both real checkpoints ran on native arm64 Python 3.12.12, Apple M2 Pro / 32 GiB,
-  CPU float32, four threads, batch five. Ten images and 24 queries per model
-  produced 48 formulation results and 480 ranking rows. Measured load+encoding:
-  CLIP 2.8094 s, RemoteCLIP 2.9412 s, excluding downloads. Cache reuse preserved
-  artifact modification times and exactly equal result tables without encoding.
-- The third notebook reports all formulations, metric assumptions and selected
-  actual top-three images. First arable-land AP: CLIP 0.8095, RemoteCLIP 0.3417;
-  first inland-water AP: 0.6607 / 0.8179. These are development examples, not
-  aggregate model findings. P@10 equals prevalence with ten candidates. The
-  illustrated map-negative adjacency top result has 4.53% water, below the
-  unchanged 5% requirement; map agreement is not visual truth.
-- Package 3 verification: 53 tests passed, none skipped, including real model
-  artifact reuse; Ruff passed; notebook executed from a fresh kernel and real
-  top-result figure visually inspected. Focused self-check only; no agents or
-  additional full review. See `docs/RETRIEVAL_PILOT.md` for exact checkpoint
-  identities, runtime, metric edge cases and reproduction details.
-- Next: human review/merge, then work package 4 coverage analysis and benchmark
-  freeze. Do not select final queries/thresholds from these pilot rankings.
-  Broader coverage, spatial separation and a distinct relation-control set remain
-  open; no intent aggregation, bootstrap or final performance claim is made.
+- Work packages 1–3 are merged (PRs #3–#5); Review 1 is complete. The unchanged
+  `data-pilot-v1` has ten verified RGB/map pairs, all from one Austria tile.
+  Versioned provisional rules use 5% class presence and 60 m four-neighbor
+  contact, including both presences and three-state unknown evidence bounds.
+  Eight intents / 24 formulations have two direct families.
+- Official CLIP/RemoteCLIP ViT-B/32 checkpoints ran frozen with explicit RGB
+  conversion and checkpoint transforms on native arm64 Python 3.12.12, Apple
+  M2 Pro / 32 GiB, CPU float32/four threads. Exact deterministic rankings,
+  P@10/AP and identity-checked embedding reuse are verified. Development model
+  results are documented separately in `docs/RETRIEVAL_PILOT.md`; none informed
+  package 4's selection, split, thresholds or queries.
+- Package 4 implements country-balanced deterministic selection, verified native
+  spatial grouping, three-state intent/family coverage, separate both-present
+  controls, feasibility gates and candidate integrity validation in `src/benchmark.py`.
+  The existing benchmark-construction notebook is extended; no extra notebook.
+- All ten available patches form one EPSG:3035 envelope component at inclusive
+  2-km distance; all remain development, including any connected repeats/neighbors.
+  No verified held-out test images exist. Main true/false/unknown counts remain
+  forest 10/0/0, water 6/4/0, arable 3/7/0, pasture 5/5/0; conjunction/adjacency
+  each 6/4/0 and 2/8/0. Both-present controls have 6/0/0 and 2/0/0 relation states:
+  neither has a both-present false relation. Every intent has zero positives
+  outside its largest spatial component.
+- `coverage-selection-v1` plans 250 IDs, 25 per country, across 53 tiles from the
+  pinned 480,038-row clean catalog, excluding the previous development tile.
+  No class/model-driven selection. Equal-country enrichment is not representative
+  population sampling. Native geometry for planned IDs remains unverified.
+- Bounded-access assessment: official inventory has no listed patch index;
+  neither archive-end probe has a seekable-zstd footer; existing prefixes reach
+  zero selected IDs. Added 2,048 archive bytes and 13,711 source-inventory/recipe
+  bytes, zero new image/map patches and zero encoding runs. No full archives.
+- **Freeze blocked:** `benchmark-candidate-v1` is explicitly `blocked-not-frozen`.
+  It pins source/code/config/raw-input identities, available geometry/splits,
+  main/control IDs and reference states. Default loading refuses final evaluation;
+  false frozen status cannot bypass missing test inventory. No 250-image dataset,
+  adequate final coverage or completed final freeze is claimed.
+- `benchmark-design-v1` predeclares reference/spatial minimum coverage, unknown
+  handling, equal-intent aggregation, paired direct-family bootstrap, diagnostics
+  and rank-based error sampling for package 5. No statistics pipeline is added.
+  All eight intents and provisional semantic thresholds remain unchanged.
+- Verification: 62 tests passed, none skipped; Ruff passes; extended notebook ran
+  from a fresh kernel and real RGB/map/geographic examples were visually checked.
+  No agents, full-repository review or final model evaluation.
+- Next: provide an official indexed subset route or local subset with verifiable
+  provenance for the selected IDs. Then validate broader development plausibility,
+  native spatial separation and held-out main/control coverage under a new
+  candidate version before a real freeze. Package 5's final-evaluation prerequisite
+  remains unmet. See `docs/BENCHMARK_DESIGN.md` for exact rules and access evidence.
 
 Research reports and agent instructions are local working documents, excluded
 from the public repository. The public methodology is summarized in the README.
