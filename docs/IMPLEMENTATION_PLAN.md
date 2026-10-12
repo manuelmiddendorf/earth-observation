@@ -4,42 +4,45 @@
 
 Updated: 2026-10-12.
 
-- Foundation PR #1 and initial data-pilot PR #2 are merged. Work package 1 is
-  complete in a focused follow-up PR; no later-stage implementation exists.
-- Minimal uv/Python package, lockfile, pytest and Ruff remain in place. Reusable
-  source/cache/identity, bounded extraction and raster validation live in `src`;
-  inspection tables, display-only code names and plots remain in the existing
-  data-understanding notebook. zstandard was added for archive streaming;
-  the now-yanked notebook dependency soupsieve received a targeted lock update.
-- `data-pilot-v1 / archive-prefix-v1` preserves all ten selected IDs. Four pinned
-  text pages and the official catalog verify S2/S1 pairing. All patches belong
-  to one Austria tile with the provider's `test` split; this convenience sample
-  is not the project's final test set or a representative benchmark.
-- Bounded official access is verified: a 2-MiB S2 prefix and 256-KiB map prefix
-  contain the required thirty RGB bands and ten reference maps. Transfer:
-  2,359,296 bytes; retained TIFFs: 887,617 bytes. Original valid prefix bytes
-  were reused. No full archive, model weights or alternative data were fetched.
-- Manifest now records ranges, archive/member paths, sizes, SHA-256 digests and
-  observed native schema. HTTP ranges must be honored exactly. Prefix/member
-  hashes cannot verify the whole archive's published MD5. The unversioned text
-  API remains pinned by response digests, with the observed HF SHA as context.
-- All forty real rasters are uint16, 120×120, EPSG:32633, 10-m cells, NoData 0.
-  RGB/map transforms and footprints match within every patch. Text/raster
-  centers agree within 1e-8 degrees. Reference values are raw CLC level-3 IDs;
-  source code 999 (unlabeled) and NoData 0 remain distinct unknown information.
-- Validation: thirteen tests pass with no skips, including real text/catalog
-  and all-ten-patch raster integration. Ruff lint/format and locked uv sync
-  pass. A separate small empty cache reacquired four real files for the first
-  unchanged patch with matching hashes/alignment (524,288 transferred bytes).
-  The updated single notebook ran from a fresh kernel; three fixed real RGB/map
-  pairs were visually inspected. Broad landscape correspondence is plausible,
-  while small boundaries and forest subclasses are not visually verified truth.
-- No external blocker remains for the selected ten patches. Later arbitrary
-  member access, representative coverage and reference-rule validity remain
-  unverified. No relevance, aggregation, adjacency or retrieval was implemented.
-- Next action: human review/merge of the follow-up PR, then work package 2:
-  reference rules and query specification on development data, followed by the
-  planned scientific review checkpoint.
+- Work package 1 is complete and PR #3 merged. Its unchanged ten-patch real
+  pilot remains available: thirty RGB bands, ten maps, verified source digests,
+  native alignment and visual inspection. No additional data were downloaded.
+- Work package 2 implements versioned raw CLC mapping for forest, inland water,
+  arable land and pasture; native projected areas and four-neighbor shared
+  boundary; three-state presence/conjunction/adjacency. Unknown pixels remain
+  in the full-area denominator with conservative area/contact evidence bounds.
+  Reusable calculations and specification validation live in `src/reference.py`.
+- `reference-rules-v1` and `query-specification-v1` are provisional development
+  specifications. Presence is inclusively 5% of full patch area; contact is
+  inclusively 60 m, also requiring both presences. These illustrative choices
+  require broader development validation before freeze. Equivalence to the
+  original BigEarthNet.txt adjacency generator is unconfirmed; our derived
+  definition is explicit. See `docs/REFERENCE_SPECIFICATION.md`.
+- Eight stable intents (24 English formulations) have two predeclared direct
+  families: forest/water and arable/pasture, each with two singles, conjunction
+  and adjacency. No encoder, metric, bootstrap or final benchmark was added.
+- Observed pilot coverage (true/false/unknown): forest 10/0/0; inland water 6/4/0;
+  arable land 3/7/0; pasture 5/5/0. Forest/water conjunction and adjacency are
+  each 6/4/0; arable/pasture each 2/8/0. There is no forest-negative or
+  both-present/nonadjacent case for either pair. Coverage is insufficient for
+  an isolated relation test or a final benchmark claim; thresholds were not
+  retuned to create distinctions. The inspected source `test` patches serve
+  development inspection, not untouched final project evaluation.
+- The benchmark-construction notebook calculates evidence/coverage, shows three
+  fixed real RGB/map examples, and saves provisional decisions, coverage, figure
+  and input/output digests under ignored `outputs/`. No bulky arrays or raw data
+  are versioned. Axis units/display mapping and threshold-driven negatives are
+  distinguished from independent visual truth; no raster was resampled.
+- Validation: 32 tests passed, none skipped, including actual source/raster and
+  reference integration. Ruff lint/format pass. The second notebook ran from a
+  fresh kernel and its representative figure was visually inspected.
+- Review 1: separate final-diff audit of changed reference/specification/notebook
+  components is recorded in the reference specification. A version-provenance
+  gap was fixed: summaries carry their rule version and reject incompatible
+  query versions, with a regression test. No consequential finding remains open;
+  the scientific limitations above remain explicit.
+- Next: human review/merge, then work package 3 (frozen model development pilot).
+  Larger coverage analysis and final parameter/query freeze remain later work.
 
 Research reports and agent instructions are local working documents, excluded
 from the public repository. The public methodology is summarized in the README.

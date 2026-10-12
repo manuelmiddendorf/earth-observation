@@ -57,11 +57,18 @@ rasterizing a coarse map does not make its boundaries more accurate.
 
 ## Methodology
 
-The planned analysis follows four principles:
+The analysis follows four principles; reference construction is implemented
+provisionally, while model comparison and final evaluation remain planned:
 
-**Explicit relevance.** A retrieved image is relevant only if all specified
-conditions hold under the documented reference rules. Unknown annotations are
-not treated as negative labels.
+**Explicit relevance.** Implemented development rules aggregate raw CLC codes
+into forest, inland water, arable land and pasture. Presence requires a
+provisional 5% of full patch area. Adjacency requires both presences and at least
+60 m of summed four-neighbor shared boundary; corner contact does not count.
+Unknown map area yields evidence bounds and true/false/unknown conditions.
+These are our derived definitions, not a confirmed reconstruction of the
+original text-annotation generator. See the
+[reference specification](docs/REFERENCE_SPECIFICATION.md) and
+[benchmark-construction notebook](notebooks/02_benchmark_construction.ipynb).
 
 **Controlled comparisons.** Both models use the same queries and candidate
 images. A separate relation-control experiment contains both queried classes
@@ -109,6 +116,7 @@ uv run ruff check src tests scripts
 uv run ruff format --check src tests scripts
 uv run python -m ipykernel install --sys-prefix --name earth-observation
 uv run jupyter nbconvert --to notebook --execute --inplace notebooks/01_data_understanding.ipynb
+uv run jupyter nbconvert --to notebook --execute --inplace notebooks/02_benchmark_construction.ipynb
 ```
 
 The acquisition command downloads checksum-pinned text pages and the 3.6-MB
@@ -123,7 +131,10 @@ After acquisition, `pytest` includes both official text/catalog and real raster
 integration checks. Without the required local data the corresponding tests
 explicitly skip; a skip is not evidence of data access. The notebook executes
 from a fresh kernel and shows actual native RGB/map pairs. Source prefixes,
-rasters and diagnostic figures remain outside version control.
+rasters and diagnostic figures remain outside version control. The second
+notebook saves provisional reference decisions, coverage and digest-based
+provenance under `outputs/`; no benchmark is frozen. Its eight intents have
+three equivalent English formulations each, assigned to two direct families.
 
 See [source versions, observed schema, license, display policy and access limits](docs/DATA_ACCESS.md)
 and the [pilot manifest](manifests/data-pilot-v1.json). No model is loaded.
@@ -132,6 +143,13 @@ and the [pilot manifest](manifests/data-pilot-v1.json). No model is loaded.
   and current implementation state.
 
 ## Limitations and Future Work
+
+With the provisional rules, all ten pilot patches satisfy forest presence;
+there is no forest-negative case. Forest/water and arable/pasture conjunctions
+have six and two positives respectively, all also satisfying adjacency. Neither
+pair has a both-present/nonadjacent case. This sample cannot isolate relation
+errors or establish final coverage. Presence thresholds, contact thresholds and
+family coverage require broader development verification before benchmark freeze.
 
 The proposed study is limited to selected queries and a controlled Sentinel-2
 RGB subset. Map uncertainty, spatial redundancy, rare relevant scenes, and
