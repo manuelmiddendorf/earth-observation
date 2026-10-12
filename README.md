@@ -209,6 +209,17 @@ existing pilot caches; both candidates remain non-frozen. These commands perform
 no model evaluation. Selection, design and integrity specifications are versioned;
 raw data and local diagnostic outputs remain ignored.
 
+The separately authorized archive continuation uses
+`uv run python scripts/fetch_archives.py --stage all` to acquire **only** the
+official S2 and reference-map archives (63,534,101,678 bytes) and extract the
+unchanged first 25 selected IDs / 100 TIFFs. Complete published checksums precede
+extraction; compatible partial transfers resume without restarting. See
+[archive acquisition and current partial evidence](docs/DATA_ACCESS.md#authorized-full-archive-continuation)
+for storage, progress and the outstanding validation. At this checkpoint the
+reference archive and all 25 maps are verified, while S2 is still downloading.
+Map-only evidence adds nine forest negatives but no both-present false relations;
+it does not establish new retrieval candidates or Test images.
+
 The retrieval command saves complete formulation metrics, rankings and measured
 provenance locally.
 The third notebook checks exact cache reuse and displays representative real

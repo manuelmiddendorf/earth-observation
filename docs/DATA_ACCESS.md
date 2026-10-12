@@ -163,3 +163,111 @@ specific to early members in this version; later/representative sampling still
 needs its own bounded-access assessment. The sample remains one geographically
 concentrated Austria tile, unsuitable as a frozen evaluation benchmark. Retrieval
 performance and reference-rule validity have not been evaluated.
+
+## Authorized full-archive continuation
+
+The earlier bounded-download restriction was explicitly lifted on 2026-10-12
+for exactly these two official files. No S1 archive, full text parquet or new
+model weights are part of this continuation. A fresh response from the
+[official Zenodo record](https://zenodo.org/records/10891137), version 2.0.0,
+matches the previous inventory SHA-256
+`96261dd63ba881d2114db64c27f31399924a1f8b90d3e3705809f25a6ecd6fef`.
+
+| Archive | Exact bytes | Published MD5 | Current validation |
+| --- | ---: | --- | --- |
+| BigEarthNet-S2.tar.zst | 63,251,710,377 | `2245ed2d1a93f6ce637d839bc856396e` | Partial transfer; not validated |
+| Reference_Maps.tar.zst | 282,391,301 | `95d85a222fa983faddcac51a19f28917` | Complete; MD5 passed |
+
+The map archive's measured SHA-256 is
+`d87bda4759d6b209fad71cd8e95968abedd7eda8b63838d2b5a6462bdc788756`.
+All 282,391,301 map bytes were actually acquired. After a premature EOF at
+263,179,956 bytes, an exact HTTP 206 continuation transferred only the remainder;
+the complete MD5 passed. The S2 transfer initially retained 1,448,083,456 bytes
+before a deliberate switch to 64-MiB requests. Subsequent requests demonstrably
+resume from that nonzero offset rather than downloading the beginning again.
+Mutable progress is recorded locally; this document does not equate a started
+or partially received S2 archive with a complete verified source.
+
+At preflight the disk had about 1.1 TiB free, versus 63,534,101,678 archive bytes
+plus at most 64 MiB of selected TIFFs and small logs/buffers. Partial-to-final
+archive rename does not make a second archive copy. No complete decompressed
+tar or image tree is created. Existing pilot caches and 52 source TIFFs are
+preserved. The two archive prefixes remain separate historical pilot assets,
+not mislabeled complete archives.
+
+### Reproduction, progress and resume behavior
+
+```bash
+uv run python scripts/fetch_archives.py --stage all
+```
+
+This sequential command validates the unchanged selection CSV checksum and
+recomputes its catalog-based deterministic ordering before selecting **rows
+1–25 only**. The [acquisition manifest](../manifests/archive-data-access-v1.json)
+lists their 100 exact B04/B03/B02/reference paths. A local lock prevents concurrent
+writers. Downloads retain `.part` files with exact source identity, reject an
+ignored or incorrect Range before reading/appending any response body, and use
+60-second socket inactivity timeouts with at most three consecutive failures.
+Completed chunks reset the failure count; retries never reset the byte offset.
+A wrong complete checksum is an error, not permission to overwrite/restart it.
+Archive store: ignored `data/cache/archives/`.
+
+Progress/error snapshots are `data/cache/archives/*.progress.json`. The
+one-time macOS background job also writes ignored
+`data/cache/archive-access/transfer.log` and `transfer-errors.log`. It has no
+login/startup file or repeating schedule. Its local label is
+`org.codex.earth-observation.archive-data-access`; `launchctl list` with that
+label shows its PID/exit status. Its ignored `background-job.plist` explicitly
+sets `RunAtLoad=true`, `KeepAlive=false` and contains no interval or restart rule.
+The initial `launchctl submit` job unexpectedly restarted failed processes;
+it was removed and replaced with this explicitly non-restarting configuration.
+Do not launch another writer while it runs.
+After a stopped/failed job, the reproduction command resumes identified partial
+files. Explicit `--stage download` or `--stage extract` isolates the same stages.
+
+After **both** complete archive checks the background command scans the tar
+streams sequentially, holding only selected payloads. It rejects missing or
+duplicate selected names, links, path traversal, output symlinks, excessive
+selected payload and incompatible existing bytes. Nonselected members are
+never written. The full scan checks selected-name uniqueness without retaining
+millions of tar header objects. Outputs use the existing native raw-data layout.
+The automatic command ends after extraction; it does not assign splits,
+calculate embeddings, run models or freeze the benchmark.
+
+### Measured partial evidence and remaining work
+
+The complete reference archive already yielded all 25 exact requested maps:
+25 newly extracted files totaling **25,154 bytes**; zero selected-map files were
+reused. Source member sizes/SHA-256 are versioned in the acquisition manifest.
+All 25 were read as one-band 120×120 uint16 EPSG:32633 rasters, with native 10-m
+cells, declared NoData 0 and zero masked pixels. Their transforms/extents are
+recorded locally. They inherit generalized CLC2018 semantics; no reference rule
+or underlying accuracy is changed by extraction or 10-m storage.
+
+Map-only true/false/unknown counts are forest 16/9/0, water 1/24/0,
+arable 17/8/0, pasture 2/23/0; forest/water conjunction/adjacency 0/25/0;
+arable/pasture 1/24/0. Both-present relation controls are 0/0/0 and 1/0/0.
+Nine potential forest negatives are newly evidenced, but no both-present false
+relation. These are **not** measured retrieval/test counts. The 75 RGB TIFFs,
+complete image/map alignment and native spatial components remain pending;
+new Development/Test assignments are zero. Existing candidate v2 remains blocked.
+
+An exact 25-ID text filter returned HTTP 502. A bounded first-ID retry timed out;
+no successful response or text assignment is claimed. This is an additional
+source-validation dependency, not a reason to fetch the 466-MB text parquet.
+
+Notebook section 12 ran from a fresh kernel and displays three fixed-position
+original map examples plus map-only coverage. The map figure was visually
+inspected for discrete classes, extent labels and readable layout. New RGB/map
+comparisons and visual alignment checks remain unavailable. The continuation
+stays Draft until S2 checksum verification, 100-TIFF completeness, full
+raster/text validation and the unchanged spatial/coverage protocol are completed.
+
+Verification at this partial-data checkpoint: **79 tests passed, none skipped**,
+including interrupted/ignored Range behavior, bounded failures, corrupt checksum
+rejection, safe selected-member extraction, real 25-map source/reference checks
+and the existing 13-image raster/text/spatial integration. Ruff check and format
+passed for `src tests scripts`; the fresh notebook has no execution errors.
+Both existing candidate input digests still validate and default loading refuses
+final evaluation. S2 requests subsequently encountered HTTP 504; retained bytes
+remain available for exact resume, with no claim of complete archive integrity.

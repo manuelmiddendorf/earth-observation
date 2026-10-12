@@ -281,16 +281,18 @@ visual relational performance. This is an open scientific interpretation decisio
 not an implemented replacement of the queries, source or thresholds. Broader
 geographic development and adequate held-out coverage remain separate blockers.
 
-### Smallest remaining external action and verification
+### Previous bounded-access handover and verification
 
-The official complete S2/map archives total 63,534,101,678 bytes and are outside
-the authorized bounded-download scope. The verified prefix route still cannot
+At that checkpoint, the official complete S2/map archives totaled 63,534,101,678
+bytes and were outside the authorized bounded-download scope. This restriction
+is superseded for these two archives by the authorization documented below.
+The verified prefix route still cannot
 reach the unchanged planned selection. Provide an official indexed endpoint or
 a provenance-verified local subset for the **first 25 rows** of
 `coverage-selection-v1.csv`: B04/B03/B02 plus the original reference map for each
 ID (100 TIFFs), with source version and identifiable original members. File
 sizes/checksums and native identity must be verified before any later batch.
-No credentials or substitute dataset are assumed; no full archive is downloaded.
+No credentials or substitute dataset were assumed at that checkpoint.
 
 ```bash
 uv run python scripts/validate_development.py
@@ -313,3 +315,36 @@ research evidence or an alternative frozen dataset. The loader was not changed
 or weakened. Ruff passed, and the extended notebook ran from a fresh kernel with
 actual visual inspection. Candidate v2 remains `blocked-not-frozen`; work package
 5 is not authorized by these improvements until a valid freeze and human merge.
+
+## Authorized full-archive acquisition: incomplete source stage
+
+Full acquisition of the official S2 and map archives was subsequently authorized;
+the 250-ID selection and the first 25-row batch were not changed. The measured
+source snapshot is [archive-data-access-v1](../manifests/archive-data-access-v1.json).
+The reference archive has passed its published MD5 and yielded all 25 exact
+maps (25,154 bytes); the S2 transfer is still running and cannot be used until
+complete checksum validation. No complete planned RGB/map pair is validated yet.
+
+Map-only counts below use the unchanged reference rules and all 25 fixed IDs.
+They are source/reference evidence, **not** a held-out retrieval collection.
+
+| Intent | True | False | Unknown |
+| --- | ---: | ---: | ---: |
+| Forest | 16 | 9 | 0 |
+| Inland water | 1 | 24 | 0 |
+| Arable land | 17 | 8 | 0 |
+| Pasture | 2 | 23 | 0 |
+| Forest/water conjunction or adjacency | 0 | 25 | 0 |
+| Arable/pasture conjunction or adjacency | 1 | 24 | 0 |
+
+Forest/water has zero both-present controls. Arable/pasture has one true,
+zero false and zero unknown both-present relation. These maps supply potential
+forest negatives, but no missing hard relation counterexamples. Complete RGB
+identity/alignment, text/catalog pairing and spatial grouping are pending; no
+new image is assigned to Development/Test or treated as a final-test observation.
+The existing candidate v2 and all freeze-loader protections remain unchanged.
+
+Notebook section 12 executes actual map checks, compact reference-only coverage
+and three fixed-position original map previews. New RGB/map visual comparisons
+must wait for verified S2 bytes. This acquisition PR stays Draft until the
+requested full download and complete raster validation are finished.

@@ -72,12 +72,51 @@ Updated: 2026-10-12.
   unchanged. 66 tests passed, including real source integration and a positive
   controlled protocol fixture; Ruff passes; notebook freshly executed and new
   RGB/map examples visually inspected. No new model encoding or statistics.
-- Next: provide an official indexed subset route or local subset with verifiable
+- Previous next action (superseded by the full-archive authorization below):
+  provide an official indexed subset route or local subset with verifiable
   provenance initially for the first 25 selected IDs (100 TIFFs). Then validate
   broader development plausibility,
   native spatial separation and held-out main/control coverage under a new
   candidate version before a real freeze. Package 5's final-evaluation prerequisite
   remains unmet. See `docs/BENCHMARK_DESIGN.md` for exact rules and access evidence.
+- Archive-access continuation: full acquisition of **only** BigEarthNet-S2 and
+  Reference_Maps from Zenodo 10891137 is explicitly authorized (63,534,101,678
+  bytes). Fresh official inventory confirms v2.0.0, sizes and published MD5s.
+  The local disk has about 1.1 TiB free; archives stay in ignored
+  `data/cache/archives/`, with no full uncompressed dataset written.
+- Reference archive: all 282,391,301 bytes downloaded and published MD5 verified;
+  measured SHA-256 and 25 exact original map-member hashes are recorded in
+  `archive-data-access-v1`. An interrupted transfer resumed at byte 263,179,956
+  with exact HTTP 206. The 25 maps total 25,154 bytes and were actually read:
+  EPSG:32633, 120×120 uint16, native 10-m cells, NoData 0, zero masked pixels.
+- S2 acquisition is **in progress, not verified**. A one-time local macOS job
+  resumes retained partial bytes in exact 64-MiB HTTP ranges; three consecutive
+  network failures stop it. After both complete MD5 checks it automatically
+  scans the archives sequentially and extracts only the fixed 100 TIFFs.
+  Runtime byte counts/errors are local progress files, not frozen research inputs.
+- The unchanged first 25 IDs cover seven Austria tiles and nine acquisitions.
+  Planned 25; original maps present/loaded/member-verified 25; RGB TIFFs present 0;
+  complete RGB/map patches validated 0; new Development/Test assignments 0/0.
+  Existing complete validation remains 13 Development, one group, zero Test.
+  Text-filter access returned HTTP 502; a first-patch retry timed out. No full
+  text parquet, S1 archive or additional model weights were downloaded.
+- Reference-only preview (true/false/unknown): forest 16/9/0, water 1/24/0,
+  arable 17/8/0, pasture 2/23/0; forest/water conjunction/adjacency 0/25/0;
+  arable/pasture 1/24/0. Both-present controls have 0/0/0 and 1/0/0 states.
+  Forest negatives are newly evidenced in maps, but hard relation negatives
+  remain absent. These are provisional map counts, not retrieval/test coverage.
+- No candidate revision, criteria change, model encoding or statistics.
+  `benchmark-candidate-v2` remains `blocked-not-frozen`. The acquisition PR is
+  Draft while the S2 download, complete raster/text validation, native spatial
+  grouping and new RGB/map visual examples remain unfinished. Next: finish the
+  retained download, validate the exact 25 complete pairs and their text/source
+  identities, then apply the unchanged spatial protocol and coverage gates.
+- Partial-stage verification: 79 tests passed without skips; Ruff check/format
+  passed; the notebook executed from a fresh kernel and actual map previews were
+  visually inspected. Original v1/v2 input digests and default loader rejections
+  still pass. HTTP 504 interrupted S2 acquisition; saved bytes are preserved.
+  An initial background manager's unintended restarts were stopped; the local
+  replacement explicitly disables automatic restart (`KeepAlive=false`).
 
 Research reports and agent instructions are local working documents, excluded
 from the public repository. The public methodology is summarized in the README.
