@@ -4,57 +4,50 @@
 
 Updated: 2026-10-13.
 
-Current WP5 implementation and Review 2:
+Completed WP6 final evaluation (branch `codex/final-evaluation`):
 
-- PR #9 was human-merged; branch `codex/evaluation-protocol-v3` starts from
-  updated main. `benchmark-freeze-v1` is fully revalidated and unchanged.
-  No reference/query/spatial/model/specification change, downloads, encoding,
-  actual Test rankings or Test model evaluation.
-- Canonical P@10/AP kernels in existing `retrieval.py` now support exact binary
-  completion enumeration with variable AP denominators and explicit undefined/
-  over-limit states. Historical pilot API remains separately identified; v3
-  never compresses unknowns or returns imputed quality points.
-- New `evaluation` computes shared-completion formulation/intent means, paired
-  differences, wording ranges, top-k Jaccard, error samples and conservative
-  cross-intent envelopes. Separate both-present controls remain exploratory.
-  Optional PCG64 family sensitivity preserves pairing/dependent intents/drawn
-  multiplicities and equal-intent weighting; it is not a confidence interval.
-- `evaluation_run` integrates only the stored ten-image Development rankings,
-  validates the freeze itself and checks original model/representation/query/
-  image/cache identities. Result JSON includes benchmark/model/source/current
-  analysis hashes and actual runtime versions. Historical artifacts/cache bytes
-  remain unchanged. Development descriptive mean AP difference is -0.094003;
-  P@10 difference zero and top-ten Jaccard one are structural at N=10, not
-  evidence of superiority. Development controls contain 6/2 true, zero false,
-  in one group; P@10 is undefined and AP=1 is uninformative.
-- Notebook 03 extends ranking → reference completions → formulations → intents
-  → paired comparison → interpretation limits, with controlled examples and
-  clearly labelled Development data; all scientific equations precede results.
-- Separate Review 2 examined denominators/completion coupling/candidate identity/
-  unknowns/aggregation/model pairing/controls/leakage and freeze conformity.
-  Fixed contradictory composite-input acceptance, the supplied-record shortcut,
-  weak generator/weighting observability, and legacy source/cache assumptions.
-  Regression checks include unequal-family mixed-draw weighting and split/pool
-  protection. See `docs/EVALUATION_PIPELINE.md` for findings and exact contracts.
-- Known-negative/uncertain-class-pattern taxonomy was documented before the
-  affected implementation; it yields explicit unresolved category status without
-  relabeling relevance. There are zero applicable cases in the frozen inventory.
-- Older candidate v1/v2 manifests retain their historical metric source pins;
-  current-source loading correctly refuses that drift. Tests retain this guard
-  and isolate false-status readiness with a temporary fixture; no pin was edited.
-  Current v3/v4/freeze inputs remain byte-identical and valid.
-- Validation: 121-test full run passed 120 and exposed a missing sensitivity
-  output field; after fixing that schema field, all 34 affected metric/evaluation
-  checks passed, including real stored-ranking integration. No skips. Ruff check
-  and format pass for src/tests/scripts and the entire notebook (40 items).
-  Notebook 03 executed from a fresh kernel: 13 code cells, zero errors; real
-  Development top images and the intent-mean figure were visually inspected.
-  The 18 frozen specification/source files and all 8,052 TIFF pins remain intact;
-  original ranking/cache bytes and modification times are unchanged.
-- Next: human review/merge of WP5, then authorize WP6. The evaluation calculations
-  are ready after Review 2; no final Test result exists. Generalized
-  map truth, marginal conservative envelopes, sparse relation negatives and two
-  intent families remain scientific limitations.
+- PR #10 was human-merged; Review 2 has no consequential open findings.
+  Before any Test inference, all **121 tests** passed with no skips, Ruff check/
+  format passed and the native/source-pinned freeze was revalidated. No freeze
+  pin, query, threshold, reference, sampling or candidate rule was changed.
+- The local-only final runner encoded 871 Test images/24 texts once per model,
+  storing exact-identity unit-vector caches and **41,808** complete score/rank
+  rows. No downloads. CLIP/RemoteCLIP original encode/load times: 23.914/25.899 s
+  on Apple M2 Pro, 32 GiB, CPU float32/four threads. A later analysis-only pass
+  reused both caches to record hardware and strengthen stored-input checks.
+  Existing Development artifacts and cache bytes remain intact.
+- All 96 formulation, 32 intent and 16 paired-intent metrics are defined.
+  Main candidates remain 871 images/637 spatial groups. P@10 aggregate bounds:
+  CLIP [0.3500, 0.3500], RemoteCLIP [0.2625, 0.2625]. AP conservative envelopes:
+  [0.315837, 0.318982] / [0.287589, 0.289852]; paired RemoteCLIP-minus-CLIP
+  [−0.030474, −0.026889]. Exact marginal intent bounds and conservative
+  cross-intent envelopes remain distinct from confidence intervals.
+- Single-concept AP favors RemoteCLIP slightly in aggregate, with arable/pasture
+  gains but forest/water losses; conjunction/adjacency favor CLIP. Mean pairwise
+  top-ten paraphrase Jaccard is 0.1931/0.2308. These are descriptive findings for
+  eight intents/two dependent families, not general checkpoint superiority.
+- Separate exploratory controls retain 35/2/0 forest-water and 59/7/0
+  arable-pasture true/false/unknown. Control AP is 0.9936/0.9837 and
+  0.9454/0.8718 (CLIP/RemoteCLIP); scarce negatives and dispersion do not isolate
+  general spatial reasoning. Optional two-family sensitivity is not a CI.
+- Notebook 03 separates historical Development from final Test; new Notebook 04
+  shows all predeclared p1 ranks 1/5/10: **48 slots/35 unique images**, with native
+  RGB/maps and conditions. The sample contains no unknown or both-present false
+  relation, so that qualitative gap is reported without replacement. Observation,
+  map limits, computational categories and untested explanations remain separate.
+- Reusable local execution/artifact validation and final figures live in `src`;
+  narrative tables/visual interpretation stay in notebooks. Lightweight summaries,
+  fixed-slot observations/conditions and an identified report SVG are versioned;
+  embeddings/full ranks/weights/native rasters remain local and ignored.
+- Validation: eight affected checks pass, including exact reconstruction of all
+  saved Test scores/ranks, cache modification-time preservation, local-only
+  checkpoint failures and real native-map/sample rendering. Both notebooks ran
+  from fresh kernels without errors; all eight fixed-image grids and the main
+  quality figure were visually inspected. Ruff check/format pass for all current
+  src/tests/scripts and both notebooks. No final analysis implementation bug was
+  found and no scientific rule was reopened.
+- Next: human review/merge of this focused PR, then separately authorize WP7's
+  completion review. This task performs no full-repository review or demo.
 
 Historical authorized analysis revision and WP4 freeze:
 

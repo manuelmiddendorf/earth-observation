@@ -1,0 +1,600 @@
+{
+  "version": "fixed-error-observations-v1",
+  "selection": "p1, ranks 1/5/10, both models, all eight intents; no replacement",
+  "stage": "post-test qualitative diagnosis; no label edits",
+  "result_content_sha256": "c2df8d07b51b0734488397b745e234cd054257132af7bf88f70f4862e1251e35",
+  "observations": [
+    {
+      "intent_id": "single-forest",
+      "slots": [
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-forest",
+          "query_id": "single-forest/p1",
+          "rank": 1,
+          "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_02_17",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-forest",
+          "query_id": "single-forest/p1",
+          "rank": 5,
+          "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_05_16",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-forest",
+          "query_id": "single-forest/p1",
+          "rank": 10,
+          "patch_id": "S2B_MSIL2A_20180509T092029_N9999_R093_T34TFN_04_66",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-forest",
+          "query_id": "single-forest/p1",
+          "rank": 1,
+          "patch_id": "S2B_MSIL2A_20180506T105029_N9999_R051_T31UER_86_47",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-forest",
+          "query_id": "single-forest/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20170717T113321_N9999_R080_T29UPV_42_75",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-forest",
+          "query_id": "single-forest/p1",
+          "rank": 10,
+          "patch_id": "S2A_MSIL2A_20170813T112121_N9999_R037_T29SNC_25_53",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        }
+      ],
+      "visual_observation": "CLIP selected scenes contain broad dark-green blocks with pale clearings; RemoteCLIP rank 5 is a field mosaic mapped without forest.",
+      "map_limitation": "Uniform forest map regions encompass visible internal texture and clearings.",
+      "untested_explanation": "Canopy texture or broad landscape appearance may influence similarity; this sample does not test that mechanism."
+    },
+    {
+      "intent_id": "single-inland-water",
+      "slots": [
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-inland-water",
+          "query_id": "single-inland-water/p1",
+          "rank": 1,
+          "patch_id": "S2A_MSIL2A_20171208T093351_N9999_R136_T34TEN_06_31",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-inland-water",
+          "query_id": "single-inland-water/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20180510T094031_N9999_R036_T35WPP_15_40",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-inland-water",
+          "query_id": "single-inland-water/p1",
+          "rank": 10,
+          "patch_id": "S2A_MSIL2A_20180318T093031_N9999_R136_T35UMB_17_27",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-inland-water",
+          "query_id": "single-inland-water/p1",
+          "rank": 1,
+          "patch_id": "S2A_MSIL2A_20171208T093351_N9999_R136_T34TEN_25_56",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-inland-water",
+          "query_id": "single-inland-water/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20180318T093031_N9999_R136_T35UMB_12_05",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-inland-water",
+          "query_id": "single-inland-water/p1",
+          "rank": 10,
+          "patch_id": "S2B_MSIL2A_20170930T095019_N9999_R079_T34UEG_80_02",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        }
+      ],
+      "visual_observation": "Bright white patches and dark areas occur among the selected winter scenes. All six sampled slots have zero mapped inland-water area.",
+      "map_limitation": "Small or seasonally obscured water cannot be validated from these RGB displays; zero mapped water is not proof of visually absent water.",
+      "untested_explanation": "Snow, shadow or scene appearance may affect the water rankings; no ablation or independent water annotation establishes the cause."
+    },
+    {
+      "intent_id": "single-arable-land",
+      "slots": [
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-arable-land",
+          "query_id": "single-arable-land/p1",
+          "rank": 1,
+          "patch_id": "S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_09_12",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-arable-land",
+          "query_id": "single-arable-land/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_08_26",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-arable-land",
+          "query_id": "single-arable-land/p1",
+          "rank": 10,
+          "patch_id": "S2A_MSIL2A_20171208T093351_N9999_R136_T34TEN_12_85",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-arable-land",
+          "query_id": "single-arable-land/p1",
+          "rank": 1,
+          "patch_id": "S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_20_17",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-arable-land",
+          "query_id": "single-arable-land/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20170717T113321_N9999_R080_T29UPA_30_79",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-arable-land",
+          "query_id": "single-arable-land/p1",
+          "rank": 10,
+          "patch_id": "S2B_MSIL2A_20171015T104009_N9999_R008_T31UGS_33_88",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        }
+      ],
+      "visual_observation": "Rectangular fields, woodland blocks and built features are visible. CLIP rank 10 has a broad mapped arable region; the other five slots are map-negative.",
+      "map_limitation": "Agricultural visual appearance alone does not identify arable land versus pasture; the coarse polygons differ from visible parcel edges.",
+      "untested_explanation": "Agricultural scene similarity may retrieve the wrong mapped agricultural class; crop identity is not independently verified."
+    },
+    {
+      "intent_id": "single-pasture",
+      "slots": [
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-pasture",
+          "query_id": "single-pasture/p1",
+          "rank": 1,
+          "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_02_17",
+          "relevance": "false",
+          "category": "single-presence-failure",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-pasture",
+          "query_id": "single-pasture/p1",
+          "rank": 5,
+          "patch_id": "S2B_MSIL2A_20180224T112109_N9999_R037_T29SNC_56_34",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "single-pasture",
+          "query_id": "single-pasture/p1",
+          "rank": 10,
+          "patch_id": "S2B_MSIL2A_20171015T104009_N9999_R008_T31UGS_15_89",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-pasture",
+          "query_id": "single-pasture/p1",
+          "rank": 1,
+          "patch_id": "S2B_MSIL2A_20180506T105029_N9999_R051_T31UER_86_47",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-pasture",
+          "query_id": "single-pasture/p1",
+          "rank": 5,
+          "patch_id": "S2B_MSIL2A_20170718T115359_N9999_R023_T29UPB_06_57",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "single-pasture",
+          "query_id": "single-pasture/p1",
+          "rank": 10,
+          "patch_id": "S2A_MSIL2A_20171002T094031_N9999_R036_T34TCS_81_73",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        }
+      ],
+      "visual_observation": "RemoteCLIP selected scenes show field mosaics and map-positive pasture. CLIP rank 1 repeats a largely wooded scene also selected for forest.",
+      "map_limitation": "Mapped pasture areas are broad and do not follow every visible parcel boundary.",
+      "untested_explanation": "Shared vegetation/landscape cues may blur query distinctions; repetition is evidence of overlapping selected images, not a causal test."
+    },
+    {
+      "intent_id": "both-forest-water",
+      "slots": [
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "both-forest-water",
+          "query_id": "both-forest-water/p1",
+          "rank": 1,
+          "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_02_17",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "both-forest-water",
+          "query_id": "both-forest-water/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20180510T094031_N9999_R036_T35WPP_15_40",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "both-forest-water",
+          "query_id": "both-forest-water/p1",
+          "rank": 10,
+          "patch_id": "S2B_MSIL2A_20170924T093019_N9999_R136_T36VVQ_04_53",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "both-forest-water",
+          "query_id": "both-forest-water/p1",
+          "rank": 1,
+          "patch_id": "S2B_MSIL2A_20180515T094029_N9999_R036_T35VNJ_33_43",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "both-forest-water",
+          "query_id": "both-forest-water/p1",
+          "rank": 5,
+          "patch_id": "S2B_MSIL2A_20170808T094029_N9999_R036_T35ULA_76_33",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "both-forest-water",
+          "query_id": "both-forest-water/p1",
+          "rank": 10,
+          "patch_id": "S2A_MSIL2A_20180413T095031_N9999_R079_T35VLG_86_13",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        }
+      ],
+      "visual_observation": "CLIP rank 10 shows a clear dark-water/vegetation division with mapped forest and water. The other slots contain woodland, fields, settlements or bright patches without both mapped presences.",
+      "map_limitation": "RemoteCLIP rank 1 visibly contains a water-shaped feature, but its mapped water fraction remains below 5%; the frozen conjunction stays false.",
+      "untested_explanation": "Retrieving a salient partial condition may explain some results, but map generalization and the area threshold also constrain interpretation."
+    },
+    {
+      "intent_id": "adjacent-forest-water",
+      "slots": [
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "adjacent-forest-water",
+          "query_id": "adjacent-forest-water/p1",
+          "rank": 1,
+          "patch_id": "S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_02_17",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "adjacent-forest-water",
+          "query_id": "adjacent-forest-water/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20171221T112501_N9999_R037_T29SND_18_02",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "adjacent-forest-water",
+          "query_id": "adjacent-forest-water/p1",
+          "rank": 10,
+          "patch_id": "S2A_MSIL2A_20170704T112111_N9999_R037_T29SND_73_61",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "adjacent-forest-water",
+          "query_id": "adjacent-forest-water/p1",
+          "rank": 1,
+          "patch_id": "S2B_MSIL2A_20171015T104009_N9999_R008_T31UGR_16_54",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "adjacent-forest-water",
+          "query_id": "adjacent-forest-water/p1",
+          "rank": 5,
+          "patch_id": "S2B_MSIL2A_20170930T095019_N9999_R079_T34UEG_80_02",
+          "relevance": "false",
+          "category": "neither",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "adjacent-forest-water",
+          "query_id": "adjacent-forest-water/p1",
+          "rank": 10,
+          "patch_id": "S2B_MSIL2A_20170808T094029_N9999_R036_T35ULA_79_41",
+          "relevance": "false",
+          "category": "class-a-only",
+          "status": "classified",
+          "reason": null
+        }
+      ],
+      "visual_observation": "The six selected scenes show wooded regions, fields and settlements; none passes both mapped presences.",
+      "map_limitation": "The selected failures are presence failures, not isolated failures of mapped contact. Finer visible boundaries cannot validate the generalized relation.",
+      "untested_explanation": "Weak main adjacency quality may include failure to find both concepts; these slots cannot isolate spatial reasoning."
+    },
+    {
+      "intent_id": "both-arable-pasture",
+      "slots": [
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "both-arable-pasture",
+          "query_id": "both-arable-pasture/p1",
+          "rank": 1,
+          "patch_id": "S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_09_12",
+          "relevance": "false",
+          "category": "class-b-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "both-arable-pasture",
+          "query_id": "both-arable-pasture/p1",
+          "rank": 5,
+          "patch_id": "S2B_MSIL2A_20171112T114339_N9999_R123_T29UPU_29_45",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "both-arable-pasture",
+          "query_id": "both-arable-pasture/p1",
+          "rank": 10,
+          "patch_id": "S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_08_26",
+          "relevance": "false",
+          "category": "class-b-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "both-arable-pasture",
+          "query_id": "both-arable-pasture/p1",
+          "rank": 1,
+          "patch_id": "S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_20_17",
+          "relevance": "false",
+          "category": "class-b-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "both-arable-pasture",
+          "query_id": "both-arable-pasture/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20170717T113321_N9999_R080_T29UPA_30_79",
+          "relevance": "false",
+          "category": "class-b-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "both-arable-pasture",
+          "query_id": "both-arable-pasture/p1",
+          "rank": 10,
+          "patch_id": "S2B_MSIL2A_20170716T093039_N9999_R136_T36VVR_00_70",
+          "relevance": "false",
+          "category": "neither",
+          "status": "classified",
+          "reason": null
+        }
+      ],
+      "visual_observation": "CLIP rank 5 shows a field mosaic with both mapped agricultural classes. Other slots show field mosaics or a wooded scene without both mapped classes.",
+      "map_limitation": "CLIP ranks 1 and 10 show visible fields but no mapped arable class. Single-date RGB does not independently establish land use.",
+      "untested_explanation": "Agricultural appearance without the specific conjunction is a possible explanation, not a verified model mechanism."
+    },
+    {
+      "intent_id": "adjacent-arable-pasture",
+      "slots": [
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "adjacent-arable-pasture",
+          "query_id": "adjacent-arable-pasture/p1",
+          "rank": 1,
+          "patch_id": "S2B_MSIL2A_20171015T104009_N9999_R008_T31UGS_15_89",
+          "relevance": "false",
+          "category": "class-b-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "adjacent-arable-pasture",
+          "query_id": "adjacent-arable-pasture/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20170717T113321_N9999_R080_T29UPV_58_48",
+          "relevance": "true",
+          "category": "satisfied",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "clip-openai-vit-b32",
+          "intent_id": "adjacent-arable-pasture",
+          "query_id": "adjacent-arable-pasture/p1",
+          "rank": 10,
+          "patch_id": "S2A_MSIL2A_20170717T113321_N9999_R080_T29UPA_29_86",
+          "relevance": "false",
+          "category": "class-b-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "adjacent-arable-pasture",
+          "query_id": "adjacent-arable-pasture/p1",
+          "rank": 1,
+          "patch_id": "S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_20_17",
+          "relevance": "false",
+          "category": "class-b-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "adjacent-arable-pasture",
+          "query_id": "adjacent-arable-pasture/p1",
+          "rank": 5,
+          "patch_id": "S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_33_16",
+          "relevance": "false",
+          "category": "class-b-only",
+          "status": "classified",
+          "reason": null
+        },
+        {
+          "model_id": "remoteclip-vit-b32",
+          "intent_id": "adjacent-arable-pasture",
+          "query_id": "adjacent-arable-pasture/p1",
+          "rank": 10,
+          "patch_id": "S2B_MSIL2A_20170716T093039_N9999_R136_T36VVR_00_70",
+          "relevance": "false",
+          "category": "neither",
+          "status": "classified",
+          "reason": null
+        }
+      ],
+      "visual_observation": "CLIP rank 5 shows fields and two mapped agricultural classes in contact. Other slots are map-negative; RemoteCLIP rank 10 repeats a wooded scene.",
+      "map_limitation": "CLIP rank 5 has 9.36% arable and 90.64% pasture with 2,380 m mapped contact. The broad map regions do not resolve every parcel boundary.",
+      "untested_explanation": "Most sampled failures lack a mapped class; high scores need not indicate conjunction or relation satisfaction. This does not identify the mechanism."
+    }
+  ]
+}

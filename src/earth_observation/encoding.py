@@ -358,6 +358,8 @@ def encode_frozen(
     weights_root: Path,
     image_files: list[dict[str, Path]],
     texts: list[str],
+    *,
+    allow_download: bool = True,
 ) -> tuple[np.ndarray, np.ndarray, dict]:
     """Encode one identified frozen checkpoint on CPU, without gradient tracking.
 
@@ -367,11 +369,14 @@ def encode_frozen(
         Versioned local specifications; only ViT-B-32/QuickGELU CPU float32
         is implemented. Checkpoint bytes must match declared SHA-256 and size.
     weights_root : Path
-        Ignored weight directory; only the specified bounded asset is acquired.
+        Ignored weight directory containing the specified checkpoint.
     image_files : list of dict
         Ordered native RGB band paths; no maps are read.
     texts : list of str
         Ordered nonempty English queries. Overlong token sequences are rejected.
+
+    allow_download : bool
+        If False, require verified existing checkpoint bytes; no acquisition.
 
     Returns
     -------
@@ -417,7 +422,7 @@ def encode_frozen(
     torch.set_num_threads(runtime["torch_threads"])
     torch.use_deterministic_algorithms(True)
     start = time.perf_counter()
-    weight = fetch_asset(model_spec, weights_root, max_bytes=625_000_000)
+    weight = checkpoint_path(model_spec, weights_root, allow_download=allow_download)
     model, _, transform = open_clip.create_model_and_transforms(
         "ViT-B-32",
         pretrained=None,
@@ -465,3 +470,45 @@ def encode_frozen(
         text_vectors,
         run,
     )
+
+
+def checkpoint_path(
+    model_spec: dict, weights_root: Path, *, allow_download: bool
+) -> Path:
+    """Resolve verified checkpoint bytes with an explicit acquisition policy.
+
+    Parameters
+    ----------
+    model_spec : dict
+        Declared filename, byte size and SHA-256.
+    weights_root : Path
+        Local directory of checkpoint assets.
+    allow_download : bool
+        False forbids all calls to the downloader, including missing assets.
+
+    Returns
+    -------
+    Path
+        Existing size/hash-verified checkpoint.
+
+    Raises
+    ------
+    FileNotFoundError
+        Local-only execution has no checkpoint.
+    ValueError
+        Unsafe filename or local bytes differ from the specification.
+    """
+    name = model_spec["name"]
+    if Path(name).name != name or name in {"", ".", ".."}:
+        raise ValueError("Require a checkpoint basename")
+    if allow_download:
+        return fetch_asset(model_spec, weights_root, max_bytes=625_000_000)
+    path = weights_root / name
+    if not path.is_file():
+        raise FileNotFoundError("Local checkpoint missing; downloads prohibited")
+    if (
+        path.stat().st_size != model_spec["size_bytes"]
+        or file_digest(path) != model_spec["sha256"]
+    ):
+        raise ValueError("Local checkpoint size/hash mismatch")
+    return path
