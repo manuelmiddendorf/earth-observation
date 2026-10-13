@@ -4,6 +4,28 @@
 
 Updated: 2026-10-13.
 
+Completion package (branch `codex/research-completion`):
+
+- PR #11 was human-merged while the authorized completion review was in progress;
+  its review improvements were carried onto a new branch from updated main.
+- README now follows the scientific argument with concise results and interpretation.
+  All four notebooks distinguish current findings from historical stages; repeated
+  low-level explanations and per-panel caveats are reduced. Detailed commands and
+  prerequisites live in `docs/REPRODUCTION.md`.
+- Added analytical random P@10/AP expectations as explicitly post-hoc descriptive
+  context, using the published summary only. No change to the frozen protocol,
+  reference labels, model results or candidate pools; no inference or downloads.
+- Fresh execution exposed historical source-drift in Notebook 02 and three brittle
+  tests. Retired acquisition continuations are removed from the executable story; historical
+  manifests and production source/readiness guards remain intact. Temporary
+  test fixtures isolate readiness without editing historical manifests.
+- All four notebooks executed fresh with zero errors; representative RGB/map and
+  result panels were visually inspected. Final full suite: **132 passed, zero skips**. Ruff check and format pass for
+  source, tests, scripts and all notebooks. Freeze/final-input hashes are unchanged.
+- Completion findings, added context and scientific limits are in
+  `docs/COMPLETION_REVIEW.md`. Next: human review/merge of the completion PR.
+  A demo and stronger relation study remain optional separate projects.
+
 Completed WP6 final evaluation (branch `codex/final-evaluation`):
 
 - PR #10 was human-merged; Review 2 has no consequential open findings.

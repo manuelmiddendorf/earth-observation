@@ -120,21 +120,19 @@ def test_both_candidate_versions_remain_blocked():
     for version, count in [("v1", 10), ("v2", 13)]:
         path = ROOT / f"manifests/benchmark-candidate-{version}.json"
         record = json.loads(path.read_text())
-        metric_source = "src/earth_observation/retrieval.py"
-        source_changed = (
-            file_digest(ROOT / metric_source) != record["inputs_sha256"][metric_source]
-        )
-        if source_changed:
-            with pytest.raises(
-                ValueError, match="Changed benchmark input:.*retrieval.py"
-            ):
+        changed_inputs = [
+            name
+            for name, expected in record["inputs_sha256"].items()
+            if file_digest(ROOT / name) != expected
+        ]
+        if changed_inputs:
+            with pytest.raises(ValueError, match="Changed benchmark input") as error:
                 load_benchmark_record(path, ROOT, require_frozen=False)
+            assert str(error.value) == f"Changed benchmark input: {changed_inputs[0]}"
         else:
             load_benchmark_record(path, ROOT, require_frozen=False)
         assert len(record["main_candidates"]["development"]) == count
         assert record["main_candidates"]["test"] == []
-        reason = (
-            "Changed benchmark input:.*retrieval.py" if source_changed else "not frozen"
-        )
+        reason = "Changed benchmark input" if changed_inputs else "not frozen"
         with pytest.raises(ValueError, match=reason):
             load_benchmark_record(path, ROOT)

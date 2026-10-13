@@ -1,3 +1,10 @@
+> **Current study:** `benchmark-freeze-v1` is valid under `benchmark-design-v3`:
+> 871 Test images, 1,142 Development images, reference-completion bounds and
+> exploratory relation controls. The sections below preserve the original
+> design and its access/coverage history. For the executed analysis, use the
+> [frozen protocol](ANALYSIS_PROTOCOL.md); for the final study, read the
+> [README](../README.md) and [reproduction guide](REPRODUCTION.md).
+
 # Coverage and benchmark readiness
 
 **Latest evidence:** the fixed 2,000-ID expansion is technically validated.

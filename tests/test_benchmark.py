@@ -261,21 +261,21 @@ def test_real_candidate_record_refuses_final_evaluation():
     if not path.exists() or not (ROOT / "data/cache/metadata.parquet").exists():
         pytest.skip("BLOCKED: actual coverage record or local sources unavailable")
     record = json.loads(path.read_text())
-    metric_source = "src/earth_observation/retrieval.py"
-    source_changed = (
-        file_digest(ROOT / metric_source) != record["inputs_sha256"][metric_source]
-    )
-    if source_changed:
-        with pytest.raises(ValueError, match="Changed benchmark input:.*retrieval.py"):
+    changed_inputs = [
+        name
+        for name, expected in record["inputs_sha256"].items()
+        if file_digest(ROOT / name) != expected
+    ]
+    if changed_inputs:
+        with pytest.raises(ValueError, match="Changed benchmark input") as error:
             load_benchmark_record(path, ROOT, require_frozen=False)
+        assert str(error.value) == f"Changed benchmark input: {changed_inputs[0]}"
     else:
         load_benchmark_record(path, ROOT, require_frozen=False)
     assert record["access"]["test_count"] == 0
     assert len(record["unassigned_selection"]) == 250
     assert record["main_candidates"]["test"] == []
-    reason = (
-        "Changed benchmark input:.*retrieval.py" if source_changed else "not frozen"
-    )
+    reason = "Changed benchmark input" if changed_inputs else "not frozen"
     with pytest.raises(ValueError, match=reason):
         load_benchmark_record(path, ROOT)
 
@@ -286,11 +286,11 @@ def test_false_freeze_status_cannot_bypass_readiness(tmp_path):
     if not path.exists() or not (ROOT / "data/cache/metadata.parquet").exists():
         pytest.skip("BLOCKED: real candidate record unavailable")
     record = json.loads(path.read_text())
-    # Isolate the readiness gate in a temporary fixture with current metric code.
+    # Isolate readiness in a temporary fixture with current source code.
     # The historical manifest/source pin is never edited or accepted as current.
-    record["inputs_sha256"]["src/earth_observation/retrieval.py"] = file_digest(
-        ROOT / "src/earth_observation/retrieval.py"
-    )
+    for name in record["inputs_sha256"]:
+        if name.startswith("src/"):
+            record["inputs_sha256"][name] = file_digest(ROOT / name)
     record.update(version="invalid-freeze-v1", status="frozen", blockers=[])
     forged = tmp_path / "invalid-freeze.json"
     write_benchmark_record(forged, record)
