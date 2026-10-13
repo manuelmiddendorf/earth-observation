@@ -1,0 +1,23 @@
+{
+  "version": "analysis-protocol-v1",
+  "candidate_policy": "complete-unfiltered-test-including-unknown",
+  "completion_space": "per-intent-all-binary-unknown-assignments",
+  "max_unknown_per_intent": 12,
+  "precision_at_10": "exact-known-top10-plus-unknown-top10-bounds",
+  "average_precision": "exact-enumeration-with-assignment-dependent-denominator",
+  "zero_positive_assignment": "block-ap-analysis-if-any-completion-has-zero",
+  "fully_known_output": "exact-value",
+  "partially_known_output": "reference-uncertainty-interval-even-if-collapsed",
+  "paraphrase_aggregation": "mean-before-extrema-with-shared-intent-assignment",
+  "intent_aggregation": "equal-intent-mean-of-marginal-bounds-conservative-envelope",
+  "paired_difference": "remoteclip-minus-clip-under-identical-assignment",
+  "relation_controls": "exploratory-separate-both-known-present",
+  "primary_statistics": "paired-per-intent-and-descriptive-equal-intent-mean",
+  "family_bootstrap": "optional-restricted-sensitivity-not-confidence-evidence",
+  "uncertainty_types": [
+    "reference",
+    "paraphrase-variation",
+    "statistical"
+  ],
+  "specification_document": "docs/ANALYSIS_PROTOCOL.md"
+}
