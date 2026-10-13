@@ -111,17 +111,22 @@ def test_identity_tracks_exact_bytes_text_order_and_software(tmp_path):
 
 @pytest.mark.integration
 def test_real_model_artifacts_reused_without_encoding():
-    from earth_observation.pilot import run_retrieval_pilot
+    from earth_observation.encoding import file_digest
 
     root = Path(__file__).resolve().parents[1]
-    if not list((root / "data/cache/embeddings").glob("*.npz")):
-        pytest.skip("BLOCKED: real model embeddings unavailable")
-    metrics, rankings, provenance = run_retrieval_pilot(root)
-    assert len(metrics) == 48 and len(rankings) == 480
-    assert metrics.judged_fraction.eq(1).all()
+    path = root / "outputs/frozen-retrieval-pilot-v1/run.json"
+    if not path.exists():
+        pytest.skip("BLOCKED: original real model provenance unavailable")
+    provenance = json.loads(path.read_text())
+
+    def no_encoding():
+        raise AssertionError("Integration must reuse existing historical encoding")
+
     for run in provenance["models"].values():
-        assert run["cache_hit"], "Integration must reuse existing encoding"
-        measured = run["original_encoding"]
+        cache = root / "data/cache/embeddings" / f"{run['cache_key']}.npz"
+        assert file_digest(cache) == run["cache_sha256"]
+        _, _, measured, hit = cached_embeddings(cache, run["identity"], no_encoding)
+        assert hit and measured == run["original_encoding"]
         assert measured["evaluation_mode"] and measured["all_parameters_frozen"]
         assert measured["dtype"] == "torch.float32" and measured["device"] == "cpu"
 

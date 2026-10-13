@@ -2,7 +2,8 @@
 
 **Status:** in development. A ten-patch technical pilot verifies frozen CLIP and
 RemoteCLIP retrieval, embedding reuse and per-formulation map-agreement metrics.
-The final model comparison remains planned. The validated
+The full evaluation pipeline is implemented and verified on Development rankings;
+final Test model comparison remains planned. The validated
 `benchmark-freeze-v1` contains 871 spatially held-out Test images under the
 explicit partial-reference protocol; relation controls are exploratory.
 
@@ -65,8 +66,9 @@ documented rule. RGB disagreement is a separate qualitative diagnosis.
 
 ## Methodology
 
-Reference construction and frozen development retrieval are implemented.
-The analysis follows four principles; final evaluation remains planned:
+Reference construction, frozen Development retrieval and the full v3 analysis
+pipeline are implemented. The analysis follows four principles; final Test
+evaluation remains planned:
 
 **Explicit relevance.** Implemented development rules aggregate raw CLC codes
 into forest, inland water, arable land and pasture. Presence requires a
@@ -127,6 +129,15 @@ map-negative result illustrates a threshold-driven reference disagreement,
 not independently verified visual failure. No overall model winner or isolated
 relation capability can be inferred from this pilot.
 
+The completed v3 integration reuses these stored Development rankings without
+encoding or downloading again. Across eight equally weighted intent means, the
+descriptive RemoteCLIP-minus-CLIP AP difference is −0.0940. P@10 differences are
+zero and top-ten Jaccards are one because N=10; set stability does not imply equal
+retrieval quality. The separate six-/two-case all-positive Development relation
+controls remain uninformative for relation capability. Controlled unknown-label
+examples and an independent exact-arithmetic oracle verify completion coupling
+and bounds. See the [evaluation pipeline and Review 2](docs/EVALUATION_PIPELINE.md).
+
 The model-independent assessment validates the fixed 2,000-ID expansion and
 13 earlier Development images. The unchanged spatial protocol gives 1,280 groups,
 1,142 Development and 871 Test-side images. All 128 previous Development images
@@ -177,10 +188,11 @@ yoga-attendance project:
 The first [data-understanding notebook](notebooks/01_data_understanding.ipynb)
 records the real ten-patch pilot, spatial checks and three RGB/map examples.
 The second notebook constructs provisional references; the third runs frozen
-development retrieval and verifies cache reuse. Final evaluation and error
-analysis remain planned. Reusable loading, reference, encoding, cache, ranking
-and metric calculations live in `src`; exploratory tables and plots remain
-in the notebooks.
+development retrieval and verifies cache reuse. The third notebook now demonstrates
+complete v3 evaluation on stored Development rankings and controlled examples.
+Final Test evaluation and its visual error analysis remain planned. Reusable
+loading/reference/encoding/ranking/metric and paired diagnostic calculations live
+in `src`; exploratory tables and plots remain in the notebooks.
 
 ## Reproduction and Project Documents
 
@@ -194,25 +206,21 @@ uv python install cpython-3.12.12-macos-aarch64-none
 uv sync --locked --python "$(uv python dir)/cpython-3.12.12-macos-aarch64-none/bin/python3.12"
 ```
 
-From the repository root with that environment:
+For current WP5 reproduction, retain the already verified local raster inventory
+and original Development ranking/embedding artifacts. From the repository root:
 
 ```bash
 uv sync --locked
-uv run python scripts/fetch_pilot.py
-uv run python scripts/prepare_benchmark.py
-uv run python scripts/validate_development.py
-uv run python scripts/check_subset_reproduction.py
-uv run python scripts/run_retrieval_pilot.py
+uv run python scripts/evaluate_development.py
 uv run pytest
-uv run ruff check src tests scripts
-uv run ruff format --check src tests scripts
+uv run ruff check src tests scripts notebooks/03_retrieval_evaluation.ipynb
+uv run ruff format --check src tests scripts notebooks/03_retrieval_evaluation.ipynb
 uv run python -m ipykernel install --sys-prefix --name earth-observation
-uv run jupyter nbconvert --to notebook --execute --inplace notebooks/01_data_understanding.ipynb
-uv run jupyter nbconvert --to notebook --execute --inplace notebooks/02_benchmark_construction.ipynb
 uv run jupyter nbconvert --to notebook --execute --inplace notebooks/03_retrieval_evaluation.ipynb
 ```
 
-The acquisition command downloads checksum-pinned text pages and the 3.6-MB
+At the historical data-access stage, `scripts/fetch_pilot.py` downloads
+checksum-pinned text pages and the 3.6-MB
 patch catalog (3,842,879 bytes total), plus fixed S2/map archive prefixes
 (2,359,296 bytes total). It extracts only the forty required TIFFs. No complete
 archive is requested. Valid caches and files are reused; ignored HTTP ranges,
@@ -248,7 +256,9 @@ TIFFs and reuses 1,000: 177,196,674 selected bytes, including 155,046,370 new by
 below the 256-MiB budget. No additional archive, caption or model transfer occurs.
 Earlier access/design/candidate versions and valid caches remain intact.
 
-Reproduce from these verified local sources and prior caption caches:
+The expansion/benchmark-construction stage can be replayed at the merged freeze
+revision `940700a`, using verified local sources and prior caption caches. Older
+source-pinned candidate sections deliberately reject current metric-code drift:
 
 ```bash
 uv run python scripts/expand_benchmark.py --stage all
@@ -267,14 +277,31 @@ components. With existing local data, reproduce it without downloads or models:
 uv run python scripts/freeze_benchmark.py
 ```
 
-WP5 begins after human merge of the freeze PR. See
+The freeze PR is merged; the WP5 implementation PR now requires human merge
+before final Test evaluation. See
 [actual local access](docs/DATA_ACCESS.md) and
 [the scoped access manifest](manifests/archive-data-access-v3.json).
 
 The retrieval command saves complete formulation metrics, rankings and measured
 provenance locally.
-The third notebook checks exact cache reuse and displays representative real
-top results; it runs independently from a fresh kernel.
+The third notebook reads the hash-verified historical caches and rankings,
+displays representative real Development images, and demonstrates reference
+bounds, paired intent means, wording variation, Jaccard, exploratory controls and
+restricted family sensitivity from a fresh kernel. The new executable path
+revalidates the freeze and accepts only Development inputs; missing artifacts
+fail without encoding/downloading:
+
+```bash
+uv run python scripts/evaluate_development.py
+uv run python scripts/evaluate_development.py --family-sensitivity
+```
+
+Local `outputs/evaluation-development-v3/results.json` records benchmark/model
+identity, source/cache checksums and analysis/runtime provenance. Original pilot
+artifacts stay intact. The source-pinned older candidates v1/v2 require their
+historical code revision; their source mismatch is explicitly rejected. The
+current freeze remains valid. Review 2 covers the changed evaluation contracts;
+WP6 starts after human merge of this implementation.
 
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md): work packages, reviews,
   and current implementation state.
