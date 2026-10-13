@@ -1,3 +1,10 @@
+> **Current access:** both official archives are downloaded and verified locally;
+> the 2,000-ID selection plus the earlier pilot provides 2,013 native RGB/map
+> pairs. Original captions are optional for the final image/query retrieval.
+> This document preserves acquisition stages and source commands. The
+> [reproduction guide](REPRODUCTION.md) distinguishes local prerequisites from
+> the current final evaluation.
+
 # Data pilot: sources and access evidence
 
 **Latest evidence:** the fixed 2,000-ID expansion is technically validated.
