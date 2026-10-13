@@ -4,7 +4,55 @@
 
 Updated: 2026-10-13.
 
-Latest full-selection access and feasibility evidence (PR #8):
+Latest authorized design revision and fixed expansion (PR #8):
+
+- `benchmark-design-v2` explicitly targets generalized CLC map agreement.
+  Adjacency is mapped four-neighbor contact, not independently visible truth.
+  Captions are optional for main retrieval. All numerical coverage, spatial,
+  query/reference and analysis rules remain unchanged; raw Development CLC
+  counts/full-area fractions and categorical edge counts verify map semantics.
+- Stable `coverage-selection-v2`: 2,000 IDs / 200 per country / 53 tiles,
+  same catalog/seed/exclusions/tile round-robin. Each country's first 25 IDs
+  exactly preserves v1. Selection was pinned before inspecting new labels.
+- One local scan per archive: 8,000 exact TIFFs, 7,000 new / 1,000 reused;
+  177,196,674 selected bytes, 155,046,370 new bytes below 256 MiB. All 2,000
+  pairs pass native identity/grid/dtype/NoData/reference checks. No archive,
+  original-text or model downloads; no full unpacking or repeated sampling.
+- Total 2,013 unique image IDs in 1,280 groups: Development 1,142, Test 871.
+  All 128 prior Development images remain there. Eleven merged earlier groups,
+  86 previous group/split changes, including 32 Test→Development; zero reverse.
+  Thirteen coincident native-footprint groups and 218 envelope overlap pairs
+  remain in complete components. No silent duplicate pruning or spatial leakage.
+- Original text availability: 254 verified, nine proven source-absent, 1,750
+  not requested. These are distinct from unknown map judgments and do not
+  filter or block the unfiltered image/query main collection.
+- Test positive/negative/dispersion minima now pass for every intent. Main map
+  judgments are unknown in three water/pasture/composite and two arable cases,
+  so seven intents fail required judged_fraction=1.0. Both-present controls:
+  forest-water 35/2/0; arable-pasture 59/7/0. False deficits are eight and three;
+  forest-water false dispersion is one (<5). No criteria were changed.
+- `benchmark-candidate-v4` is **blocked-not-frozen**. Default expanded loading
+  retains frozen-status/numeric coverage protection and native spatial checks.
+  Earlier candidates/designs and their code pins remain unchanged. No final
+  evaluation, embeddings, rankings or statistics implementation.
+- Concrete proposal only: smaller mapped forest-presence/paraphrase study
+  (549 positive / 322 negative fully judged Test cases, 537 positives outside
+  largest group), requiring explicit new scope/analysis; or a separately
+  preregistered reference-enriched relation control with fresh spatial groups.
+  No further images are drawn and neither proposal is implemented.
+- Verification: 90 tests passed without skips, including stable real-catalog
+  expansion, changed-label invariance, transitive neighbor bridges, Development
+  anchoring, optional captions and rejection of a false frozen record. Final
+  revised-design/source guards were rechecked (4 tests). Ruff check/format pass
+  for src/tests/scripts; changed notebook cells have no findings (22 historical
+  findings remain). Notebook freshly executed without errors; three fixed
+  Development RGB/maps and the expanded spatial figure visually inspected.
+  Reusable design/transition/freeze/source assessment is in the new
+  `benchmark_expansion` module; extraction reuses existing canonical logic.
+  Existing candidate code pins are preserved by leaving historical modules and
+  acquisition scripts unchanged. PR #8 remains ready for human review.
+
+Historical full-selection access and feasibility evidence (PR #8):
 
 - The unchanged 250-ID selection is fully extracted from the two already
   verified official archives. One sequential scan per archive writes 900 missing

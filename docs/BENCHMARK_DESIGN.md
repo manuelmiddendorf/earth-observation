@@ -1,9 +1,10 @@
 # Coverage and benchmark readiness
 
-**Latest evidence:** the complete planned 250-ID inventory is technically
-validated; original text has 241 exact matches and nine source-absent IDs.
-See the full-inventory section below. Earlier numbered checkpoints retain
-their historical scope and do not describe the latest availability.
+**Latest evidence:** the fixed 2,000-ID expansion is technically validated.
+`benchmark-design-v2` targets generalized map agreement and makes original
+captions optional for main retrieval. Unknown map judgments and sparse hard
+relation negatives still block candidate v4. Earlier checkpoints below retain
+their historical scope; see the latest expansion section for current evidence.
 
 
 Work package 4, checked 2026-10-12. **No final benchmark is frozen.**
@@ -454,3 +455,119 @@ settlement structure generalized into arable/pasture/known-other regions, and a
 Finnish mixed field/vegetation region largely assigned to known-other CLC 243/324.
 Gray is known other cover, not NoData. These observations support the stated
 reference limitation; they do not verify fine adjacency or motivate rule changes.
+
+
+## Authorized map-agreement design revision
+
+`benchmark-design-v2` explicitly defines the main outcome as agreement with the
+generalized CLC2018 reference under unchanged `reference-rules-v1`. Adjacency is
+both mapped class presences plus at least 60 m of summed four-neighbor mapped
+boundary. It is not independently verified adjacency of visible objects. Source
+10-m raster cells, 25-ha minimum mapping units and 100-m minimum linear widths
+are different quantities: rasterization does not improve categorical/boundary
+accuracy. Clipped polygons may have smaller within-patch areas than mapping units.
+RGB disagreement is a separate qualitative Development diagnosis.
+
+The field meanings, CLC aggregation and native metre-grid/full-patch denominator
+are checked against raw Development map categories. The existing hand-computed
+reference tests retain unknown bounds and distinguish diagonal contact from
+shared-edge metres. This confirms an operational map computation; it does not
+validate real visible class boundaries or reproduce the provider's caption rules.
+Missing source captions remain missing but do not block image/query main retrieval
+when raster provenance, identity, geometry and map evidence are independently
+valid. Any original-caption analysis must restrict itself to actual annotations.
+This scope change is explicitly user-authorized; no threshold or numerical gate
+was changed to improve coverage.
+
+### One fixed 2,000-ID feasibility step
+
+`coverage-selection-v2` uses the same pinned 480,038-row catalog, seed,
+country ordering, SHA-256 tile/patch ordering, tile round-robin and excluded
+33UUP Development tile. Quotas increase from 25 to 200 per country, giving exactly
+2,000 IDs. Each country's old 25-ID list is an unchanged prefix: all previous
+250 IDs are retained, although global selection ranks shift as country blocks
+grow. The plan and its digest were written before accessing new reference labels.
+No labels, model rankings or favorable relation outcomes determine selection.
+
+There is one local sequential scan per archive, no archive/text download and no
+complete unpacking. Additional native raster budget is 256 MiB; the extractor
+conservatively caps the whole selection, including reused bytes, at that amount.
+Observed prior file sizes estimate about 156 MB additional storage; source scans
+measure/enforce the actual budget before publishing selected files. This is
+exactly one expansion: no repeated draws until gates pass.
+
+All 128 previously Development-assigned images anchor their complete components.
+The inclusive 2-km EPSG:3035 envelope graph includes all dates. New bridge images
+can merge earlier provisional Test/Development groups; connected components are
+indivisible and prior Development never enters Test. Necessary old-assignment
+changes and merged groups are saved explicitly. Main candidates remain unfiltered;
+both-present relation controls are separate additional experiments. Numerical
+coverage, spatial and analysis protocols are byte-for-byte equal as JSON values
+to v1. The expanded loader verifies the design and retains frozen-status/coverage
+protection, additionally reconstructing frozen spatial membership from native grids.
+
+### Measured 2,000-ID outcome
+
+All 2,000 planned pairs and 13 earlier Development images are technically valid:
+2,013 unique image IDs in 1,280 groups, with 1,142 Development (643 groups) and
+871 Test-side images (637 groups). Exactly 8,000 selected TIFFs contain
+177,196,674 bytes; 7,000 new files add 155,046,370 bytes and 1,000 files were
+reused. No new archive/text requests occurred. Thirteen native-footprint groups
+contain two acquisition dates each; 218 projected-envelope overlap pairs are
+kept in indivisible components. This is conservative separation, not proof of
+independence or exact native pixel-area overlap. All prior Development is retained.
+Eleven earlier-group merges lead to 86 prior group/split changes, including
+32 provisional Test→Development moves and zero Development→Test moves.
+
+| Intent | All true/false/unknown (n=2,013) | Test true/false/unknown (n=871) | Test positives outside largest group |
+|---|---:|---:|---:|
+| Forest | 1,211/801/1 | 549/322/0 | 537 |
+| Inland water | 126/1,883/4 | 62/806/3 | 59 |
+| Arable land | 801/1,209/3 | 350/519/2 | 339 |
+| Pasture | 543/1,466/4 | 218/650/3 | 208 |
+| Forest and water | 80/1,929/4 | 37/831/3 | 35 |
+| Forest adjacent to water | 74/1,935/4 | 35/833/3 | 33 |
+| Arable and pasture | 183/1,826/4 | 66/802/3 | 59 |
+| Arable adjacent to pasture | 160/1,849/4 | 59/809/3 | 53 |
+
+All count and positive-dispersion minima now pass. Seven intents still fail full
+judgeability: three unknown judgments yield 868/871 = 0.996556; arable has two,
+869/871 = 0.997704, each below 1.0. Four maps (one Development, three Test) have
+ambiguous intent states; no unexpected CLC code or masked NoData pixel occurs
+in these maps. Registered unknown source categories occupy 7.17%, 16.44%, 21.17%
+and 12.63% of the respective patches. Technical identity/alignment is valid;
+unknown categorical information is neither a geometry error nor missing text.
+No patch is removed and no unknown is converted into false.
+
+| Separate both-present control | All true/false/unknown | Test true/false/unknown | Test false outside largest negative group | Failed numerical gate |
+|---|---:|---:|---:|---|
+| Forest-water | 74/6/0 | 35/2/0 | 1 | false 2 < 10; dispersion 1 < 5 |
+| Arable-pasture | 160/23/0 | 59/7/0 | 6 | false 7 < 10 |
+
+Test controls span 35 and 48 groups respectively; true dispersion is 33 and 53,
+and judged fractions are 1.0. Unknown class presences are reported separately
+and do not enter both-present controls. The forest-water false-count deficit is
+eight and dispersion deficit four; arable-pasture false-count deficit is three.
+`benchmark-candidate-v4` therefore stays **blocked-not-frozen** with exactly these
+main/control numerical blockers. Optional captions and lack of independently
+visible boundary truth are not reintroduced as requirements for this explicitly
+mapped estimand. Candidate v1–v3 and all numerical/query/reference rules remain
+unchanged. Default loading refuses final evaluation, including a record falsely
+marked frozen with its blocker list cleared.
+
+### Concrete next proposal, not implemented
+
+A smaller mapped forest-presence/paraphrase study can retain the entire unchanged
+871-image Test pool: 549 positives, 322 negatives, no unknown forest judgments,
+and 537 positives outside the largest group. It would not test composition or
+relations, and needs explicit revised query/design/analysis scope before any
+freeze; the current eight-intent design is not silently reduced. With one intent
+family it also cannot inherit broad family-level uncertainty claims.
+
+Alternatively, preregister a separate reference-enriched relation control study:
+choose fresh spatial groups outside current Development neighborhoods, explicitly
+sample both mapped classes and fixed true/false relation quotas, and retain
+unknown handling and minimum geographic dispersion. This is filtered map-reference
+control, not unfiltered main retrieval. It requires a separately authorized
+sampling/budget decision; current Development negatives cannot be moved into Test.
+Neither proposal is implemented and no more images are drawn in this step.

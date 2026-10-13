@@ -1,9 +1,10 @@
 # Data pilot: sources and access evidence
 
-**Latest evidence:** the complete planned 250-ID inventory is technically
-validated; original text has 241 exact matches and nine source-absent IDs.
-See the full-inventory section below. Earlier numbered checkpoints retain
-their historical scope and do not describe the latest availability.
+**Latest evidence:** the fixed 2,000-ID expansion is technically validated.
+`benchmark-design-v2` targets generalized map agreement and makes original
+captions optional for main retrieval. Unknown map judgments and sparse hard
+relation negatives still block candidate v4. Earlier checkpoints below retain
+their historical scope; see the latest expansion section for current evidence.
 
 
 Checked 2026-10-12; experiment `data-pilot-v1`, raster access `archive-prefix-v1`.
@@ -389,3 +390,42 @@ successful preliminary bytes. The conservative received-byte upper bound is
 bound to **10,954,442 bytes**, below 50 MB. No full text Parquet was transferred.
 Exact text-center residual maximum is 1.42e-14 degree. Fully available split
 counts are 122 Development / 132 Test-side, with six / three unknown texts.
+
+## Fixed 2,000-ID local expansion
+
+The explicitly authorized `archive-data-access-v3` / `benchmark-design-v2`
+continuation preserves all earlier source artifacts. The fixed expansion retains
+each country's old 25-ID prefix and raises the quota to 200, before new reference
+labels are examined. The catalog population, seed, 53 tiles, Development-tile
+exclusion and label/model-independent ordering are unchanged.
+
+Only already verified local archives were used, once sequentially per archive.
+Exact required schema is three RGB bands B04/B03/B02 and one original reference
+map per ID: 8,000 TIFFs for 2,000 IDs. Maps: 1,750 newly extracted / 250 reused,
+2,020,674 selected bytes. RGB: 5,250 new / 750 reused, 175,176,000 selected bytes.
+Total: 7,000 new / 1,000 reused, 177,196,674 selected bytes; subtracting the
+previous 22,150,304 gives **155,046,370 additional native bytes**, below 256 MiB.
+The original measured extraction receipts remain local; replay can change reuse
+counts without changing verified source identities or the candidate manifest.
+
+All 2,000 pairs pass exact source byte identity, catalog association, band order,
+CRS/transform/extent, uint16 120×120 shape, 10-m resolution, NoData and aligned
+native grids. Seven UTM zones occur; zero RGB values are masked, valid DN spans
+1–17,888. No repair or resampling. Native geometry supplies the enlarged split;
+image IDs at coincident footprints across dates remain distinct images within the
+same spatial group. Earlier caches and the 13 original Development pairs remain.
+
+No further original texts were requested. All 241 available selected annotations
+and 13 earlier annotations keep their independent source proofs. Nine old selected
+IDs remain proven source-absent; the 1,750 added IDs are **not requested**, not
+claimed source-absent. Under the authorized map-agreement estimand, these missing
+captions do not block main image/query retrieval. Actual unknown map judgments
+remain separate and still trigger unchanged coverage gates.
+
+The fixed inventory has 2,013 technical pairs, Development 1,142 / Test-side 871,
+in 1,280 groups. New neighbors merge 11 prior groups; 32 previous Test-side images
+become Development, while all 128 earlier Development images stay Development.
+See [the measured coverage decision](BENCHMARK_DESIGN.md#measured-2000-id-outcome):
+unknown main judgments and sparse false controls block candidate v4. No archive,
+text or weight transfer, full extraction, repeated draw, model or statistical run
+occurred during this expansion.

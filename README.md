@@ -3,8 +3,8 @@
 **Status:** in development. A ten-patch technical pilot verifies frozen CLIP and
 RemoteCLIP retrieval, embedding reuse and per-formulation map-agreement metrics.
 The final benchmark and statistical comparison remain planned. The fixed
-250-patch raster inventory is accessible, but coverage and reference suitability
-still block a defensible freeze.
+2,000-patch raster inventory is validated. Unknown map judgments and too few
+hard relation negatives still block a freeze under the revised map-agreement target.
 
 ## Abstract
 
@@ -44,20 +44,23 @@ alone does not satisfy the latter two requests.
 
 ## Data and Retrieval Task
 
-The data source is BigEarthNet.txt with the underlying BigEarthNet-v2
-Sentinel-2 images and land-cover reference maps. The unchanged planned
-250-image selection is now technically available across ten countries and
-53 tiles; 241 images have exact original-text matches. Nine selected IDs are
-absent from the pinned original-text inventory. Earlier Development contributes
-13 additional verified text/RGB/map pairs. Exact catalog identities, checksums
-and native grids agree; availability does not establish reference accuracy.
-The initial ten-image retrieval pilot remains separate from this broader,
-model-independent feasibility assessment.
+The data source is BigEarthNet.txt with underlying BigEarthNet-v2 Sentinel-2
+images and generalized CLC2018 reference maps. One fixed deterministic expansion
+selects 2,000 images, 200 per country across ten countries and 53 tiles, retaining
+all previously planned 250 IDs. Including earlier Development gives 2,013
+technically verified RGB/map pairs. Actual original text is verified for 254;
+nine earlier selected IDs are source-absent and 1,750 new IDs were not queried.
+Original captions are optional for image/query main retrieval and their absence
+is separate from missing map evidence. Any caption analysis uses actual texts only.
+The original ten-image model pilot remains a separate Development experiment.
 
 The models receive RGB images and query text. Land-cover labels, reference
 maps, and evaluation metadata are kept separate from the main ranking.
-Reference-map agreement will be distinguished from visually verified content:
-rasterizing a coarse map does not make its boundaries more accurate.
+The authorized `benchmark-design-v2` outcome is map-reference agreement:
+10-m cells do not improve CLC2018 mapping accuracy (25-ha mapping units,
+100-m minimum linear feature width). These are mapping conventions, not
+per-pixel positional accuracy guarantees. Adjacency means mapped contact under the
+documented rule. RGB disagreement is a separate qualitative diagnosis.
 
 ## Methodology
 
@@ -119,22 +122,23 @@ map-negative result illustrates a threshold-driven reference disagreement,
 not independently verified visual failure. No overall model winner or isolated
 relation capability can be inferred from this pilot.
 
-The model-independent feasibility assessment now validates all 250 unchanged
-planned RGB/map pairs across ten countries and 53 tiles. Including the earlier
-13 Development images gives 263 pairs in 235 spatial components: 128 Development
-and 135 Test-side images. The Test side has only six inland-water positives,
-three forest/water conjunction positives and two adjacency positives. Each
-both-present relation control contains one false case, below the required ten.
-Original text is available for 241 selected IDs; nine are absent from the pinned
-text source and remain unknown (254 complete pairs including earlier Development).
-Captions and original answers never determine reference relevance.
+The model-independent assessment validates the fixed 2,000-ID expansion and
+13 earlier Development images. The unchanged spatial protocol gives 1,280 groups,
+1,142 Development and 871 Test-side images. All 128 previous Development images
+stay there; new neighbors merge 11 earlier groups and move 32 provisional Test
+images into Development. Thirteen groups contain coincident native footprints
+at different dates, kept in complete components rather than silently pruned.
 
-The local archives now close the raster-access and geographic gaps, but the
-unchanged coverage gates and unverified fine-boundary reference suitability
-keep `benchmark-candidate-v3` **blocked-not-frozen**. Native 10-m alignment does
-not establish 10-m accuracy of generalized CLC2018 boundaries. No final model
-comparison or valid freeze is claimed. See
-[coverage, spatial separation and feasibility decision](docs/BENCHMARK_DESIGN.md#full-planned-inventory-feasibility).
+Every Test intent now meets positive/negative count and positive-dispersion
+minimums. Forest presence is fully judged (549 true / 322 false); other intents
+retain two or three unknown map judgments, violating required full judgeability.
+Separate both-present controls have 35 true / 2 false forest-water relations
+and 59 true / 7 false arable-pasture relations. The required false count is ten;
+forest-water false dispersion is one, below five. Thus
+`benchmark-candidate-v4` remains **blocked-not-frozen**. Missing captions are
+not freeze blockers under the revised target, but unknown map evidence remains
+unknown. No thresholds, numerical gates or query wording were relaxed. See
+[design revision and exact feasibility gates](docs/BENCHMARK_DESIGN.md#authorized-map-agreement-design-revision).
 
 ## Planned Analytical Narrative
 
@@ -217,28 +221,25 @@ existing pilot caches; both candidates remain non-frozen. These commands perform
 no model evaluation. Selection, design and integrity specifications are versioned;
 raw data and local diagnostic outputs remain ignored.
 
-The separately authorized acquisition completed both official archives
-(63,534,101,678 bytes, published checksums verified). The full planned selection
-now reuses them locally: one scan per archive, 900 new / 100 reused selected TIFFs,
-22,150,304 native bytes, no further archive transfer. Provenance for the earlier
-25-ID scope remains unchanged. Original text access uses exact Parquet ID-column
-ranges and single-row responses under a cumulative 50-MB ceiling; the full text
-Parquet is never downloaded. Source snapshots and missing IDs are recorded in
-[the full-selection access manifest](manifests/archive-data-access-v2.json).
+Both official archives already exist locally (63,534,101,678 bytes, published
+checksums verified). The fixed expansion scans each once, writes 7,000 missing
+TIFFs and reuses 1,000: 177,196,674 selected bytes, including 155,046,370 new bytes,
+below the 256-MiB budget. No additional archive, caption or model transfer occurs.
+Earlier access/design/candidate versions and valid caches remain intact.
 
-With the verified local archives, reproduce the full-selection assessment:
+Reproduce from these verified local sources and prior caption caches:
 
 ```bash
-uv run python scripts/fetch_archives.py --stage extract --manifest manifests/archive-data-access-v2.json
-uv run python scripts/fetch_selected_text.py
-uv run python scripts/validate_archive_access.py --manifest manifests/archive-data-access-v2.json --write-record
+uv run python scripts/expand_benchmark.py --stage all
 uv run jupyter nbconvert --to notebook --execute --inplace notebooks/02_benchmark_construction.ipynb
 ```
 
-The original 25-ID receipts stay separate. Valid text caches require no transfer;
-source drift fails explicitly. The rows API lacks revision pinning, so response
-SHA-256 identifies actual annotations independently of the repository revision.
-See [source provenance and bounded access](docs/DATA_ACCESS.md#full-planned-selection-and-original-text-access).
+Use `--stage validate` to reproduce source/coverage checks without another archive
+scan. Source disagreement, changed historical inputs or an incompatible record
+fails explicitly. New `benchmark_expansion` reuses canonical raster/reference/
+spatial/coverage implementations; the expanded loader defaults to refusing a
+blocked benchmark. See [actual local access](docs/DATA_ACCESS.md) and
+[the scoped access manifest](manifests/archive-data-access-v3.json).
 
 The retrieval command saves complete formulation metrics, rankings and measured
 provenance locally.
