@@ -1,0 +1,14 @@
+{
+  "figure": "intent-quality.svg",
+  "figure_sha256": "6cc8bf22721903c94d6b165eac87707a796eeedfdb641d61348324e80397042a",
+  "result_content_sha256": "c2df8d07b51b0734488397b745e234cd054257132af7bf88f70f4862e1251e35",
+  "summary_sha256": "799727f78db87bd5eb4e6c49bc939f0473bc0d33652af48da649deb052bd21b4",
+  "matplotlib": "3.11.2",
+  "inputs_sha256": {
+    "src/earth_observation/result_figures.py": "c43dd32f6e2131eae60cbb23d17becf13bf22aab771ef2c8cc62b7397ee4038d",
+    "scripts/render_final_figures.py": "879f491bc131050a9493e04bccd62d91805803cdc4afa79f811a8598e4e10a37"
+  },
+  "meaning": "Exact marginal intent reference bounds; not confidence intervals",
+  "candidate_count": 871,
+  "spatial_groups": 637
+}

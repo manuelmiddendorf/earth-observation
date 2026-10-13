@@ -1,0 +1,49 @@
+model_id,intent_id,query_id,rank,patch_id,relevance,category,status,reason,image_occurrences_in_48_slots,presence_conditions,unknown_area_percent,contact_lower_m,contact_upper_m
+clip-openai-vit-b32,single-forest,single-forest/p1,1,S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_02_17,true,satisfied,classified,,4,forest: 98.19–98.19% (true),0.0,,
+clip-openai-vit-b32,single-forest,single-forest/p1,5,S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_05_16,true,satisfied,classified,,1,forest: 100.00–100.00% (true),0.0,,
+clip-openai-vit-b32,single-forest,single-forest/p1,10,S2B_MSIL2A_20180509T092029_N9999_R093_T34TFN_04_66,true,satisfied,classified,,1,forest: 85.26–85.26% (true),0.0,,
+remoteclip-vit-b32,single-forest,single-forest/p1,1,S2B_MSIL2A_20180506T105029_N9999_R051_T31UER_86_47,true,satisfied,classified,,2,forest: 44.42–44.42% (true),0.0,,
+remoteclip-vit-b32,single-forest,single-forest/p1,5,S2A_MSIL2A_20170717T113321_N9999_R080_T29UPV_42_75,false,single-presence-failure,classified,,1,forest: 0.00–0.00% (false),0.0,,
+remoteclip-vit-b32,single-forest,single-forest/p1,10,S2A_MSIL2A_20170813T112121_N9999_R037_T29SNC_25_53,true,satisfied,classified,,1,forest: 24.48–24.48% (true),0.0,,
+clip-openai-vit-b32,single-inland-water,single-inland-water/p1,1,S2A_MSIL2A_20171208T093351_N9999_R136_T34TEN_06_31,false,single-presence-failure,classified,,1,inland_water: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,single-inland-water,single-inland-water/p1,5,S2A_MSIL2A_20180510T094031_N9999_R036_T35WPP_15_40,false,single-presence-failure,classified,,2,inland_water: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,single-inland-water,single-inland-water/p1,10,S2A_MSIL2A_20180318T093031_N9999_R136_T35UMB_17_27,false,single-presence-failure,classified,,1,inland_water: 0.00–0.00% (false),0.0,,
+remoteclip-vit-b32,single-inland-water,single-inland-water/p1,1,S2A_MSIL2A_20171208T093351_N9999_R136_T34TEN_25_56,false,single-presence-failure,classified,,1,inland_water: 0.00–0.00% (false),0.0,,
+remoteclip-vit-b32,single-inland-water,single-inland-water/p1,5,S2A_MSIL2A_20180318T093031_N9999_R136_T35UMB_12_05,false,single-presence-failure,classified,,1,inland_water: 0.00–0.00% (false),0.0,,
+remoteclip-vit-b32,single-inland-water,single-inland-water/p1,10,S2B_MSIL2A_20170930T095019_N9999_R079_T34UEG_80_02,false,single-presence-failure,classified,,2,inland_water: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,single-arable-land,single-arable-land/p1,1,S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_09_12,false,single-presence-failure,classified,,2,arable_land: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,single-arable-land,single-arable-land/p1,5,S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_08_26,false,single-presence-failure,classified,,2,arable_land: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,single-arable-land,single-arable-land/p1,10,S2A_MSIL2A_20171208T093351_N9999_R136_T34TEN_12_85,true,satisfied,classified,,1,arable_land: 98.01–98.01% (true),0.0,,
+remoteclip-vit-b32,single-arable-land,single-arable-land/p1,1,S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_20_17,false,single-presence-failure,classified,,3,arable_land: 0.00–0.00% (false),0.0,,
+remoteclip-vit-b32,single-arable-land,single-arable-land/p1,5,S2A_MSIL2A_20170717T113321_N9999_R080_T29UPA_30_79,false,single-presence-failure,classified,,2,arable_land: 0.00–0.00% (false),0.0,,
+remoteclip-vit-b32,single-arable-land,single-arable-land/p1,10,S2B_MSIL2A_20171015T104009_N9999_R008_T31UGS_33_88,false,single-presence-failure,classified,,1,arable_land: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,single-pasture,single-pasture/p1,1,S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_02_17,false,single-presence-failure,classified,,4,pasture: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,single-pasture,single-pasture/p1,5,S2B_MSIL2A_20180224T112109_N9999_R037_T29SNC_56_34,true,satisfied,classified,,1,pasture: 59.17–59.17% (true),0.0,,
+clip-openai-vit-b32,single-pasture,single-pasture/p1,10,S2B_MSIL2A_20171015T104009_N9999_R008_T31UGS_15_89,true,satisfied,classified,,2,pasture: 11.49–11.49% (true),0.0,,
+remoteclip-vit-b32,single-pasture,single-pasture/p1,1,S2B_MSIL2A_20180506T105029_N9999_R051_T31UER_86_47,true,satisfied,classified,,2,pasture: 37.07–37.07% (true),0.0,,
+remoteclip-vit-b32,single-pasture,single-pasture/p1,5,S2B_MSIL2A_20170718T115359_N9999_R023_T29UPB_06_57,true,satisfied,classified,,1,pasture: 85.49–85.49% (true),0.0,,
+remoteclip-vit-b32,single-pasture,single-pasture/p1,10,S2A_MSIL2A_20171002T094031_N9999_R036_T34TCS_81_73,true,satisfied,classified,,1,pasture: 65.23–65.23% (true),0.0,,
+clip-openai-vit-b32,both-forest-water,both-forest-water/p1,1,S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_02_17,false,class-a-only,classified,,4,forest: 98.19–98.19% (true); inland_water: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,both-forest-water,both-forest-water/p1,5,S2A_MSIL2A_20180510T094031_N9999_R036_T35WPP_15_40,false,class-a-only,classified,,2,forest: 92.74–92.74% (true); inland_water: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,both-forest-water,both-forest-water/p1,10,S2B_MSIL2A_20170924T093019_N9999_R136_T36VVQ_04_53,true,satisfied,classified,,1,forest: 56.37–56.37% (true); inland_water: 34.72–34.72% (true),0.0,,
+remoteclip-vit-b32,both-forest-water,both-forest-water/p1,1,S2B_MSIL2A_20180515T094029_N9999_R036_T35VNJ_33_43,false,class-a-only,classified,,1,forest: 80.22–80.22% (true); inland_water: 2.62–2.62% (false),0.0,,
+remoteclip-vit-b32,both-forest-water,both-forest-water/p1,5,S2B_MSIL2A_20170808T094029_N9999_R036_T35ULA_76_33,false,class-a-only,classified,,1,forest: 39.31–39.31% (true); inland_water: 0.00–0.00% (false),0.0,,
+remoteclip-vit-b32,both-forest-water,both-forest-water/p1,10,S2A_MSIL2A_20180413T095031_N9999_R079_T35VLG_86_13,false,class-a-only,classified,,1,forest: 99.77–99.77% (true); inland_water: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,adjacent-forest-water,adjacent-forest-water/p1,1,S2B_MSIL2A_20180421T100029_N9999_R122_T33TWM_02_17,false,class-a-only,classified,,4,forest: 98.19–98.19% (true); inland_water: 0.00–0.00% (false),0.0,0.0,0.0
+clip-openai-vit-b32,adjacent-forest-water,adjacent-forest-water/p1,5,S2A_MSIL2A_20171221T112501_N9999_R037_T29SND_18_02,false,class-a-only,classified,,1,forest: 45.68–45.68% (true); inland_water: 0.00–0.00% (false),0.0,0.0,0.0
+clip-openai-vit-b32,adjacent-forest-water,adjacent-forest-water/p1,10,S2A_MSIL2A_20170704T112111_N9999_R037_T29SND_73_61,false,class-a-only,classified,,1,forest: 98.49–98.49% (true); inland_water: 0.00–0.00% (false),0.0,0.0,0.0
+remoteclip-vit-b32,adjacent-forest-water,adjacent-forest-water/p1,1,S2B_MSIL2A_20171015T104009_N9999_R008_T31UGR_16_54,false,class-a-only,classified,,1,forest: 57.48–57.48% (true); inland_water: 0.00–0.00% (false),0.0,0.0,0.0
+remoteclip-vit-b32,adjacent-forest-water,adjacent-forest-water/p1,5,S2B_MSIL2A_20170930T095019_N9999_R079_T34UEG_80_02,false,neither,classified,,2,forest: 0.00–0.00% (false); inland_water: 0.00–0.00% (false),0.0,0.0,0.0
+remoteclip-vit-b32,adjacent-forest-water,adjacent-forest-water/p1,10,S2B_MSIL2A_20170808T094029_N9999_R036_T35ULA_79_41,false,class-a-only,classified,,1,forest: 15.74–15.74% (true); inland_water: 0.00–0.00% (false),0.0,0.0,0.0
+clip-openai-vit-b32,both-arable-pasture,both-arable-pasture/p1,1,S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_09_12,false,class-b-only,classified,,2,arable_land: 0.00–0.00% (false); pasture: 11.26–11.26% (true),0.0,,
+clip-openai-vit-b32,both-arable-pasture,both-arable-pasture/p1,5,S2B_MSIL2A_20171112T114339_N9999_R123_T29UPU_29_45,true,satisfied,classified,,1,arable_land: 64.22–64.22% (true); pasture: 34.60–34.60% (true),0.0,,
+clip-openai-vit-b32,both-arable-pasture,both-arable-pasture/p1,10,S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_08_26,false,class-b-only,classified,,2,arable_land: 0.00–0.00% (false); pasture: 23.41–23.41% (true),0.0,,
+remoteclip-vit-b32,both-arable-pasture,both-arable-pasture/p1,1,S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_20_17,false,class-b-only,classified,,3,arable_land: 0.00–0.00% (false); pasture: 79.89–79.89% (true),0.0,,
+remoteclip-vit-b32,both-arable-pasture,both-arable-pasture/p1,5,S2A_MSIL2A_20170717T113321_N9999_R080_T29UPA_30_79,false,class-b-only,classified,,2,arable_land: 0.00–0.00% (false); pasture: 100.00–100.00% (true),0.0,,
+remoteclip-vit-b32,both-arable-pasture,both-arable-pasture/p1,10,S2B_MSIL2A_20170716T093039_N9999_R136_T36VVR_00_70,false,neither,classified,,2,arable_land: 0.00–0.00% (false); pasture: 0.00–0.00% (false),0.0,,
+clip-openai-vit-b32,adjacent-arable-pasture,adjacent-arable-pasture/p1,1,S2B_MSIL2A_20171015T104009_N9999_R008_T31UGS_15_89,false,class-b-only,classified,,2,arable_land: 0.00–0.00% (false); pasture: 11.49–11.49% (true),0.0,0.0,0.0
+clip-openai-vit-b32,adjacent-arable-pasture,adjacent-arable-pasture/p1,5,S2A_MSIL2A_20170717T113321_N9999_R080_T29UPV_58_48,true,satisfied,classified,,1,arable_land: 9.36–9.36% (true); pasture: 90.64–90.64% (true),0.0,2380.0,2380.0
+clip-openai-vit-b32,adjacent-arable-pasture,adjacent-arable-pasture/p1,10,S2A_MSIL2A_20170717T113321_N9999_R080_T29UPA_29_86,false,class-b-only,classified,,1,arable_land: 0.00–0.00% (false); pasture: 100.00–100.00% (true),0.0,0.0,0.0
+remoteclip-vit-b32,adjacent-arable-pasture,adjacent-arable-pasture/p1,1,S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_20_17,false,class-b-only,classified,,3,arable_land: 0.00–0.00% (false); pasture: 79.89–79.89% (true),0.0,0.0,0.0
+remoteclip-vit-b32,adjacent-arable-pasture,adjacent-arable-pasture/p1,5,S2A_MSIL2A_20180508T104031_N9999_R008_T31UGR_33_16,false,class-b-only,classified,,1,arable_land: 0.00–0.00% (false); pasture: 77.15–77.15% (true),0.0,0.0,0.0
+remoteclip-vit-b32,adjacent-arable-pasture,adjacent-arable-pasture/p1,10,S2B_MSIL2A_20170716T093039_N9999_R136_T36VVR_00_70,false,neither,classified,,2,arable_land: 0.00–0.00% (false); pasture: 0.00–0.00% (false),0.0,0.0,0.0

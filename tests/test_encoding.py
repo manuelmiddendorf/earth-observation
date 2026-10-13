@@ -145,3 +145,30 @@ def test_text_context_limit_and_frozen_state_are_enforced():
     model.requires_grad_(True)
     with pytest.raises(ValueError, match="frozen"):
         encode_texts(model, tokenizer, ["forest"], batch_size=5)
+
+
+def test_local_checkpoint_policy_never_calls_downloader(tmp_path, monkeypatch):
+    from earth_observation import encoding
+
+    def prohibited(*args, **kwargs):
+        pytest.fail("Local-only execution invoked acquisition")
+
+    monkeypatch.setattr(encoding, "fetch_asset", prohibited)
+    path = tmp_path / "weights.pt"
+    path.write_bytes(b"verified checkpoint")
+    spec = {
+        "name": path.name,
+        "size_bytes": path.stat().st_size,
+        "sha256": encoding.file_digest(path),
+    }
+    assert encoding.checkpoint_path(spec, tmp_path, allow_download=False) == path
+    path.write_bytes(b"altered checkpoint ")
+    with pytest.raises(ValueError, match="mismatch"):
+        encoding.checkpoint_path(spec, tmp_path, allow_download=False)
+    path.unlink()
+    with pytest.raises(FileNotFoundError, match="prohibited"):
+        encoding.checkpoint_path(spec, tmp_path, allow_download=False)
+    with pytest.raises(ValueError, match="basename"):
+        encoding.checkpoint_path(
+            {**spec, "name": "../weights.pt"}, tmp_path, allow_download=False
+        )
