@@ -2,7 +2,109 @@
 
 ## Current State
 
-Updated: 2026-10-12.
+Updated: 2026-10-13.
+
+Latest authorized design revision and fixed expansion (PR #8):
+
+- `benchmark-design-v2` explicitly targets generalized CLC map agreement.
+  Adjacency is mapped four-neighbor contact, not independently visible truth.
+  Captions are optional for main retrieval. All numerical coverage, spatial,
+  query/reference and analysis rules remain unchanged; raw Development CLC
+  counts/full-area fractions and categorical edge counts verify map semantics.
+- Stable `coverage-selection-v2`: 2,000 IDs / 200 per country / 53 tiles,
+  same catalog/seed/exclusions/tile round-robin. Each country's first 25 IDs
+  exactly preserves v1. Selection was pinned before inspecting new labels.
+- One local scan per archive: 8,000 exact TIFFs, 7,000 new / 1,000 reused;
+  177,196,674 selected bytes, 155,046,370 new bytes below 256 MiB. All 2,000
+  pairs pass native identity/grid/dtype/NoData/reference checks. No archive,
+  original-text or model downloads; no full unpacking or repeated sampling.
+- Total 2,013 unique image IDs in 1,280 groups: Development 1,142, Test 871.
+  All 128 prior Development images remain there. Eleven merged earlier groups,
+  86 previous group/split changes, including 32 Test→Development; zero reverse.
+  Thirteen coincident native-footprint groups and 218 envelope overlap pairs
+  remain in complete components. No silent duplicate pruning or spatial leakage.
+- Original text availability: 254 verified, nine proven source-absent, 1,750
+  not requested. These are distinct from unknown map judgments and do not
+  filter or block the unfiltered image/query main collection.
+- Test positive/negative/dispersion minima now pass for every intent. Main map
+  judgments are unknown in three water/pasture/composite and two arable cases,
+  so seven intents fail required judged_fraction=1.0. Both-present controls:
+  forest-water 35/2/0; arable-pasture 59/7/0. False deficits are eight and three;
+  forest-water false dispersion is one (<5). No criteria were changed.
+- `benchmark-candidate-v4` is **blocked-not-frozen**. Default expanded loading
+  retains frozen-status/numeric coverage protection and native spatial checks.
+  Earlier candidates/designs and their code pins remain unchanged. No final
+  evaluation, embeddings, rankings or statistics implementation.
+- Concrete proposal only: smaller mapped forest-presence/paraphrase study
+  (549 positive / 322 negative fully judged Test cases, 537 positives outside
+  largest group), requiring explicit new scope/analysis; or a separately
+  preregistered reference-enriched relation control with fresh spatial groups.
+  No further images are drawn and neither proposal is implemented.
+- Verification: 90 tests passed without skips, including stable real-catalog
+  expansion, changed-label invariance, transitive neighbor bridges, Development
+  anchoring, optional captions and rejection of a false frozen record. Final
+  revised-design/source guards were rechecked (4 tests). Ruff check/format pass
+  for src/tests/scripts; changed notebook cells have no findings (22 historical
+  findings remain). Notebook freshly executed without errors; three fixed
+  Development RGB/maps and the expanded spatial figure visually inspected.
+  Reusable design/transition/freeze/source assessment is in the new
+  `benchmark_expansion` module; extraction reuses existing canonical logic.
+  Existing candidate code pins are preserved by leaving historical modules and
+  acquisition scripts unchanged. PR #8 remains ready for human review.
+
+Historical full-selection access and feasibility evidence (PR #8):
+
+- The unchanged 250-ID selection is fully extracted from the two already
+  verified official archives. One sequential scan per archive writes 900 missing
+  TIFFs and reuses 100 valid files: 1,000 original files / 22,150,304 selected
+  bytes, zero new archive transfer. Original 25-ID selection/access evidence
+  remains intact; `archive-data-access-v2` explicitly authorizes the full scope.
+- All 250 native RGB/map pairs pass exact member/catalog/band/grid/CRS/extent/
+  resolution/dtype/NoData/value checks. B04/B03/B02, uint16 120×120, seven UTM
+  zones, 10 m, NoData 0, no masked RGB values; DN 1–17,824. No resampling.
+- Official filter/search failures are bypassed through verified exact Parquet
+  ranges: 185,271-byte footer, 9,182,428 patch-ID column bytes in 70/78 groups,
+  then one original row per exact indexed ID. Converted source commit and
+  response SHA-256 snapshots are pinned. Rows API revision limitation is explicit.
+  241 selected text records pass S1/country/native-center checks (maximum center
+  residual 1.42e-14 degree); nine exact IDs are absent from the pinned source.
+  The first 25 contain 24 matches / one absent entry. No invented replacements.
+- Successful new text responses including preliminary probes total 9,942,373
+  bytes; conservative cumulative ceiling including failed allocations is
+  10,954,442 bytes, below the authorized 50 MB. Valid caches are identity checked.
+- Total 263 distinct technical pairs / 254 complete original-text pairs.
+  Unchanged spatial protocol: 235 groups, Development 128 (110 groups), Test-side
+  135 (125 groups). All 22 previous Development IDs stay Development. Text-complete
+  allocation: 122 Development / 132 Test; missing text 6/3. No duplicate native
+  footprints; 19 projected-envelope overlaps (16 earlier Development pairs and
+  three selected neighbor pairs), all contained within complete split groups.
+  No planned image overlaps/connects to the original 13-image Development group.
+- Main Test true/false/unknown: forest 89/46/0, water 6/129/0, arable 50/85/0,
+  pasture 40/95/0, forest/water conjunction 3/132/0 and adjacency 2/133/0,
+  arable/pasture conjunction 10/125/0 and adjacency 9/126/0. Controls are separate:
+  all forest/water 9/2/0, arable/pasture 26/2/0; Test 2/1/0 and 9/1/0.
+  Both-present false cases now exist, but unchanged counts/dispersion still fail.
+- `benchmark-candidate-v3` pins actual new 263-image evidence; v1/v2 remain
+  unchanged. Status stays `blocked-not-frozen`: sparse water/composite/control
+  coverage, nine missing original texts and unverified fine-reference suitability.
+  No thresholds, queries, gates, statistics or final model/embedding runs changed.
+- Next decision: explicitly choose mapped-boundary agreement versus independently
+  verified visible relations; then preregister further deterministic sampling and
+  budget to satisfy unchanged gates. Ask BIFOLD for the nine exact absent texts
+  before altering completeness requirements. These are proposals, not changes.
+
+- Verification: 86 tests passed without skips, including the full 250-patch real
+  raster/text integration and failed-range/budget/cache/schema tests. Ruff check
+  and format pass for src/tests/scripts; changed notebook cells have zero findings
+  (22 older findings remain unchanged). Notebook executed in a fresh kernel with
+  zero errors; three predeclared Development RGB/maps and full spatial figure
+  visually inspected. A text-cache reproduction added zero transfer and preserved
+  exact annotations. Reusable transfer/schema validation is in `src/text_access.py`;
+  source orchestration stays in scripts and compact exploration/plots in notebook.
+- The scoped data/access/feasibility implementation is complete. PR #8 can be
+  ready for review with an explicitly blocked freeze and concrete next decisions.
+
+Historical implementation checkpoints follow.
 
 - Work packages 1–3 are merged (PRs #3–#5); Review 1 is complete. The unchanged
   `data-pilot-v1` has ten verified RGB/map pairs, all from one Austria tile.
@@ -72,12 +174,52 @@ Updated: 2026-10-12.
   unchanged. 66 tests passed, including real source integration and a positive
   controlled protocol fixture; Ruff passes; notebook freshly executed and new
   RGB/map examples visually inspected. No new model encoding or statistics.
-- Next: provide an official indexed subset route or local subset with verifiable
+- Previous next action (superseded by the full-archive authorization below):
+  provide an official indexed subset route or local subset with verifiable
   provenance initially for the first 25 selected IDs (100 TIFFs). Then validate
   broader development plausibility,
   native spatial separation and held-out main/control coverage under a new
   candidate version before a real freeze. Package 5's final-evaluation prerequisite
   remains unmet. See `docs/BENCHMARK_DESIGN.md` for exact rules and access evidence.
+- Archive-access continuation: full acquisition of **only** BigEarthNet-S2 and
+  Reference_Maps from Zenodo 10891137 is explicitly authorized (63,534,101,678
+  bytes). Fresh official inventory confirms v2.0.0, sizes and published MD5s.
+  The local disk has about 1.1 TiB free; archives stay in ignored
+  `data/cache/archives/`, with no full uncompressed dataset written.
+- Reference archive: all 282,391,301 bytes downloaded and published MD5 verified;
+  measured SHA-256 and 25 exact original map-member hashes are recorded in
+  `archive-data-access-v1`. An interrupted transfer resumed at byte 263,179,956
+  with exact HTTP 206. The 25 maps total 25,154 bytes and were actually read:
+  EPSG:32633, 120×120 uint16, native 10-m cells, NoData 0, zero masked pixels.
+- At the previous partial-stage checkpoint, S2 acquisition was in progress and
+  unverified. A one-time local macOS job
+  resumes retained partial bytes in exact 64-MiB HTTP ranges; three consecutive
+  network failures stop it. After both complete MD5 checks it automatically
+  scans the archives sequentially and extracts only the fixed 100 TIFFs.
+  Runtime byte counts/errors are local progress files, not frozen research inputs.
+- The unchanged first 25 IDs cover seven Austria tiles and nine acquisitions.
+  Planned 25; original maps present/loaded/member-verified 25; RGB TIFFs present 0;
+  complete RGB/map patches validated 0; new Development/Test assignments 0/0.
+  Existing complete validation remains 13 Development, one group, zero Test.
+  Text-filter access returned HTTP 502; a first-patch retry timed out. No full
+  text parquet, S1 archive or additional model weights were downloaded.
+- Reference-only preview (true/false/unknown): forest 16/9/0, water 1/24/0,
+  arable 17/8/0, pasture 2/23/0; forest/water conjunction/adjacency 0/25/0;
+  arable/pasture 1/24/0. Both-present controls have 0/0/0 and 1/0/0 states.
+  Forest negatives are newly evidenced in maps, but hard relation negatives
+  remain absent. These are provisional map counts, not retrieval/test coverage.
+- No candidate revision, criteria change, model encoding or statistics.
+  `benchmark-candidate-v2` remains `blocked-not-frozen`. The acquisition PR is
+  Draft while the S2 download, complete raster/text validation, native spatial
+  grouping and new RGB/map visual examples remain unfinished. Next: finish the
+  retained download, validate the exact 25 complete pairs and their text/source
+  identities, then apply the unchanged spatial protocol and coverage gates.
+- Partial-stage verification: 79 tests passed without skips; Ruff check/format
+  passed; the notebook executed from a fresh kernel and actual map previews were
+  visually inspected. Original v1/v2 input digests and default loader rejections
+  still pass. HTTP 504 interrupted S2 acquisition; saved bytes are preserved.
+  An initial background manager's unintended restarts were stopped; the local
+  replacement explicitly disables automatic restart (`KeepAlive=false`).
 
 Research reports and agent instructions are local working documents, excluded
 from the public repository. The public methodology is summarized in the README.
