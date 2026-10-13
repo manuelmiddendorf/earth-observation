@@ -4,7 +4,59 @@
 
 Updated: 2026-10-13.
 
-Current authorized analysis revision and WP4 freeze:
+Current WP5 implementation and Review 2:
+
+- PR #9 was human-merged; branch `codex/evaluation-protocol-v3` starts from
+  updated main. `benchmark-freeze-v1` is fully revalidated and unchanged.
+  No reference/query/spatial/model/specification change, downloads, encoding,
+  actual Test rankings or Test model evaluation.
+- Canonical P@10/AP kernels in existing `retrieval.py` now support exact binary
+  completion enumeration with variable AP denominators and explicit undefined/
+  over-limit states. Historical pilot API remains separately identified; v3
+  never compresses unknowns or returns imputed quality points.
+- New `evaluation` computes shared-completion formulation/intent means, paired
+  differences, wording ranges, top-k Jaccard, error samples and conservative
+  cross-intent envelopes. Separate both-present controls remain exploratory.
+  Optional PCG64 family sensitivity preserves pairing/dependent intents/drawn
+  multiplicities and equal-intent weighting; it is not a confidence interval.
+- `evaluation_run` integrates only the stored ten-image Development rankings,
+  validates the freeze itself and checks original model/representation/query/
+  image/cache identities. Result JSON includes benchmark/model/source/current
+  analysis hashes and actual runtime versions. Historical artifacts/cache bytes
+  remain unchanged. Development descriptive mean AP difference is -0.094003;
+  P@10 difference zero and top-ten Jaccard one are structural at N=10, not
+  evidence of superiority. Development controls contain 6/2 true, zero false,
+  in one group; P@10 is undefined and AP=1 is uninformative.
+- Notebook 03 extends ranking → reference completions → formulations → intents
+  → paired comparison → interpretation limits, with controlled examples and
+  clearly labelled Development data; all scientific equations precede results.
+- Separate Review 2 examined denominators/completion coupling/candidate identity/
+  unknowns/aggregation/model pairing/controls/leakage and freeze conformity.
+  Fixed contradictory composite-input acceptance, the supplied-record shortcut,
+  weak generator/weighting observability, and legacy source/cache assumptions.
+  Regression checks include unequal-family mixed-draw weighting and split/pool
+  protection. See `docs/EVALUATION_PIPELINE.md` for findings and exact contracts.
+- Known-negative/uncertain-class-pattern taxonomy was documented before the
+  affected implementation; it yields explicit unresolved category status without
+  relabeling relevance. There are zero applicable cases in the frozen inventory.
+- Older candidate v1/v2 manifests retain their historical metric source pins;
+  current-source loading correctly refuses that drift. Tests retain this guard
+  and isolate false-status readiness with a temporary fixture; no pin was edited.
+  Current v3/v4/freeze inputs remain byte-identical and valid.
+- Validation: 121-test full run passed 120 and exposed a missing sensitivity
+  output field; after fixing that schema field, all 34 affected metric/evaluation
+  checks passed, including real stored-ranking integration. No skips. Ruff check
+  and format pass for src/tests/scripts and the entire notebook (40 items).
+  Notebook 03 executed from a fresh kernel: 13 code cells, zero errors; real
+  Development top images and the intent-mean figure were visually inspected.
+  The 18 frozen specification/source files and all 8,052 TIFF pins remain intact;
+  original ranking/cache bytes and modification times are unchanged.
+- Next: human review/merge of WP5, then authorize WP6. The evaluation calculations
+  are ready after Review 2; no final Test result exists. Generalized
+  map truth, marginal conservative envelopes, sparse relation negatives and two
+  intent families remain scientific limitations.
+
+Historical authorized analysis revision and WP4 freeze:
 
 - PR #8 was human-merged before this work; branch starts from current main.
   `benchmark-design-v3` / `analysis-protocol-v1` retain eight intents / 24
