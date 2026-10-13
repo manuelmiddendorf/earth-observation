@@ -2,9 +2,9 @@
 
 ## Abstract
 
-Can a frozen image–text model find satellite images that satisfy several
-conditions at once? We compare CLIP and RemoteCLIP ViT-B/32 on 871 spatially
-held-out Sentinel-2 images, eight land-cover intents and three formulations
+We investigate whether frozen image–text models retrieve satellite images that
+satisfy several conditions at once. We compare CLIP and RemoteCLIP ViT-B/32 on
+871 spatially held-out Sentinel-2 images, eight land-cover intents and three formulations
 per intent. Relevance means agreement with fixed land-cover map rules.
 CLIP achieves mean precision at ten of 35.00%, versus RemoteCLIP's 26.25%.
 RemoteCLIP has slightly higher average precision for single concepts, while
@@ -27,15 +27,16 @@ the latter two queries.
 We use Sentinel-2 satellite-image patches and CLC2018 land-cover maps from
 BigEarthNet-v2, with BigEarthNet.txt providing the original image–text context.
 A deterministic, country-balanced selection yields 2,013 verified image/map
-pairs, including the Development pilot. Nearby and overlapping patches stay
-in the same spatial group: 1,142 images are Development and 871 are Test.
-Images were selected without model rankings. Original captions are optional
-and do not enter retrieval or relevance scoring.
+pairs, including the initial pilot. Nearby and overlapping patches stay
+in the same spatial group: 1,142 images are used for development and 871
+for testing.
+Selection did not use model rankings. Original captions are not used in retrieval
+or relevance scoring.
 
 The eight intents concern forest, inland water, arable land and pasture,
 two combinations of these classes, and their adjacency versions. An *intent*
 is one relevance condition; its three *paraphrases* express that same condition
-with different English wording. Every main query searches all 871 Test images.
+with different English wording. Every main query searches all 871 test images.
 
 The reference measures **map agreement**, not independently verified visual
 truth. A class must cover at least 5% of the patch; adjacency also requires
@@ -53,8 +54,8 @@ and query text only, using its specified preprocessing.
 
 Image and text embeddings are normalized, and all candidates are ranked by
 cosine similarity. Maps, captions and metadata do not affect the scores.
-[Checkpoint and preprocessing details](config/frozen-models-v1.json) are
-recorded separately for reproduction.
+The [model specifications](config/frozen-models-v1.json) identify the checkpoints
+and preprocessing.
 
 Precision at ten (**P@10**) is the relevant fraction of the first ten hits.
 **Average precision (AP)** rewards relevant images appearing early across
@@ -62,16 +63,18 @@ the full ranking. We average the three formulations within each intent,
 then weight the eight intents equally.
 
 For the few unknown reference labels, we enumerate possible assignments
-and report metric bounds. Assignments are shared across both models and
-all formulations of an intent. Aggregate bounds are conservative envelopes,
-not confidence intervals or necessarily jointly attainable map states.
+and report the resulting metric ranges. Both models and all formulations of an
+intent share the same assignment. Aggregate ranges are conservative: dependencies
+between intents may make their endpoints unattainable together. They describe
+reference ambiguity, not statistical confidence.
 The [analysis protocol](docs/ANALYSIS_PROTOCOL.md) gives the equations.
 Only two dependent intent families exist, so the results do not support
 broad statistical claims about model superiority.
 
 ## Results
 
-AP entries are conservative reference envelopes; P@10 bounds coincide here.
+AP ranges reflect unknown reference labels and are conservatively aggregated
+across intents. These labels do not affect the reported P@10 values.
 
 | Query type | CLIP P@10 | RemoteCLIP P@10 | CLIP AP | RemoteCLIP AP |
 |---|---:|---:|---:|---:|
@@ -82,8 +85,8 @@ AP entries are conservative reference envelopes; P@10 bounds coincide here.
 
 ![Per-intent metric bounds from unknown map labels, not confidence intervals](results/final-evaluation-v1/intent-quality.svg)
 
-CLIP's aggregate AP advantage remains under every permitted reference
-completion: the paired RemoteCLIP-minus-CLIP envelope is
+CLIP's aggregate AP advantage persists across possible assignments of the
+unknown labels: the paired RemoteCLIP-minus-CLIP range is
 −0.03047 to −0.02689. The comparison varies by concept. RemoteCLIP gains on
 arable land and pasture, while CLIP leads on forest and water. Lower composite
 scores also reflect rarer positives; the comparison alone does not isolate
@@ -98,7 +101,7 @@ shows the detailed comparison.
 
 ### How much does prevalence explain?
 
-A **post-hoc descriptive random reference** puts the results in context.
+A post-hoc comparison with random rankings helps interpret these differences.
 For a uniform random ranking, expected P@10 equals the fraction of relevant
 images. Forest already occurs in 63.03% of the main pool; its measured P@10
 is 96.67% for CLIP and 83.33% for RemoteCLIP. Other intents have different
@@ -113,10 +116,10 @@ Forest/water has 35 positive and two negative cases; arable/pasture has
 | Forest/water adjacency | 94.59% | 100.00% | 100.00% |
 | Arable/pasture adjacency | 89.39% | 96.67% | 80.00% |
 
-These expectations are not significance tests. The controls remain exploratory
-and separate from the main comparison. Few hard negatives prevent a strong
-claim about spatial reasoning. [Random-reference evidence and review](docs/COMPLETION_REVIEW.md)
-record the added context without changing the frozen results.
+These expectations are not significance tests. Few negative examples limit
+conclusions about spatial reasoning, so the controls are exploratory and separate
+from the main comparison. The [random-reference calculation](docs/COMPLETION_REVIEW.md)
+gives the analytical expectations.
 
 ## Error Analysis
 
@@ -130,7 +133,7 @@ Many composite failures already miss one required class. The sample contains
 no both-present-but-false relation, so it cannot isolate relation mistakes.
 RGB often shows finer landscape detail than the map. Arable versus pasture
 use cannot be reliably verified from one RGB image, and possible snow or
-shadow effects remain hypotheses. No labels were changed after inspection.
+shadow effects remain hypotheses.
 
 ## Main Findings
 
@@ -143,17 +146,16 @@ shadow effects remain hypotheses. No labels were changed after inspection.
 ## Reproduction
 
 The final run used Apple M2 Pro, CPU float32 and the locked Python environment.
-Each model encoded 871 images and 24 texts once; saved embeddings allow later
-analysis without new inference. Large rasters, weights and caches stay local.
+Each model encoded 871 images and 24 texts. Reproduction requires the source
+rasters and model checkpoints, which are not included in the repository.
 
 ```bash
 uv sync --locked
 uv run python scripts/evaluate_final.py
 ```
 
-The runner requires the pinned local assets and does not download them.
-[Reproduction instructions](docs/REPRODUCTION.md) cover acquisition prerequisites,
-notebook execution and verification. The notebook storyline is:
+[Reproduction instructions](docs/REPRODUCTION.md) cover data and model setup,
+notebook execution and verification. The analyses are available in four notebooks:
 
 1. [Data understanding](notebooks/01_data_understanding.ipynb): can inputs be matched?
 2. [Benchmark construction](notebooks/02_benchmark_construction.ipynb): what counts as relevant?
@@ -167,5 +169,5 @@ prevalence. Eight intents in two families, generalized map labels and possible
 pretraining overlap limit transfer to other questions and datasets. Spatial
 grouping reduces nearby leakage but does not prove statistical independence.
 Reference envelopes describe label ambiguity, not sampling uncertainty.
-The main study is complete; stronger claims about visible relations would
-require a separately designed study with better references and more negatives.
+Stronger claims about visible relations would require a study with independently
+validated references and more negative relation examples.

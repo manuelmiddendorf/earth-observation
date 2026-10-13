@@ -4,6 +4,16 @@
 
 Updated: 2026-10-13.
 
+Paper-style language revision (branch `codex/paper-language`):
+
+- PR #12 was human-merged. README and all four notebooks now use research prose:
+  questions, methods, observations and interpretation, without editorial decisions
+  or agent-workflow commentary. Essential methodological limits remain explicit.
+- Changes are limited to prose. Code cells, execution counts, outputs and all
+  scientific artifacts are byte-equivalent to the preceding notebook content.
+  Markdown structure, links, LaTeX notation and Ruff checks are verified.
+- Next: human review/merge of the language PR. No additional experiment is required.
+
 Completion package (branch `codex/research-completion`):
 
 - PR #11 was human-merged while the authorized completion review was in progress;
