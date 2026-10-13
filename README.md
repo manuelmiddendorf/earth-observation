@@ -2,9 +2,9 @@
 
 **Status:** in development. A ten-patch technical pilot verifies frozen CLIP and
 RemoteCLIP retrieval, embedding reuse and per-formulation map-agreement metrics.
-The final benchmark and statistical comparison remain planned. The fixed
-2,000-patch raster inventory is validated. Unknown map judgments and too few
-hard relation negatives still block a freeze under the revised map-agreement target.
+The final model comparison remains planned. The validated
+`benchmark-freeze-v1` contains 871 spatially held-out Test images under the
+explicit partial-reference protocol; relation controls are exploratory.
 
 ## Abstract
 
@@ -17,7 +17,8 @@ determined independently from documented land-cover reference rules rather
 than embedding similarity. A separate relation-control experiment restricts
 candidates to scenes containing both queried concepts. The aim is a small,
 reproducible evaluation that explains partial-condition and relational failures,
-with paired uncertainty estimates over search intents and their families.
+with paired per-intent results and descriptive aggregation. Incomplete map
+judgments will yield reference-uncertainty bounds, distinct from sampling error.
 The implemented development pilot shows that both identified checkpoints run
 reproducibly and that ranking quality differs across individual formulations.
 Its small, spatially concentrated sample cannot establish model superiority.
@@ -56,7 +57,7 @@ The original ten-image model pilot remains a separate Development experiment.
 
 The models receive RGB images and query text. Land-cover labels, reference
 maps, and evaluation metadata are kept separate from the main ranking.
-The authorized `benchmark-design-v2` outcome is map-reference agreement:
+The authorized `benchmark-design-v3` outcome remains map-reference agreement:
 10-m cells do not improve CLC2018 mapping accuracy (25-ha mapping units,
 100-m minimum linear feature width). These are mapping conventions, not
 per-pixel positional accuracy guarantees. Adjacency means mapped contact under the
@@ -69,7 +70,7 @@ The analysis follows four principles; final evaluation remains planned:
 
 **Explicit relevance.** Implemented development rules aggregate raw CLC codes
 into forest, inland water, arable land and pasture. Presence requires a
-provisional 5% of full patch area. Adjacency requires both presences and at least
+frozen 5% of full patch area. Adjacency requires both presences and at least
 60 m of summed four-neighbor shared boundary; corner contact does not count.
 Unknown map area yields evidence bounds and true/false/unknown conditions.
 These are our derived definitions, not a confirmed reconstruction of the
@@ -79,8 +80,9 @@ original text-annotation generator. See the
 
 **Controlled comparisons.** Both models use the same queries and candidate
 images. The implemented pilot uses the complete unfiltered ten-image candidate
-set. A planned separate relation-control experiment will contain both queried
-classes in every candidate while the relation varies.
+set. Separate exploratory relation controls contain both known-present queried
+classes in every candidate while the mapped relation varies. Their few negative
+cases cannot establish confirmatory relation capability.
 
 **Frozen evaluation.** Class mappings, thresholds, paraphrases, candidate sets,
 and analysis rules are fixed before the final test. Development and test data
@@ -89,8 +91,10 @@ are separated with attention to spatial overlap.
 **Parsimony and uncertainty.** The initial comparison uses two frozen ViT-B/32
 models without fine-tuning. Precision@10 is the primary metric; average
 precision, paraphrase quality variation, and error categories provide context.
-The later statistical stage will use paired bootstrap intervals preserving
-intent-family structure. The pilot reports each formulation separately.
+The main presentation will pair models within each intent and aggregate
+descriptively. With only two direct intent families, a family bootstrap may
+serve only as a restricted sensitivity diagnostic. The pilot reports each
+formulation separately.
 
 ## Development Results and Error Inspection
 
@@ -111,8 +115,9 @@ Illustrative **first formulations**, not intent averages:
 Average precision (AP) rewards earlier relevant ranks. With ten candidates,
 precision at ten (P@10) equals reference prevalence and is independent of order.
 All forest candidates are positive, so forest AP = 1 is likewise uninformative.
-Unknown references make main metrics undefined; judged-only diagnostics are
-explicitly separate. No final aggregation or uncertainty interval exists yet.
+Under the historical pilot protocol, unknown references make main metrics
+undefined and judged-only diagnostics are separate. The new final protocol
+retains unknowns and specifies completion bounds; no final metrics exist yet.
 
 The [retrieval-evaluation notebook](notebooks/03_retrieval_evaluation.ipynb)
 reports all formulations and shows actual top images. Both models rank a visibly
@@ -129,16 +134,31 @@ stay there; new neighbors merge 11 earlier groups and move 32 provisional Test
 images into Development. Thirteen groups contain coincident native footprints
 at different dates, kept in complete components rather than silently pruned.
 
-Every Test intent now meets positive/negative count and positive-dispersion
-minimums. Forest presence is fully judged (549 true / 322 false); other intents
-retain two or three unknown map judgments, violating required full judgeability.
+Every Test intent meets the unchanged known-positive/negative and geographic
+minimums. Forest is fully judged (549 true / 322 false); arable has two unknown
+judgments and each other intent three. `benchmark-design-v3` explicitly replaces
+full judgeability with exact marginal label-completion bounds for P@10 and AP,
+with at most twelve unknowns per intent. Known labels stay fixed; rankings retain
+all 871 candidates. AP uses each assignment's positive denominator and can have
+mixed-assignment extrema. A possible zero-positive assignment blocks AP; the
+current known-positive minimum prevents it. Within each intent, both models and
+all paraphrases share the same completion. Cross-intent means report conservative
+reference envelopes because marginal assignments need not be jointly realizable.
+These are reference-uncertainty bounds, not statistical confidence intervals.
+
 Separate both-present controls have 35 true / 2 false forest-water relations
-and 59 true / 7 false arable-pasture relations. The required false count is ten;
-forest-water false dispersion is one, below five. Thus
-`benchmark-candidate-v4` remains **blocked-not-frozen**. Missing captions are
-not freeze blockers under the revised target, but unknown map evidence remains
-unknown. No thresholds, numerical gates or query wording were relaxed. See
-[design revision and exact feasibility gates](docs/BENCHMARK_DESIGN.md#authorized-map-agreement-design-revision).
+(false dispersion one) and 59 true / 7 false arable-pasture relations
+(false dispersion six). Both fail the former ten-false target and are explicitly
+**exploratory**. The primary results will be paired per intent with descriptive
+aggregation; two direct families cannot support general model-superiority claims.
+Reference uncertainty, paraphrase variation and statistical uncertainty remain
+distinct. See the [analysis protocol](docs/ANALYSIS_PROTOCOL.md) for equations,
+shared-completion aggregation and all limits.
+
+`benchmark-freeze-v1` is **frozen** under this authorized protocol after native
+map, spatial, source-integrity and main-coverage validation. The historical
+`benchmark-candidate-v4` remains blocked under its original rules. No thresholds,
+queries, images or spatial rules changed, and no final models were evaluated.
 
 ## Planned Analytical Narrative
 
@@ -206,7 +226,8 @@ explicitly skip; a skip is not evidence of data access. The notebook executes
 from a fresh kernel and shows actual native RGB/map pairs. Source prefixes,
 rasters and diagnostic figures remain outside version control. The second
 notebook saves provisional reference decisions, coverage and digest-based
-provenance under `outputs/`; no benchmark is frozen. Its eight intents have
+provenance under `outputs/`; its final section validates the new frozen benchmark.
+Its eight intents have
 three equivalent English formulations each, assigned to two direct families.
 
 See [source versions, observed schema, license, display policy and access limits](docs/DATA_ACCESS.md)
@@ -237,8 +258,17 @@ uv run jupyter nbconvert --to notebook --execute --inplace notebooks/02_benchmar
 Use `--stage validate` to reproduce source/coverage checks without another archive
 scan. Source disagreement, changed historical inputs or an incompatible record
 fails explicitly. New `benchmark_expansion` reuses canonical raster/reference/
-spatial/coverage implementations; the expanded loader defaults to refusing a
-blocked benchmark. See [actual local access](docs/DATA_ACCESS.md) and
+spatial/coverage implementations; the historical expanded loader refuses a
+blocked benchmark. The new `analysis_protocol.load_frozen_benchmark` validates
+the authorized partial-reference freeze, including native map states and spatial
+components. With existing local data, reproduce it without downloads or models:
+
+```bash
+uv run python scripts/freeze_benchmark.py
+```
+
+WP5 begins after human merge of the freeze PR. See
+[actual local access](docs/DATA_ACCESS.md) and
 [the scoped access manifest](manifests/archive-data-access-v3.json).
 
 The retrieval command saves complete formulation metrics, rankings and measured
@@ -254,12 +284,13 @@ top results; it runs independently from a fresh kernel.
 In the original ten-image retrieval pilot, all patches satisfy forest presence;
 there is no forest-negative case. Forest/water and arable/pasture conjunctions
 have six and two positives respectively, all also satisfying adjacency. Neither
-pair has a both-present/nonadjacent case. This sample cannot isolate relation
-errors or establish final coverage. Presence thresholds, contact thresholds and
-family coverage require broader development verification before benchmark freeze.
-An indexed subset route or provenance-verified local subset is needed before
-spatially held-out main/control coverage can be assessed; the current candidate
-record is deliberately not accepted as a frozen evaluation benchmark.
+pair has a both-present/nonadjacent case. This pilot cannot isolate relation
+errors or establish final coverage. The larger frozen collection supports mapped
+reference agreement, retains unknown labels and offers only exploratory hard
+relation controls. Its reference intervals quantify marginal label ambiguity,
+not independently verified visual truth. Cross-intent aggregate envelopes can be
+loose; final scoring must implement the documented shared-completion contracts.
+Only two direct intent families restrict statistical generalization.
 
 The proposed study is limited to selected queries and a controlled Sentinel-2
 RGB subset. Map uncertainty, spatial redundancy, rare relevant scenes, and

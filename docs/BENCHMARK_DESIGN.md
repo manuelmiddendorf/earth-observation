@@ -571,3 +571,16 @@ unknown handling and minimum geographic dispersion. This is filtered map-referen
 control, not unfiltered main retrieval. It requires a separately authorized
 sampling/budget decision; current Development negatives cannot be moved into Test.
 Neither proposal is implemented and no more images are drawn in this step.
+
+
+## Authorized partial-reference analysis revision
+
+After human merge of PR #8, `benchmark-design-v3` explicitly revises complete
+judgeability and control/statistical interpretation using observed reference
+coverage alone. Main count/dispersion, class/query and spatial rules stay fixed.
+`benchmark-freeze-v1` retains the complete inventory and unknown labels; its new
+validator checks native evidence and exact-enumeration readiness. Historical
+versions remain unchanged. See [the frozen analysis protocol](ANALYSIS_PROTOCOL.md)
+for exact marginal P@10/AP bounds, shared-completion aggregation, conservative
+aggregate reference envelopes, exploratory controls and two-family inference
+limits. Final model evaluation awaits human merge of this freeze.

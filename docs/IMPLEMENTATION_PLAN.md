@@ -4,7 +4,46 @@
 
 Updated: 2026-10-13.
 
-Latest authorized design revision and fixed expansion (PR #8):
+Current authorized analysis revision and WP4 freeze:
+
+- PR #8 was human-merged before this work; branch starts from current main.
+  `benchmark-design-v3` / `analysis-protocol-v1` retain eight intents / 24
+  formulations, map-agreement estimand, all images, thresholds and spatial rules.
+  Historical designs/candidates and pinned source modules remain unchanged.
+- Complete main Test inventory: 871 images / 637 spatial groups; Development
+  1,142 / 643. All unchanged main known-positive/negative/dispersion minima pass.
+  Unknown counts by ordered intent: 0, 3, 2, 3, 3, 3, 3, 3. No exclusions/recoding.
+- Explicit full-judgeability replacement: exact marginal binary-completion
+  P@10/AP bounds, cap 12 unknowns (4,096 assignments); current maximum eight.
+  AP's denominator varies and any zero-positive completion blocks analysis.
+  Share each intent completion across models/paraphrases, average formulations
+  before extrema and compute paired differences before extrema. Cross-intent
+  averages are conservative reference envelopes, not physically joint extrema.
+- Relations remain separately filtered, now exploratory: Test forest-water
+  true/false/unknown 35/2/0 (false dispersion one); arable-pasture 59/7/0 (six).
+  Old targets remain documented; these do not provide confirmatory relation proof.
+  Primary statistics are paired per-intent/descriptive; two direct families make
+  bootstrap at most restricted sensitivity, never broad superiority confidence.
+- `benchmark-freeze-v1` is **frozen** after source hashes, native footprints,
+  complete spatial components, Development anchoring, native-map recomputation,
+  candidate/control identities and explicit uncertainty-readiness validation.
+  A manually changed status cannot bypass these gates. Existing v4 stays blocked
+  under its historical rules. No new transfers, data, embeddings or model runs.
+- Reusable specification/readiness/freeze validation lives in new
+  `src/earth_observation/analysis_protocol.py`; notebook section 16 retains the
+  narrative and compact real coverage, plus a hand-computed AP counterexample.
+  Final metric/statistics computation is deliberately reserved for WP5.
+- Verification: 102 tests passed with no skips, including actual native raster
+  integration and new unknown/zero-positive/invalid-protocol contracts. Ruff
+  check and format pass for all 35 src/tests/scripts files. Changed notebook
+  cells are clean (22 historical findings remain). All 32 code cells ran from
+  a fresh kernel with zero errors; three Development RGB/map pairs and spatial
+  distribution were visually inspected. No final ranking metrics were computed.
+- Next step: human review/merge of the freeze PR, then explicitly begin WP5.
+  Reference uncertainty, conservative aggregate envelopes, generalized CLC
+  accuracy and sparse exploratory controls remain scientific limitations.
+
+Historical authorized design revision and fixed expansion (PR #8, merged):
 
 - `benchmark-design-v2` explicitly targets generalized CLC map agreement.
   Adjacency is mapped four-neighbor contact, not independently visible truth.
@@ -50,7 +89,9 @@ Latest authorized design revision and fixed expansion (PR #8):
   Reusable design/transition/freeze/source assessment is in the new
   `benchmark_expansion` module; extraction reuses existing canonical logic.
   Existing candidate code pins are preserved by leaving historical modules and
-  acquisition scripts unchanged. PR #8 remains ready for human review.
+  acquisition scripts unchanged. PR #8 was subsequently human-merged; the revised
+  freeze above supersedes this
+  historical decision without changing its artifacts.
 
 Historical full-selection access and feasibility evidence (PR #8):
 

@@ -1,0 +1,99 @@
+{
+  "version": "benchmark-design-v3",
+  "status": "Authorized partial-reference analysis and exploratory controls; validated freeze required",
+  "selection": {
+    "seed": "coverage-v1-20261012",
+    "target_count": 2000,
+    "per_country": 200,
+    "population": "Checksum-pinned official metadata.parquet: 480038 clean-catalog rows; no extra label or quality filtering",
+    "ordering": "Within each country, SHA256(seed|tile) orders tiles; round-robin tiles, each ordered by SHA256(seed|patch_id) then patch_id",
+    "exclude_development_tiles": [
+      "33UUP"
+    ],
+    "enrichment": "Equal country quotas and tile spreading, not proportional or globally representative sampling",
+    "batch_size": 2000,
+    "additional_raster_budget_bytes": 268435456,
+    "stop": "Exactly this predeclared 2000-ID feasibility step; local archives only, no replacements, repeated draws or new text requests"
+  },
+  "spatial": {
+    "crs": "EPSG:3035",
+    "source": "Verified native RGB/map footprints transformed with densified bounds; catalog ID substrings alone are not coordinate evidence",
+    "distance_m": 2000,
+    "grouping": "Connected components of footprint overlap or bounding-box distance <= 2000 m; all acquisition dates participate",
+    "split_seed": "spatial-v1-20261012",
+    "test_fraction": 0.5,
+    "assignment": "Any component containing a previous development ID is development; other complete components use SHA256(seed|group_id) / 2**256 < test_fraction",
+    "unverified": "Unassigned; never silently allocated to final test"
+  },
+  "coverage": {
+    "main_min_candidates": 20,
+    "main_min_positive": 10,
+    "main_min_negative": 10,
+    "main_min_positive_outside_largest_group": 10,
+    "main_min_groups": 3,
+    "control_min_true": 10,
+    "control_min_false": 10,
+    "control_min_true_outside_largest_group": 5,
+    "control_min_false_outside_largest_group": 5,
+    "control_min_groups": 3,
+    "control_required_judged_fraction": 1.0,
+    "rationale": "All main known-positive/negative/group/dispersion minima remain unchanged. Complete judgeability is explicitly replaced by bounded exact enumeration and defined AP for every completion. Historical control targets remain reported as unmet exploratory targets, not confirmatory freeze gates. No statistical power guarantee.",
+    "main_reference_policy": "analysis-protocol-v1",
+    "control_role": "exploratory"
+  },
+  "evaluation": {
+    "main_candidates": "All verified test-split IDs, independent of query relevance; no relevance filtering",
+    "controls": "exploratory-separate-both-known-present",
+    "metric_version": "p-at-10-ap-v1",
+    "metrics": [
+      "p_at_10",
+      "average_precision"
+    ],
+    "precision": "sum relevance at ranks 1..10 / 10; undefined for N<10",
+    "average_precision": "sum over positive ranks of precision-at-rank / total positives; undefined for zero positives",
+    "unknown": "per-intent-all-binary-unknown-assignments",
+    "ties": "Descending exact cosine similarity, then ascending full Unicode patch ID",
+    "paraphrases": "Arithmetic mean of all formulations within each fixed intent; no NaN skipping. Report each formulation and max-minus-min quality range separately.",
+    "weighting": "Equal weight per fixed intent, not per formulation or per family; overall mean of eight intent means; separate single/conjunction/adjacency blocks. Controls reported separately, never pooled with main.",
+    "pairing": "RemoteCLIP minus CLIP on identical candidates, intents and formulations",
+    "bootstrap": {
+      "unit": "Direct intent family, preserving all its intents, paraphrases and both model scores",
+      "replicates": 10000,
+      "seed": 20261012,
+      "generator": "NumPy Generator(PCG64)",
+      "draw": "G families sampled uniformly with replacement per replicate; retain repeated family occurrences",
+      "estimate": "Sum sampled intent differences / number of sampled intents; same equal-intent weighting as point estimate",
+      "interval": "Percentile 0.025 and 0.975; numpy.quantile method=linear",
+      "undefined": "No silently discarded replicates or intents; report undefined blocks and reasons",
+      "interpretation": "Two direct families: sensitivity only; no general superiority CI",
+      "role": "optional-restricted-sensitivity-not-confidence-evidence"
+    },
+    "paraphrase_jaccard": "All unordered pairs of top-10 patch-ID sets within each intent/model; |intersection|/|union|; report separately from quality means",
+    "error_analysis": {
+      "formulations": "p1 for every fixed intent, both models",
+      "ranks": [
+        1,
+        5,
+        10
+      ],
+      "selection": "These exact ranks after frozen evaluation, no score-driven replacement; identify repeated images explicitly",
+      "categories": "Satisfied; single presence failure; for composites class-a-only/class-b-only/neither; both-present relation failure; unknown reference. Three-state disjoint classification; unknown only when relevance cannot be decided. Manual map/RGB disagreement is a separate annotation, never a label overwrite."
+    },
+    "analysis_protocol": "config/analysis-protocol-v1.json"
+  },
+  "changes": "Any future frozen input/specification change requires a new version and reason; changes motivated by final test results are exploratory",
+  "previous_version": "benchmark-design-v2",
+  "estimand": {
+    "main": "Agreement with generalized CLC2018 map reference under reference-rules-v1",
+    "adjacency": "Both class presences and >=60 m summed four-neighbor mapped contact; not independently verified visible-object adjacency",
+    "native_resolution_m": 10,
+    "source_generalization": "CLC2018: 25-ha minimum mapping unit and 100-m minimum linear feature width; clipping does not enforce a 25-ha per-patch minimum",
+    "visual_diagnosis": "RGB/map disagreements are qualitative Development diagnostics, never automatic reference edits",
+    "original_text": "Optional source annotation; missing captions do not block main retrieval if independent image/catalog/map identities and geometry are verified; caption analyses use actual texts only",
+    "suitability_requirement": "Class aggregation, full-patch area bounds and mapped contact calculation must agree with documented CLC semantics; technical alignment alone is insufficient",
+    "target": "generalized-clc-map-agreement",
+    "adjacency_target": "mapped-four-neighbor-contact",
+    "original_captions_required": false
+  },
+  "revision_reason": "Explicit user authorization after PR #8 merge: 0/2/3 unknown Test judgments per intent, forest-water controls 35 true / 2 false and arable-pasture 59 / 7; no final model results. Preserve eight intents, paraphrases, all images, reference and spatial rules. Partial-reference bounds replace complete judgeability; controls become exploratory; two-family statistics become descriptive."
+}
